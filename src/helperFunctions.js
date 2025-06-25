@@ -4,7 +4,6 @@
  * @typedef {import('puppeteer').Browser} Browser
  */
 const config = require('config');
-const strings = require('../features/app/multilingualStrings/multilingualStrings');
 module.exports = {
     /**
      * Waits for a keypress event to continue the test execution.
