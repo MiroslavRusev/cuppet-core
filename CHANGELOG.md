@@ -1,3 +1,10 @@
+## [1.0.2](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.1...v1.0.2) (2025-06-25)
+
+
+### Bug Fixes
+
+* Adjusting ML Strings behavior, updating readme. [CUPC-1] ([68607b6](https://github.com/MiroslavRusev/cuppet-core/commit/68607b610d845c03ffc1ba469cf6d8d8de104563))
+
 ## [1.0.1](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.0...v1.0.1) (2025-06-25)
 
 
