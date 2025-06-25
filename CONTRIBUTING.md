@@ -5,9 +5,9 @@ Thank you for your interest in contributing to @cuppet/core!
 ## Development Setup
 
 1. Fork the repository
-2. Clone your fork: \`git clone https://github.com/yourusername/cuppet-core.git\`
-3. Install dependencies: \`yarn install\`
-4. Create a feature branch: \`git checkout -b feature/CUPC-{number}\`
+2. Clone your fork: `git clone https://github.com/yourusername/cuppet-core.git`
+3. Install dependencies: `yarn install`
+4. Create a feature branch: `git checkout -b feature/CUPC-{number}`
 
 ## Code Style
 
@@ -19,9 +19,9 @@ Thank you for your interest in contributing to @cuppet/core!
 ## Testing
 
 Run tests before submitting:
-\`\`\`bash
+```bash
 yarn test
-\`\`\`
+```
 
 ## Pull Request Process
 
