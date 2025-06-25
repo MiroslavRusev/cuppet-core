@@ -3,15 +3,16 @@ const utils = require('../../../src/elementInteraction');
 const dataStorage = require('../../../src/dataStorage');
 
 Then('I should see {string} in iframe {string}', async function (text, frameSelector) {
-    const result = await dataStorage.checkForVariable(text);
+    const resolvedText = this.mlStrings[text] ?? text;
     let frame = await utils.getFrameBySelector(this.page, frameSelector);
-    await utils.seeTextByXpath(frame, result);
+    await utils.seeTextByXpath(frame, resolvedText);
 });
 Then(
     'I wait for the text {string} to appear within {string} seconds in iframe {string}',
     async function (text, time, frameSelector) {
         let frame = await utils.getFrameBySelector(this.page, frameSelector);
-        await utils.seeTextByXpath(frame, text, time * 1000);
+        const resolvedText = this.mlStrings[text] ?? text;
+        await utils.seeTextByXpath(frame, resolvedText, time * 1000);
     }
 );
 When('I click on element {string} in iframe with selector {string}', async function (elementSelector, frameSelector) {
@@ -20,7 +21,8 @@ When('I click on element {string} in iframe with selector {string}', async funct
 });
 When('I click on the text {string} in iframe with selector {string}', async function (text, frameSelector) {
     let frame = await utils.getFrameBySelector(this.page, frameSelector);
-    await utils.clickByText(frame, text);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.clickByText(frame, resolvedText);
 });
 When(
     'I type {string} in {string} field in iframe with selector {string}',
@@ -33,7 +35,8 @@ When(
     'I click on the text {string} in iframe with selector {string} and follow the new tab',
     async function (text, frameSelector) {
         let frame = await utils.getFrameBySelector(this.page, frameSelector);
-        this.page = await utils.clickLinkOpenNewTab(this.browser, frame, text, true);
+        const resolvedText = this.mlStrings[text] ?? text;
+        this.page = await utils.clickLinkOpenNewTab(this.browser, frame, resolvedText, true);
     }
 );
 When(
@@ -48,7 +51,8 @@ When(
     'I store the string matching the {string} pattern from the {string} text in iframe {string}',
     async function (pattern, text, frameSelector) {
         let frame = await utils.getFrameBySelector(this.page, frameSelector);
-        await dataStorage.storeTextFromPattern(frame, pattern, text);
+        const resolvedText = this.mlStrings[text] ?? text;
+        await dataStorage.storeTextFromPattern(frame, pattern, resolvedText);
     }
 );
 Then(

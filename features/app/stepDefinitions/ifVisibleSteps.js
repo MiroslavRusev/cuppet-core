@@ -6,7 +6,8 @@ Then('I should see {string} if visible', async function (text) {
     if (config.has('skipSteps') && config.get('skipSteps') === text) {
         return true;
     }
-    await utils.seeTextByXpath(this.page, text);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.seeTextByXpath(this.page, resolvedText);
 });
 When('I type {string} in {string} if visible', async function (text, cssSelector) {
     const selector = this.commonFields[cssSelector] ?? cssSelector;

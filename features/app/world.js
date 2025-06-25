@@ -1,5 +1,7 @@
 const { setWorldConstructor, setDefaultTimeout } = require('@cucumber/cucumber');
+const config = require('config');
 const commonFields = require('./commonComponents/commonFields');
+const strings = require('./multilingualStrings/multilingualStrings');
 
 setDefaultTimeout(120 * 1000);
 
@@ -8,10 +10,16 @@ class World {
     constructor({ attach }) {
         this.attach = attach;
         this.commonFields = commonFields;
+        this.enableMlSupport();
     }
 
-    fixSonar() {
-        console.log('Sample function to fix empty class.');
+    enableMlSupport() {
+        const lang = config.has('language') ? config.get('language') : null;
+        if (lang) {
+            this.mlStrings = strings.multilingualStrings(lang) ?? {};
+        } else {
+            this.mlStrings = {};
+        }
     }
 }
 setWorldConstructor(World);

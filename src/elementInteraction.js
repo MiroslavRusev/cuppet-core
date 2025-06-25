@@ -169,15 +169,14 @@ module.exports = {
      * Click on the text of a link and expect it to open in a new tab. target="_blank"
      * @param {Browser} browser
      * @param {Page} page
-     * @param value - either text or css selector
+     * @param value - text of link
      * @param xpath - flag, whether to use xpath or not
      * @returns {Promise<Object>}
      */
     clickLinkOpenNewTab: async function (browser, page, value, xpath = true) {
         let objectToClick;
         if (xpath) {
-            const result = await helper.getMultilingualString(value);
-            objectToClick = await page.waitForSelector('xpath/' + `//body//*[text()[contains(.,'${result}')]]`);
+            objectToClick = await page.waitForSelector('xpath/' + `//body//*[text()[contains(.,'${value}')]]`);
         } else {
             objectToClick = await page.waitForSelector(value);
         }
@@ -303,12 +302,11 @@ module.exports = {
      * @returns {Promise<void>}
      */
     validateValueOfElementAttributeByText: async function (page, text, attribute, value) {
-        const result = await helper.getMultilingualString(text);
-        const selector = 'xpath/' + `//body//*[text()[contains(.,'${result}')]]`;
+        const selector = 'xpath/' + `//body//*[text()[contains(.,'${text}')]]`;
         await page.waitForSelector(selector);
         const attrValue = await page.$eval(selector, (el, attribute) => el.getAttribute(attribute), attribute);
         if (value !== attrValue) {
-            throw new Error(`The provided text "${result}" doesn't match element which attribute has value: ${value}.`);
+            throw new Error(`The provided text "${text}" doesn't match element which attribute has value: ${value}.`);
         }
     },
 
@@ -359,7 +357,6 @@ module.exports = {
      * @returns {Promise<void>}
      */
     seeTextByXpath: async function (page, text, time = 6000) {
-        let result = await helper.getMultilingualString(text);
         const options = {
             visible: true, // Wait for the element to be visible (default: false)
             timeout: time, // Maximum time to wait in milliseconds (default: 30000)
@@ -370,9 +367,9 @@ module.exports = {
             });
         }
         try {
-            await page.waitForSelector('xpath/' + `//body//*[text()[contains(.,"${result}")]]`, options);
+            await page.waitForSelector('xpath/' + `//body//*[text()[contains(.,"${text}")]]`, options);
         } catch (error) {
-            throw new Error(`Could not find text : ${result}. The error thrown is: ${error}`);
+            throw new Error(`Could not find text : ${text}. The error thrown is: ${error}`);
         }
     },
 
@@ -385,14 +382,13 @@ module.exports = {
      * @returns {Promise<void>}
      */
     seeTextByElementHandle: async function (page, selector, text) {
-        const result = await helper.getMultilingualString(text);
         await page.waitForSelector(selector);
         let textContent = await page.$eval(selector, (element) => element.textContent.trim());
         if (!textContent) {
             textContent = await page.$eval(selector, (element) => element.value.trim());
         }
-        if (textContent !== result) {
-            throw new Error(`Expected ${result} text, but found ${textContent} instead.`);
+        if (textContent !== text) {
+            throw new Error(`Expected ${text} text, but found ${textContent} instead.`);
         }
     },
 
@@ -406,13 +402,12 @@ module.exports = {
      */
     seeTextInRegion: async function (page, text, region) {
         const regionClass = await helper.getRegion(page, region);
-        const result = await helper.getMultilingualString(text);
         try {
             await page.waitForSelector(
-                'xpath/' + `//*[contains(@class,'${regionClass}') and .//text()[contains(.,"${result}")]]`
+                'xpath/' + `//*[contains(@class,'${regionClass}') and .//text()[contains(.,"${text}")]]`
             );
         } catch {
-            throw new Error(`Cannot find ${result} in ${regionClass}!`);
+            throw new Error(`Cannot find ${text} in ${regionClass}!`);
         }
     },
 
@@ -425,8 +420,7 @@ module.exports = {
      */
     hoverTextInRegion: async function (page, text, region) {
         const regionClass = await helper.getRegion(page, region);
-        const result = await helper.getMultilingualString(text);
-        const selector = 'xpath/' + `//*[@class='${regionClass}']//*[text()='${result}']`;
+        const selector = 'xpath/' + `//*[@class='${regionClass}']//*[text()='${text}']`;
         try {
             const element = await page.waitForSelector(selector);
             const parentElementHandle = await page.evaluateHandle((el) => el.parentElement, element);
@@ -443,8 +437,7 @@ module.exports = {
      * @returns {Promise<void>}
      */
     notSeeText: async function (page, text) {
-        let result = await helper.getMultilingualString(text);
-        const isTextInDom = await page.$('xpath/' + `//*[text()[contains(.,'${result}')]]`);
+        const isTextInDom = await page.$('xpath/' + `//*[text()[contains(.,'${text}')]]`);
         // isVisible() is used for the cases where the text is in the DOM, but not visible
         // If you need to NOT have it in the DOM - use notSeeElement() or extend this step with flag
         const visibility = await isTextInDom?.isVisible();
@@ -461,7 +454,6 @@ module.exports = {
      * @returns {Promise<void>}
      */
     validateTextInField: async function (page, text, selector) {
-        let result = await helper.getMultilingualString(text);
         let value = '';
         await page.waitForSelector(selector);
         try {
@@ -475,8 +467,8 @@ module.exports = {
         } catch (error) {
             throw new Error(error);
         }
-        if (value !== result) {
-            throw new Error(`Value of element ${value} does not match the text ${result}`);
+        if (value !== text) {
+            throw new Error(`Value of element ${value} does not match the text ${text}`);
         }
     },
 
@@ -489,7 +481,6 @@ module.exports = {
      * @returns {Promise<void>}
      */
     textVisibilityInAccordion: async function (page, cssSelector, text, isVisible) {
-        let result = await helper.getMultilingualString(text);
         const el = await page.$(cssSelector);
         if (el) {
             const isShown = await (await page.evaluateHandle((el) => el.clientHeight, el)).jsonValue();
@@ -498,9 +489,9 @@ module.exports = {
             }
             if (isShown) {
                 const textValue = await (await page.evaluateHandle((el) => el.textContent.trim(), el)).jsonValue();
-                if (isVisible && textValue !== result) {
-                    throw new Error(`Element text: ${textValue} does not match the expected: ${result}!`);
-                } else if (!isVisible && textValue === result) {
+                if (isVisible && textValue !== text) {
+                    throw new Error(`Element text: ${textValue} does not match the expected: ${text}!`);
+                } else if (!isVisible && textValue === text) {
                     throw new Error(`Element text: ${textValue} is visible but it should not be!`);
                 }
             }
@@ -518,14 +509,13 @@ module.exports = {
      * @returns {Promise<void>}
      */
     disappearText: async function (page, text, time) {
-        let result = await helper.getMultilingualString(text);
         const options = {
             visible: true, // Wait for the element to be visible (default: false)
             timeout: 250, // 250ms and for that reason time is multiplied by 4 to add up to a full second.
         };
         for (let i = 0; i < time * 4; i++) {
             try {
-                await page.waitForSelector('xpath/' + `//*[text()[contains(.,'${result}')]]`, options);
+                await page.waitForSelector('xpath/' + `//*[text()[contains(.,'${text}')]]`, options);
             } catch {
                 console.log(`Element disappeared in ${time * 4}.`);
                 break;
@@ -543,11 +533,10 @@ module.exports = {
      */
     clickTextInRegion: async function (page, text, region) {
         const regionClass = await helper.getRegion(page, region);
-        const result = await helper.getMultilingualString(text);
         await page.waitForSelector('xpath/' + `//*[@class='${regionClass}']`);
         const elements =
-            (await page.$$('xpath/' + `//*[@class='${regionClass}']//*[text()='${result}']`)) ||
-            (await page.$$('xpath/' + `//*[@class='${regionClass}']//*[contains(text(),'${result}')]`));
+            (await page.$$('xpath/' + `//*[@class='${regionClass}']//*[text()='${text}']`)) ||
+            (await page.$$('xpath/' + `//*[@class='${regionClass}']//*[contains(text(),'${text}')]`));
 
         if (!elements?.[0]) {
             throw new Error('Element not found!');
@@ -608,18 +597,17 @@ module.exports = {
      * Put value in a field. It directly places the text like Ctrl+V(Paste) will do it.
      * @param {Page} page
      * @param selector
-     * @param data
+     * @param text
      * @param skip
      * @returns {Promise<boolean>}
      */
-    fillField: async function (page, selector, data, skip = false) {
-        let result = await helper.getMultilingualString(data);
+    fillField: async function (page, selector, text, skip = false) {
         const skipped = await this.customWaitForSkippableElement(page, selector, skip);
         if (skipped) {
             return true;
         }
         try {
-            await page.$eval(selector, (el, name) => (el.value = name), result);
+            await page.$eval(selector, (el, name) => (el.value = name), text);
             await new Promise(function (resolve) {
                 setTimeout(resolve, 500);
             });
@@ -637,7 +625,6 @@ module.exports = {
      * @returns {Promise<boolean>}
      */
     typeInField: async function (page, selector, text, skip = false) {
-        let result = await helper.getMultilingualString(text);
         const skipped = await this.customWaitForSkippableElement(page, selector, skip);
         if (skipped) {
             return true;
@@ -650,7 +637,7 @@ module.exports = {
                 setTimeout(resolve, 150);
             });
             try {
-                await page.type(selector, result, { delay: 250 });
+                await page.type(selector, text, { delay: 250 });
             } catch (error) {
                 throw new Error(`Cannot type into field due to ${error}`);
             }
@@ -745,14 +732,13 @@ module.exports = {
      * @returns {Promise<void>}
      */
     selectOptionByText: async function (page, selector, text) {
-        let result = await helper.getMultilingualString(text);
         await page.waitForSelector(selector);
-        const objectToSelect = await page.$('xpath/' + `//body//*[contains(text(), '${result}')]`);
+        const objectToSelect = await page.$('xpath/' + `//body//*[contains(text(), '${text}')]`);
         if (objectToSelect) {
             const value = await (await objectToSelect.getProperty('value')).jsonValue();
             await page.select(selector, value);
         } else {
-            throw new Error(`Could not find option with text: ${result}`);
+            throw new Error(`Could not find option with text: ${text}`);
         }
     },
 
@@ -894,18 +880,17 @@ module.exports = {
      * Sets value into codemirror field
      * @param {Page} page
      * @param cssSelector
-     * @param value
+     * @param text
      * @returns {Promise<void>}
      */
-    setValueInCodeMirrorField: async function (page, cssSelector, value) {
-        let result = await helper.getMultilingualString(value);
+    setValueInCodeMirrorField: async function (page, cssSelector, text) {
         await page.waitForSelector(cssSelector);
         try {
             const jsCode = `
             (function () {
                 const textArea = document.querySelector('${cssSelector}');
                 let editor = CodeMirror.fromTextArea(textArea);
-                editor.getDoc().setValue("${result}");
+                editor.getDoc().setValue("${text}");
             })();
             `;
             await page.evaluate(jsCode);

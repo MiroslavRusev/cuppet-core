@@ -45,7 +45,8 @@ Given('I log in as {string} {string}', async function (username, password) {
     await navigationPromise;
 });
 Given('I follow {string}', async function (text) {
-    await utils.followLink(this.page, text);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.followLink(this.page, resolvedText);
 });
 Given('I reload the page', async function () {
     await main.reloadPage(this.page);
@@ -89,7 +90,8 @@ Given('I set viewport size to {string}', async function (resolution) {
 });
 Then('I {string} the alert dialog with text {string}', async function (action, expectedText) {
     const accept = action.toLowerCase() === 'accept' ? true : false;
-    await main.handleAlert(this.page, accept, expectedText);
+    const resolvedText = this.mlStrings ? this.mlStrings[expectedText] : expectedText;
+    await main.handleAlert(this.page, accept, resolvedText);
 });
 
 Then('I {string} the alert dialog', async function (action) {

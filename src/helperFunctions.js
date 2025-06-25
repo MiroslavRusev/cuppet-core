@@ -44,23 +44,6 @@ module.exports = {
     },
 
     /**
-     * Returns the translated variant of the inputted text or the text itself if there isn't a translation.
-     * @param text
-     * @returns {Promise<string>}
-     */
-    getMultilingualString: async function (text) {
-        const lang = config.has('language') ? config.get('language') : null;
-        let result;
-        if (lang) {
-            let string = strings.multilingualStrings(lang, text);
-            result = string ?? text;
-        } else {
-            result = text;
-        }
-        return result;
-    },
-
-    /**
      * Retrieves the class name of an element based on a property in the config json.
      * You can set directly the full class, partial or ID, but mind that it always resolves to
      * the full className of that element.

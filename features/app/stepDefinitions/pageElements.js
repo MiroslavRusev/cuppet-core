@@ -23,10 +23,12 @@ When('I click on all the elements with selector {string}', async function (cssSe
     await utils.clickAllElements(this.page, selector);
 });
 When('I click on the text {string}', async function (text) {
-    await utils.clickByText(this.page, text);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.clickByText(this.page, resolvedText);
 });
 When('I click on the text {string} in the {string} region', async function (text, region) {
-    await utils.clickTextInRegion(this.page, text, region);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.clickTextInRegion(this.page, resolvedText, region);
 });
 
 Then('I should see {string} in {string}', async function (value, cssSelector) {
@@ -35,7 +37,8 @@ Then('I should see {string} in {string}', async function (value, cssSelector) {
 });
 
 Then('I should see {string} in {string} region', async function (text, region) {
-    await utils.seeTextInRegion(this.page, text, region);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.seeTextInRegion(this.page, resolvedText, region);
 });
 
 Then('I should see the element with selector {string}', async function (cssSelector) {
@@ -59,13 +62,16 @@ Then('I wait for element with {string} selector to appear within {string} second
     await utils.seeElement(this.page, selector, true, time * 1000);
 });
 Then('I should not see {string}', async function (text) {
-    await utils.notSeeText(this.page, text);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.notSeeText(this.page, resolvedText);
 });
 Then('I wait for the text {string} to appear within {string} seconds', async function (text, time) {
-    await utils.seeTextByXpath(this.page, text, time * 1000);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.seeTextByXpath(this.page, resolvedText, time * 1000);
 });
 Then('I wait for the text {string} to disappear within {string} seconds', async function (text, time) {
-    await utils.disappearText(this.page, text, time * 1000);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.disappearText(this.page, resolvedText, time * 1000);
 });
 Then('I upload the {string} in {string} field', async function (fileName, cssSelector) {
     const selector = this.commonFields[cssSelector] ?? cssSelector;
@@ -95,9 +101,10 @@ Then('I select {string} from {string}', async function (value, cssSelector) {
     const selector = this.commonFields[cssSelector] ?? cssSelector;
     await utils.selectOptionByValue(this.page, selector, value);
 });
-Then('I select text {string} from {string}', async function (value, cssSelector) {
+Then('I select text {string} from {string}', async function (text, cssSelector) {
     const selector = this.commonFields[cssSelector] ?? cssSelector;
-    await utils.selectOptionByText(this.page, selector, value);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.selectOptionByText(this.page, selector, resolvedText);
 });
 
 Then('I check if link {string} has href {string}', async function (text, href) {
@@ -118,7 +125,8 @@ Then(
 Then(
     'I check if element with text {string} has attribute {string} with {string} value',
     async function (text, attribute, value) {
-        await utils.validateValueOfElementAttributeByText(this.page, text, attribute, value);
+        const resolvedText = this.mlStrings[text] ?? text;
+        await utils.validateValueOfElementAttributeByText(this.page, resolvedText, attribute, value);
     }
 );
 Then('I upload {string} file to dropzone {string} field', async function (file, cssSelector) {
@@ -126,28 +134,34 @@ Then('I upload {string} file to dropzone {string} field', async function (file, 
     await utils.uploadToDropzone(this.page, file, selector);
 });
 Then('I should see {string} in the schema markup of the page', async function (text) {
-    await utils.validateTextInSchemaOrg(this.page, text);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.validateTextInSchemaOrg(this.page, resolvedText);
 });
 Then('I should not see {string} in the schema markup of the page', async function (text) {
-    await utils.validateTextNotInSchemaOrg(this.page, text);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.validateTextNotInSchemaOrg(this.page, resolvedText);
 });
 Then('I should see {string} in page scripts', async function (text) {
-    await utils.validateTextInScript(this.page, text);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.validateTextInScript(this.page, resolvedText);
 });
 Then('I should {string} see {string} in the {string} accordion', async function (isVisible, text, cssSelector) {
     const selector = this.commonFields[cssSelector] ?? cssSelector;
     if (isVisible === 'not') {
         isVisible = false;
     }
-    await utils.textVisibilityInAccordion(this.page, selector, text, Boolean(isVisible));
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.textVisibilityInAccordion(this.page, selector, resolvedText, Boolean(isVisible));
 });
 Then('I select the first autocomplete option for {string} on the {string} field', async function (text, cssSelector) {
     const selector = this.commonFields[cssSelector] ?? cssSelector;
-    await utils.selectOptionFirstAutocomplete(this.page, text, selector);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.selectOptionFirstAutocomplete(this.page, resolvedText, selector);
 });
 Then('I select {string} from chosen {string}', async function (text, cssSelector) {
     const selector = this.commonFields[cssSelector] ?? cssSelector;
-    await utils.selectOptionFromChosen(this.page, text, selector);
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.selectOptionFromChosen(this.page, resolvedText, selector);
 });
 
 Then('I set date {string} in flatpickr with selector {string}', async function (date, cssSelector) {
@@ -186,7 +200,8 @@ Given('I check if checkbox options with locator {string} are not in alphabetical
     await utils.iCheckIfCheckboxOptionsAreInAlphabeticalOrder(this.page, selector, false);
 });
 When('I click on the text {string} and follow the new tab', async function (text) {
-    this.page = await utils.clickLinkOpenNewTab(this.browser, this.page, text, true);
+    const resolvedText = this.mlStrings[text] ?? text;
+    this.page = await utils.clickLinkOpenNewTab(this.browser, this.page, resolvedText, true);
 });
 When('I click on the element {string} and follow the new tab', async function (cssSelector) {
     const selector = this.commonFields[cssSelector] ?? cssSelector;
