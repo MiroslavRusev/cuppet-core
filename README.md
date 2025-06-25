@@ -22,7 +22,6 @@ yarn install
 yarn test
 ```
 
-
 ## Available Components
 
 ### Core Functions
@@ -79,7 +78,7 @@ const apiSteps = require('@cuppet/core/features/app/stepDefinitions/apiSteps');
 const { Then } = require('@cucumber/cucumber');
 
 Then('the response should be an {string}', async function (type) {
-    console.log("Add your new custom logic", type)
+    console.log('Add your new custom logic', type);
 });
 ```
 

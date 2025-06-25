@@ -19,6 +19,7 @@ Thank you for your interest in contributing to @cuppet/core!
 ## Testing
 
 Run tests before submitting:
+
 ```bash
 yarn test
 ```

@@ -11,3 +11,4 @@ backStopData
 **/.vscode
 **/.github
 **/node_modules
+CHANGELOG.MD
