@@ -1,3 +1,10 @@
+## [1.0.1](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.0...v1.0.1) (2025-06-25)
+
+
+### Bug Fixes
+
+* adjusting contributors.md ([b530d57](https://github.com/MiroslavRusev/cuppet-core/commit/b530d57fb26f11ff14213926ede2462d8c0d858b))
+
 # 1.0.0 (2025-06-25)
 
 
