@@ -13,5 +13,5 @@ module.exports = {
     pageElements: require('./features/app/stepDefinitions/pageElements'),
     pageElementsConfig: require('./features/app/stepDefinitions/pageElementsConfig'),
     pageElementsJson: require('./features/app/stepDefinitions/pageElementsJson'),
-    visualRegressionSteps: require('./features/app/stepDefinitions/visualRegressionSteps')
-}; 
+    visualRegressionSteps: require('./features/app/stepDefinitions/visualRegressionSteps'),
+};

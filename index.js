@@ -30,14 +30,14 @@ module.exports = {
     accessibilityTesting,
     lighthouse,
     visualRegression,
-    
+
     // Managers
     BrowserManager,
     AppiumManager,
-    
+
     // Step definitions
     stepDefinitions,
-    
+
     // Version info
-    version: require('./package.json').version
-}; 
+    version: require('./package.json').version,
+};

@@ -1,0 +1,13 @@
+jsonFiles
+screenshots 
+# Ignore artifacts:
+reports
+backStopData
+# Ignore all feature files:
+**/*.feature
+# Ignore others
+**/.git
+**/.idea
+**/.vscode
+**/.github
+**/node_modules
