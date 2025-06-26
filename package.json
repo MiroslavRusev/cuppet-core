@@ -57,7 +57,7 @@
     },
     "scripts": {
         "test": "cucumber-js features/tests",
-        "postinstall": "sh ./postinstall.sh",
+        "postinstall": "node postinstall.js",
         "lint": "eslint .",
         "format": "prettier --write ."
     },
