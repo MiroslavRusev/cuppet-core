@@ -1,3 +1,10 @@
+## [1.0.10](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.9...v1.0.10) (2025-06-26)
+
+
+### Bug Fixes
+
+* Adjusting readme. ([699c29f](https://github.com/MiroslavRusev/cuppet-core/commit/699c29f1f9b1620eedfc0e822f6aff5744c3d923))
+
 ## [1.0.9](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.8...v1.0.9) (2025-06-26)
 
 
