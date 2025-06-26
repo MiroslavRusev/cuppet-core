@@ -129,13 +129,12 @@ The following components should be created in your project as they are specific 
 This package requires the following peer dependencies:
 
 - `@cucumber/cucumber` ^11.0.0
-- `puppeteer` ^24.0.1
 - `config` ^3.3.9
 
 Make sure to install these in your project:
 
 ```bash
-npm install @cucumber/cucumber puppeteer config
+npm install @cucumber/cucumber config
 ```
 
 ## License
