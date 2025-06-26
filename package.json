@@ -1,6 +1,6 @@
 {
     "name": "@cuppet/core",
-    "version": "1.0.8",
+    "version": "1.0.9",
     "description": "Core testing framework components for Cuppet - BDD framework based on Cucumber and Puppeteer",
     "main": "index.js",
     "files": [

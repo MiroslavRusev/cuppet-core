@@ -1,3 +1,10 @@
+## [1.0.9](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.8...v1.0.9) (2025-06-26)
+
+
+### Bug Fixes
+
+* Fixing backstop behavior. ([c712e4e](https://github.com/MiroslavRusev/cuppet-core/commit/c712e4eb98485c85dde42b0693e31eaf3b7890bc))
+
 ## [1.0.8](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.7...v1.0.8) (2025-06-26)
 
 
