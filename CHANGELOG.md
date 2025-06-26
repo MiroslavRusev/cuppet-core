@@ -1,3 +1,10 @@
+## [1.0.7](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.6...v1.0.7) (2025-06-26)
+
+
+### Bug Fixes
+
+* Adding forgotten postinall.js ([e1cad12](https://github.com/MiroslavRusev/cuppet-core/commit/e1cad1244f0f06c8fe1775ff25274e18685bbe8e))
+
 ## [1.0.6](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.5...v1.0.6) (2025-06-26)
 
 
