@@ -1,8 +1,8 @@
 const puppeteer = require('puppeteer');
 
 class BrowserManager {
-    constructor(config, args, credentials) {
-        this.config = config;
+    constructor(viewport, args, credentials) {
+        this.viewport = viewport;
         this.args = args;
         this.credentials = credentials;
         this.browser = null;
@@ -30,8 +30,8 @@ class BrowserManager {
             const isHeadless = this.args.includes('--headless=new');
             if (isHeadless) {
                 await this.page.setViewport({
-                    width: Number(this.config.width),
-                    height: Number(this.config.height),
+                    width: Number(this.viewport.width),
+                    height: Number(this.viewport.height),
                 });
             }
         }

@@ -10,9 +10,10 @@ module.exports = {
     backstopConfigPrepare: function () {
         let newConfig = backStopConfig;
         newConfig.id = process.env.NODE_CONFIG_ENV;
-        newConfig.viewports[0].width = Number(config.get('viewport.width'));
-        newConfig.viewports[0].height = Number(config.get('viewport.height'));
-        newConfig.engineOptions.args = config.get('args');
+        const browserViewport = config.get('browserOptions.viewport.backstop');
+        newConfig.viewports[0].width = Number(browserViewport.width);
+        newConfig.viewports[0].height = Number(browserViewport.height);
+        newConfig.engineOptions.args = config.get('browserOptions.args');
         return newConfig;
     },
 

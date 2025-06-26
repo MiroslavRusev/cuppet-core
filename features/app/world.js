@@ -23,3 +23,6 @@ class World {
     }
 }
 setWorldConstructor(World);
+
+// Export the World class for use in the main repository
+module.exports = { World };
