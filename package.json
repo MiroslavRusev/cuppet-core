@@ -7,7 +7,8 @@
         "src/",
         "features/",
         "index.js",
-        "stepDefinitions.js"
+        "stepDefinitions.js",
+        "postinstall.js"
     ],
     "keywords": [
         "testing",
