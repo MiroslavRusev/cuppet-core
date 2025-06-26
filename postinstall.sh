@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # Only run if we're in the root of the cuppet-core package (not as a dependency)
-if [ -f "package.json" ]; then
+if [ -f "developmentGuide.md" ]; then
   mkdir -p jsonFiles
   mkdir -p reports
   mkdir -p screenshots
