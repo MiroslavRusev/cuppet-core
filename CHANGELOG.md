@@ -1,3 +1,10 @@
+## [1.0.6](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.5...v1.0.6) (2025-06-26)
+
+
+### Bug Fixes
+
+* Changing postinstall script to JS for better compatibility. ([cf9fa9f](https://github.com/MiroslavRusev/cuppet-core/commit/cf9fa9f43ce652b07fe13a6ff605498d5aad12f7))
+
 ## [1.0.5](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.4...v1.0.5) (2025-06-26)
 
 
