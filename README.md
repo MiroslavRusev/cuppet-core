@@ -5,7 +5,7 @@ Core testing framework components for Cuppet - a BDD framework based on Cucumber
 ## Installation
 
 ```bash
-npm install @cuppet/core
+yarn install @cuppet/core
 ```
 
 ## Usage
@@ -134,7 +134,7 @@ This package requires the following peer dependencies:
 Make sure to install these in your project:
 
 ```bash
-npm install @cucumber/cucumber config
+yarn install @cucumber/cucumber config
 ```
 
 ## License
