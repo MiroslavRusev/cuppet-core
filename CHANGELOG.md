@@ -1,3 +1,10 @@
+## [1.0.5](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.4...v1.0.5) (2025-06-26)
+
+
+### Bug Fixes
+
+* adding better check in postinstall.sh ([8f9a9e3](https://github.com/MiroslavRusev/cuppet-core/commit/8f9a9e39c4b652683b48cbd964c6e8ec756cf95d))
+
 ## [1.0.4](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.3...v1.0.4) (2025-06-26)
 
 
