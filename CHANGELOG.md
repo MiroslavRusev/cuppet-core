@@ -1,3 +1,10 @@
+## [1.0.4](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.3...v1.0.4) (2025-06-26)
+
+
+### Bug Fixes
+
+* Adjusting postinall. [CUPC-1] ([0a0b873](https://github.com/MiroslavRusev/cuppet-core/commit/0a0b873b1acb9a708c57b2e685d81449440318d7))
+
 ## [1.0.3](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.2...v1.0.3) (2025-06-25)
 
 
