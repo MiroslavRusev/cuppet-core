@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Only run if we're in the root of the cuppet-core package (not as a dependency)
 if [ -f "package.json" ]; then
