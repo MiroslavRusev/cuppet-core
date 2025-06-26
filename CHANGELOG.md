@@ -1,3 +1,10 @@
+## [1.0.8](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.7...v1.0.8) (2025-06-26)
+
+
+### Bug Fixes
+
+* Adjusting package.json ([34711ba](https://github.com/MiroslavRusev/cuppet-core/commit/34711ba4324d5dcd5956d4982c5ce732ae3c5664))
+
 ## [1.0.7](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.6...v1.0.7) (2025-06-26)
 
 
