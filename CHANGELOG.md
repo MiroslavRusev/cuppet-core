@@ -1,3 +1,10 @@
+## [1.0.12](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.11...v1.0.12) (2025-07-21)
+
+
+### Bug Fixes
+
+* Adjusting method behavior regarding visibility and timeout. ([23723e1](https://github.com/MiroslavRusev/cuppet-core/commit/23723e10960d4d51e647d98d4b2c7e14bbe5b262))
+
 ## [1.0.11](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.10...v1.0.11) (2025-06-26)
 
 
