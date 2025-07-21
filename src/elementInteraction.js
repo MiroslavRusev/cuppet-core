@@ -430,7 +430,7 @@ module.exports = {
         try {
             await page.waitForSelector(selector, options);
             throw new Error(`Text ${text} is visible in ${regionClass}!`);
-        } catch (error) {
+        } catch {
             // Element not visible - that's the expected result
             return;
         }
