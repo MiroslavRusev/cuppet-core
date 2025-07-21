@@ -417,20 +417,22 @@ module.exports = {
      * @param {Page} page
      * @param text
      * @param region
+     * @param time
      * @returns {Promise<void>}
      */
-    notSeeTextInRegion: async function (page, text, region) {
+    notSeeTextInRegion: async function (page, text, region, time = 3000) {
         const regionClass = await helper.getRegion(page, region);
-        let textVisibleInRegion = true;
+        const selector = 'xpath/' + `//*[contains(@class,'${regionClass}') and .//text()[contains(.,"${text}")]]`;
+        const options = {
+            visible: true, // With true flag it will fail only if the element is in the dom and visible
+            timeout: time, // Maximum time to wait in milliseconds (default is 30s which is a lot for a negative step)
+        };
         try {
-            await page.waitForSelector(
-                'xpath/' + `//*[contains(@class,'${regionClass}') and .//text()[contains(.,"${text}")]]`
-            );
-        } catch {
-            textVisibleInRegion = false;
-        }
-        if (textVisibleInRegion) {
+            await page.waitForSelector(selector, options);
             throw new Error(`Text ${text} is visible in ${regionClass}!`);
+        } catch (error) {
+            // Element not visible - that's the expected result
+            return;
         }
     },
 
