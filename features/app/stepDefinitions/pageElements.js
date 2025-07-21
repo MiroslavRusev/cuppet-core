@@ -41,6 +41,11 @@ Then('I should see {string} in {string} region', async function (text, region) {
     await utils.seeTextInRegion(this.page, resolvedText, region);
 });
 
+Then('I should not see {string} in {string} region', async function (text, region) {
+    const resolvedText = this.mlStrings[text] ?? text;
+    await utils.notSeeTextInRegion(this.page, resolvedText, region);
+});
+
 Then('I should see the element with selector {string}', async function (cssSelector) {
     const selector = this.commonFields[cssSelector] ?? cssSelector;
     await utils.seeElement(this.page, selector);
