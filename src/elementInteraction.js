@@ -412,6 +412,31 @@ module.exports = {
     },
 
     /**
+     * Validate that text is not visible in specific region (another element).
+     * To be used when multiple renders of the same text are shown on the page.
+     * @param {Page} page
+     * @param text
+     * @param region
+     * @param time
+     * @returns {Promise<void>}
+     */
+    notSeeTextInRegion: async function (page, text, region, time = 3000) {
+        const regionClass = await helper.getRegion(page, region);
+        const selector = 'xpath/' + `//*[contains(@class,'${regionClass}') and .//text()[contains(.,"${text}")]]`;
+        const options = {
+            visible: true, // With true flag it will fail only if the element is in the dom and visible
+            timeout: time, // Maximum time to wait in milliseconds (default is 30s which is a lot for a negative step)
+        };
+        try {
+            await page.waitForSelector(selector, options);
+            throw new Error(`Text ${text} is visible in ${regionClass}!`);
+        } catch {
+            // Element not visible - that's the expected result
+            return;
+        }
+    },
+
+    /**
      * Hover element based on text content (useful for text inside spans, paragraphs etc. like menu links)
      * @param {Page} page
      * @param text
