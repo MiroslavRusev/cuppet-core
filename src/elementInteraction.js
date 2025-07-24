@@ -311,13 +311,15 @@ module.exports = {
     },
 
     /**
-     * Element should not exist in the page DOM.
+     * Verify whether element is visible or not.
+     * Depending on VisibleInDOM boolean will check if it is only hidden or not present in the DOM.
      * @param {Page} page
      * @param selector
+     * @param VisibleInDOM
      * @param time
      * @returns {Promise<void>}
      */
-    notSeeElement: async function (page, selector, time = 5000) {
+    notSeeElement: async function (page, selector, VisibleInDOM, time = 5000) {
         const options = {
             hidden: true,
             timeout: time, // Maximum time to wait in milliseconds (default: 30000)
@@ -328,8 +330,8 @@ module.exports = {
         } catch {
             throw new Error('Element is visible!');
         }
-        if (isElementInPage) {
-            throw new Error(`${selector} is hidden but can be found in the page source!`);
+        if (!VisibleInDOM && isElementInPage) {
+            throw new Error(`${selector} is hidden but can be found in the page source (DOM)!`);
         }
     },
 
