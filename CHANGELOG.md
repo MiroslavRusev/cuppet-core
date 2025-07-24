@@ -1,3 +1,24 @@
+## [1.0.13](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.12...v1.0.13) (2025-07-24)
+
+
+### Bug Fixes
+
+* updating contributing and readme md files. ([fe14675](https://github.com/MiroslavRusev/cuppet-core/commit/fe146753cd8da60973769df157f1bf17de8eaa83))
+
+## [1.0.12](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.11...v1.0.12) (2025-07-21)
+
+
+### Bug Fixes
+
+* Adjusting method behavior regarding visibility and timeout. ([23723e1](https://github.com/MiroslavRusev/cuppet-core/commit/23723e10960d4d51e647d98d4b2c7e14bbe5b262))
+
+## [1.0.11](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.10...v1.0.11) (2025-06-26)
+
+
+### Bug Fixes
+
+* Additional readme fixes. ([802467a](https://github.com/MiroslavRusev/cuppet-core/commit/802467a1bce5a6b076e3cfdd643b94f5f7476883))
+
 ## [1.0.10](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.9...v1.0.10) (2025-06-26)
 
 
