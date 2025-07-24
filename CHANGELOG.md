@@ -1,3 +1,10 @@
+## [1.0.13](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.12...v1.0.13) (2025-07-24)
+
+
+### Bug Fixes
+
+* updating contributing and readme md files. ([fe14675](https://github.com/MiroslavRusev/cuppet-core/commit/fe146753cd8da60973769df157f1bf17de8eaa83))
+
 ## [1.0.12](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.11...v1.0.12) (2025-07-21)
 
 
