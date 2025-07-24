@@ -137,6 +137,12 @@ Make sure to install these in your project:
 yarn install @cucumber/cucumber config
 ```
 
+## Contributing
+
+We welcome contributions! Please see our [Contributing Guide](CONTRIBUTING.md) for details on how to submit pull requests and our development workflow.
+
+For detailed development setup and publishing information, check out our [Development Guide](developmentGuide.md).
+
 ## License
 
 ISC
