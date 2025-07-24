@@ -54,9 +54,13 @@ Then('I should see the element with selector {string} in the DOM', async functio
     const selector = this.commonFields[cssSelector] ?? cssSelector;
     await utils.seeElement(this.page, selector, false);
 });
+Then('I should not see the element with selector {string} in the DOM', async function (cssSelector) {
+    const selector = this.commonFields[cssSelector] ?? cssSelector;
+    await utils.notSeeElement(this.page, selector, false);
+});
 Then('I should not see the element with selector {string}', async function (cssSelector) {
     const selector = this.commonFields[cssSelector] ?? cssSelector;
-    await utils.notSeeElement(this.page, selector);
+    await utils.notSeeElement(this.page, selector, true);
 });
 Then('I wait for element {string} to disappear within {string} seconds', async function (cssSelector, time) {
     const selector = this.commonFields[cssSelector] ?? cssSelector;
