@@ -124,6 +124,10 @@ The following components should be created in your project as they are specific 
 - `commonComponents/` - Common form fields and page paths for your application
 - `multilingualStrings/` - Multilingual string support for your application
 
+## Comprehensive configurations and usage guide
+
+For a detailed configuration and step definitions guide, see [GUIDE.MD](./GUIDE.MD).
+
 ## Peer Dependencies
 
 This package requires the following peer dependencies:
