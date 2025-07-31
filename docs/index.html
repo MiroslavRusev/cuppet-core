@@ -1,432 +1,450 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Cuppet Core - BDD Testing Framework Documentation</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-        }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f8f9fa;
+      }
 
-        .navbar {
-            background: #2c3e50;
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+      .navbar {
+        background: #2c3e50;
+        color: white;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
+      .navbar .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #3498db;
+      }
+
+      .navbar nav ul {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .navbar nav a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .navbar nav a:hover {
+        color: #3498db;
+      }
+
+      .hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 8rem 2rem 6rem;
+        text-align: center;
+        margin-top: 70px;
+      }
+
+      .hero h1 {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        font-weight: 700;
+      }
+
+      .hero p {
+        font-size: 1.2rem;
+        margin-bottom: 2rem;
+        opacity: 0.9;
+      }
+
+      .hero .badges {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+
+      .hero .badge {
+        background: rgba(255, 255, 255, 0.2);
+        padding: 0.5rem 1rem;
+        border-radius: 25px;
+        backdrop-filter: blur(10px);
+      }
+
+      .cta-buttons {
+        display: flex;
+        justify-content: center;
+        gap: 1rem;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.75rem 2rem;
+        border-radius: 5px;
+        text-decoration: none;
+        font-weight: 600;
+        transition: all 0.3s;
+        border: none;
+        cursor: pointer;
+      }
+
+      .btn-primary {
+        background: #3498db;
+        color: white;
+      }
+
+      .btn-primary:hover {
+        background: #2980b9;
+        transform: translateY(-2px);
+      }
+
+      .btn-secondary {
+        background: transparent;
+        color: white;
+        border: 2px solid white;
+      }
+
+      .btn-secondary:hover {
+        background: white;
+        color: #667eea;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .features {
+        padding: 6rem 0;
+        background: white;
+      }
+
+      .features h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #2c3e50;
+      }
+
+      .features-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
+      }
+
+      .feature-card {
+        background: #f8f9fa;
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        transition:
+          transform 0.3s,
+          box-shadow 0.3s;
+        border-left: 4px solid #3498db;
+      }
+
+      .feature-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+      }
+
+      .feature-card .icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        color: #3498db;
+      }
+
+      .feature-card h3 {
+        font-size: 1.3rem;
+        margin-bottom: 1rem;
+        color: #2c3e50;
+      }
+
+      .quick-start {
+        background: #f8f9fa;
+        padding: 6rem 0;
+      }
+
+      .quick-start h2 {
+        text-align: center;
+        font-size: 2.5rem;
+        margin-bottom: 3rem;
+        color: #2c3e50;
+      }
+
+      .code-example {
+        background: #1e1e1e;
+        border-radius: 10px;
+        padding: 2rem;
+        margin: 2rem 0;
+        overflow-x: auto;
+      }
+
+      .docs-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-top: 3rem;
+      }
+
+      .doc-card {
+        background: white;
+        padding: 2rem;
+        border-radius: 10px;
+        text-align: center;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
+
+      .doc-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
+        text-decoration: none;
+        color: inherit;
+      }
+
+      .doc-card .icon {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+        color: #3498db;
+      }
+
+      .footer {
+        background: #2c3e50;
+        color: white;
+        padding: 3rem 0 2rem;
+      }
+
+      .footer-content {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+        gap: 2rem;
+        margin-bottom: 2rem;
+      }
+
+      .footer h3 {
+        margin-bottom: 1rem;
+        color: #3498db;
+      }
+
+      .footer a {
+        color: #bdc3c7;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .footer a:hover {
+        color: #3498db;
+      }
+
+      .footer-bottom {
+        border-top: 1px solid #34495e;
+        padding-top: 2rem;
+        text-align: center;
+        color: #bdc3c7;
+      }
+
+      @media (max-width: 768px) {
         .navbar .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .navbar .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #3498db;
+          padding: 0 1rem;
         }
 
         .navbar nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
-
-        .navbar nav a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .navbar nav a:hover {
-            color: #3498db;
-        }
-
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 8rem 2rem 6rem;
-            text-align: center;
-            margin-top: 70px;
+          gap: 1rem;
         }
 
         .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            font-weight: 700;
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
-
-        .hero .badges {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-bottom: 2rem;
-        }
-
-        .hero .badge {
-            background: rgba(255,255,255,0.2);
-            padding: 0.5rem 1rem;
-            border-radius: 25px;
-            backdrop-filter: blur(10px);
+          font-size: 2rem;
         }
 
         .cta-buttons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            flex-wrap: wrap;
+          flex-direction: column;
+          align-items: center;
         }
 
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 2rem;
-            border-radius: 5px;
-            text-decoration: none;
-            font-weight: 600;
-            transition: all 0.3s;
-            border: none;
-            cursor: pointer;
-        }
-
-        .btn-primary {
-            background: #3498db;
-            color: white;
-        }
-
-        .btn-primary:hover {
-            background: #2980b9;
-            transform: translateY(-2px);
-        }
-
-        .btn-secondary {
-            background: transparent;
-            color: white;
-            border: 2px solid white;
-        }
-
-        .btn-secondary:hover {
-            background: white;
-            color: #667eea;
-        }
-
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
-
-        .features {
-            padding: 6rem 0;
-            background: white;
-        }
-
-        .features h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #2c3e50;
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 2rem;
-            margin-bottom: 4rem;
-        }
-
-        .feature-card {
-            background: #f8f9fa;
-            padding: 2rem;
-            border-radius: 10px;
-            text-align: center;
-            transition: transform 0.3s, box-shadow 0.3s;
-            border-left: 4px solid #3498db;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-        }
-
-        .feature-card .icon {
-            font-size: 3rem;
-            margin-bottom: 1rem;
-            color: #3498db;
-        }
-
-        .feature-card h3 {
-            font-size: 1.3rem;
-            margin-bottom: 1rem;
-            color: #2c3e50;
-        }
-
-        .quick-start {
-            background: #f8f9fa;
-            padding: 6rem 0;
-        }
-
-        .quick-start h2 {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 3rem;
-            color: #2c3e50;
-        }
-
-        .code-example {
-            background: #1e1e1e;
-            border-radius: 10px;
-            padding: 2rem;
-            margin: 2rem 0;
-            overflow-x: auto;
-        }
-
+        .features-grid,
         .docs-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-top: 3rem;
+          grid-template-columns: 1fr;
         }
-
-        .doc-card {
-            background: white;
-            padding: 2rem;
-            border-radius: 10px;
-            text-align: center;
-            text-decoration: none;
-            color: inherit;
-            transition: all 0.3s;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
-
-        .doc-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 10px 25px rgba(0,0,0,0.15);
-            text-decoration: none;
-            color: inherit;
-        }
-
-        .doc-card .icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-            color: #3498db;
-        }
-
-        .footer {
-            background: #2c3e50;
-            color: white;
-            padding: 3rem 0 2rem;
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
-            margin-bottom: 2rem;
-        }
-
-        .footer h3 {
-            margin-bottom: 1rem;
-            color: #3498db;
-        }
-
-        .footer a {
-            color: #bdc3c7;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .footer a:hover {
-            color: #3498db;
-        }
-
-        .footer-bottom {
-            border-top: 1px solid #34495e;
-            padding-top: 2rem;
-            text-align: center;
-            color: #bdc3c7;
-        }
-
-        @media (max-width: 768px) {
-            .navbar .container {
-                padding: 0 1rem;
-            }
-            
-            .navbar nav ul {
-                gap: 1rem;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-            
-            .cta-buttons {
-                flex-direction: column;
-                align-items: center;
-            }
-            
-            .features-grid,
-            .docs-grid {
-                grid-template-columns: 1fr;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="container">
-            <div class="logo">🏆 Cuppet Core</div>
-            <nav>
-                <ul>
-                    <li><a href="#home">Home</a></li>
-                    <li><a href="api-docs.html">API Docs</a></li>
-                    <li><a href="step-definitions.html">Step Definitions</a></li>
-                    <li><a href="configuration.html">Configuration</a></li>
-                    <li><a href="examples.html">Examples</a></li>
-                    <li><a href="https://github.com/MiroslavRusev/cuppet-core">GitHub</a></li>
-                </ul>
-            </nav>
-        </div>
+      <div class="container">
+        <div class="logo">🏆 Cuppet Core</div>
+        <nav>
+          <ul>
+            <li><a href="#home">Home</a></li>
+            <li><a href="api-docs.html">API Docs</a></li>
+            <li><a href="step-definitions.html">Step Definitions</a></li>
+            <li><a href="configuration.html">Configuration</a></li>
+            <li><a href="examples.html">Examples</a></li>
+            <li><a href="https://github.com/MiroslavRusev/cuppet-core">GitHub</a></li>
+          </ul>
+        </nav>
+      </div>
     </nav>
 
     <section class="hero" id="home">
-        <div class="container">
-            <h1>Cuppet Core</h1>
-            <p>Advanced BDD Testing Framework based on Cucumber and Puppeteer</p>
-            <div class="badges">
-                <div class="badge">🥒 Cucumber</div>
-                <div class="badge">🎭 Puppeteer</div>
-                <div class="badge">📱 Appium</div>
-                <div class="badge">♿ Accessibility</div>
-                <div class="badge">🚀 Performance</div>
-            </div>
-            <div class="cta-buttons">
-                <a href="#quick-start" class="btn btn-primary">Get Started</a>
-                <a href="https://github.com/MiroslavRusev/cuppet-core" class="btn btn-secondary">View on GitHub</a>
-            </div>
+      <div class="container">
+        <h1>Cuppet Core</h1>
+        <p>Advanced BDD Testing Framework based on Cucumber and Puppeteer</p>
+        <div class="badges">
+          <div class="badge">🥒 Cucumber</div>
+          <div class="badge">🎭 Puppeteer</div>
+          <div class="badge">📱 Appium</div>
+          <div class="badge">♿ Accessibility</div>
+          <div class="badge">🚀 Performance</div>
         </div>
+        <div class="cta-buttons">
+          <a href="#quick-start" class="btn btn-primary">Get Started</a>
+          <a href="https://github.com/MiroslavRusev/cuppet-core" class="btn btn-secondary">View on GitHub</a>
+        </div>
+      </div>
     </section>
 
     <section class="features">
-        <div class="container">
-            <h2>Why Choose Cuppet Core?</h2>
-            <div class="features-grid">
-                <div class="feature-card">
-                    <div class="icon">🥒</div>
-                    <h3>BDD Framework</h3>
-                    <p>Built on Cucumber with comprehensive step definitions for behavior-driven development testing.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon">🎭</div>
-                    <h3>Web Automation</h3>
-                    <p>Powerful browser automation using Puppeteer with advanced element interaction capabilities.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon">📱</div>
-                    <h3>Mobile Testing</h3>
-                    <p>Complete mobile app testing support with Appium integration for iOS and Android.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon">🌐</div>
-                    <h3>API Testing</h3>
-                    <p>RESTful API testing with comprehensive validation and authentication support.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon">♿</div>
-                    <h3>Accessibility Testing</h3>
-                    <p>Built-in accessibility testing with Pa11y integration and automated reporting.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon">🚀</div>
-                    <h3>Performance Testing</h3>
-                    <p>Google Lighthouse integration for automated performance testing and optimization.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon">👁️</div>
-                    <h3>Visual Regression</h3>
-                    <p>BackstopJS integration for visual regression testing and screenshot comparison.</p>
-                </div>
-                <div class="feature-card">
-                    <div class="icon">🔧</div>
-                    <h3>Highly Configurable</h3>
-                    <p>Flexible configuration system supporting multiple environments and testing scenarios.</p>
-                </div>
-            </div>
+      <div class="container">
+        <h2>Why Choose Cuppet Core?</h2>
+        <div class="features-grid">
+          <div class="feature-card">
+            <div class="icon">🥒</div>
+            <h3>BDD Framework</h3>
+            <p>Built on Cucumber with comprehensive step definitions for behavior-driven development testing.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🎭</div>
+            <h3>Web Automation</h3>
+            <p>Powerful browser automation using Puppeteer with advanced element interaction capabilities.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">📱</div>
+            <h3>Mobile Testing</h3>
+            <p>Complete mobile app testing support with Appium integration for iOS and Android.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🌐</div>
+            <h3>API Testing</h3>
+            <p>RESTful API testing with comprehensive validation and authentication support.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">♿</div>
+            <h3>Accessibility Testing</h3>
+            <p>Built-in accessibility testing with Pa11y integration and automated reporting.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🚀</div>
+            <h3>Performance Testing</h3>
+            <p>Google Lighthouse integration for automated performance testing and optimization.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">👁️</div>
+            <h3>Visual Regression</h3>
+            <p>BackstopJS integration for visual regression testing and screenshot comparison.</p>
+          </div>
+          <div class="feature-card">
+            <div class="icon">🔧</div>
+            <h3>Highly Configurable</h3>
+            <p>Flexible configuration system supporting multiple environments and testing scenarios.</p>
+          </div>
         </div>
+      </div>
     </section>
 
     <section class="quick-start" id="quick-start">
-        <div class="container">
-            <h2>Quick Start</h2>
-            
-            <div style="background: #e3f2fd; border: 2px solid #2196f3; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem;">
-                <h3 style="color: #1976d2; margin-bottom: 1rem;">🚀 Choose Your Setup Method</h3>
-                <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem;">
-                    <div style="background: white; padding: 1rem; border-radius: 4px;">
-                        <h4 style="color: #27ae60; margin-bottom: 0.5rem;">📋 Template Repository (Recommended)</h4>
-                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Complete project template with pre-configured setup, examples, and best practices.</p>
-                        <a href="https://github.com/MiroslavRusev/cuppet" style="display: inline-block; padding: 0.5rem 1rem; background: #27ae60; color: white; text-decoration: none; border-radius: 4px; font-weight: bold;">Use Template Repository</a>
-                    </div>
-                    <div style="background: white; padding: 1rem; border-radius: 4px;">
-                        <h4 style="color: #3498db; margin-bottom: 0.5rem;">📦 NPM Package</h4>
-                        <p style="margin-bottom: 1rem; font-size: 0.9rem;">Add Cuppet Core to your existing project as a dependency.</p>
-                        <code style="background: #f8f9fa; padding: 0.5rem; border-radius: 4px; display: block;">yarn add @cuppet/core</code>
-                    </div>
-                </div>
-            </div>
+      <div class="container">
+        <h2>Quick Start</h2>
 
-            <h3>Option 1: Using Template Repository (Fastest Setup)</h3>
-            <p>The <a href="https://github.com/MiroslavRusev/cuppet" style="color: #3498db;">Cuppet Template Repository</a> provides a complete project structure with:</p>
-            <ul style="margin: 1rem 0; padding-left: 2rem;">
-                <li>Pre-configured project structure and dependencies</li>
-                <li>Ready-to-use configuration files for multiple environments</li>
-                <li>Example test suites and common components</li>
-                <li>GitHub Actions workflows for CI/CD</li>
-                <li>Best practices and project organization</li>
-            </ul>
-            
-            <div class="code-example">
-                <pre><code class="language-bash"># Clone or use as template from GitHub
+        <div style="background: #e3f2fd; border: 2px solid #2196f3; border-radius: 8px; padding: 1.5rem; margin-bottom: 2rem">
+          <h3 style="color: #1976d2; margin-bottom: 1rem">🚀 Choose Your Setup Method</h3>
+          <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 1rem">
+            <div style="background: white; padding: 1rem; border-radius: 4px">
+              <h4 style="color: #27ae60; margin-bottom: 0.5rem">📋 Template Repository (Recommended)</h4>
+              <p style="margin-bottom: 1rem; font-size: 0.9rem">Complete project template with pre-configured setup, examples, and best practices.</p>
+              <a
+                href="https://github.com/MiroslavRusev/cuppet"
+                style="
+                  display: inline-block;
+                  padding: 0.5rem 1rem;
+                  background: #27ae60;
+                  color: white;
+                  text-decoration: none;
+                  border-radius: 4px;
+                  font-weight: bold;
+                ">
+                Use Template Repository
+              </a>
+            </div>
+            <div style="background: white; padding: 1rem; border-radius: 4px">
+              <h4 style="color: #3498db; margin-bottom: 0.5rem">📦 NPM Package</h4>
+              <p style="margin-bottom: 1rem; font-size: 0.9rem">Add Cuppet Core to your existing project as a dependency.</p>
+              <code style="background: #f8f9fa; padding: 0.5rem; border-radius: 4px; display: block">yarn add @cuppet/core</code>
+            </div>
+          </div>
+        </div>
+
+        <h3>Option 1: Using Template Repository (Fastest Setup)</h3>
+        <p>
+          The
+          <a href="https://github.com/MiroslavRusev/cuppet" style="color: #3498db">Cuppet Template Repository</a>
+          provides a complete project structure with:
+        </p>
+        <ul style="margin: 1rem 0; padding-left: 2rem">
+          <li>Pre-configured project structure and dependencies</li>
+          <li>Ready-to-use configuration files for multiple environments</li>
+          <li>Example test suites and common components</li>
+          <li>GitHub Actions workflows for CI/CD</li>
+          <li>Best practices and project organization</li>
+        </ul>
+
+        <div class="code-example">
+          <pre><code class="language-bash"># Clone or use as template from GitHub
 git clone https://github.com/MiroslavRusev/cuppet.git my-test-project
 cd my-test-project
 yarn install
 
 # Run example tests
 yarn test exampleAll dev features/tests</code></pre>
-            </div>
+        </div>
 
-            <h3>Option 2: Adding to Existing Project</h3>
-            <div class="code-example">
-                <pre><code class="language-bash">yarn add @cuppet/core @cucumber/cucumber config</code></pre>
-            </div>
+        <h3>Option 2: Adding to Existing Project</h3>
+        <div class="code-example">
+          <pre><code class="language-bash">yarn add @cuppet/core @cucumber/cucumber config</code></pre>
+        </div>
 
-            <h3>Basic Configuration</h3>
-            <div class="code-example">
-                <pre><code class="language-javascript">// cucumber.js
+        <h3>Basic Configuration</h3>
+        <div class="code-example">
+          <pre><code class="language-javascript">// cucumber.js
 module.exports = {
     default: {
         requireModule: ['@cuppet/core'],
@@ -440,74 +458,78 @@ module.exports = {
         }
     },
 };</code></pre>
-            </div>
+        </div>
 
-            <h3>Example Feature File</h3>
-            <div class="code-example">
-                <pre><code class="language-gherkin">Feature: Example Test
+        <h3>Example Feature File</h3>
+        <div class="code-example">
+          <pre><code class="language-gherkin">Feature: Example Test
   Scenario: Visit a page and check content
     Given I go to "/"
     Then I should see "Welcome"
     When I click on the element "button"
     Then I should see "Success"</code></pre>
-            </div>
-
-            <div class="docs-grid">
-                <a href="api-docs.html" class="doc-card">
-                    <div class="icon">📚</div>
-                    <h3>API Documentation</h3>
-                    <p>Complete API reference for all core modules and functions</p>
-                </a>
-                <a href="step-definitions.html" class="doc-card">
-                    <div class="icon">📝</div>
-                    <h3>Step Definitions</h3>
-                    <p>Comprehensive guide to all available step definitions</p>
-                </a>
-                <a href="configuration.html" class="doc-card">
-                    <div class="icon">⚙️</div>
-                    <h3>Configuration</h3>
-                    <p>Learn how to configure Cuppet Core for your testing needs</p>
-                </a>
-                <a href="examples.html" class="doc-card">
-                    <div class="icon">💡</div>
-                    <h3>Examples & Tutorials</h3>
-                    <p>Practical examples and step-by-step tutorials</p>
-                </a>
-            </div>
         </div>
+
+        <div class="docs-grid">
+          <a href="api-docs.html" class="doc-card">
+            <div class="icon">📚</div>
+            <h3>API Documentation</h3>
+            <p>Complete API reference for all core modules and functions</p>
+          </a>
+          <a href="step-definitions.html" class="doc-card">
+            <div class="icon">📝</div>
+            <h3>Step Definitions</h3>
+            <p>Comprehensive guide to all available step definitions</p>
+          </a>
+          <a href="configuration.html" class="doc-card">
+            <div class="icon">⚙️</div>
+            <h3>Configuration</h3>
+            <p>Learn how to configure Cuppet Core for your testing needs</p>
+          </a>
+          <a href="examples.html" class="doc-card">
+            <div class="icon">💡</div>
+            <h3>Examples & Tutorials</h3>
+            <p>Practical examples and step-by-step tutorials</p>
+          </a>
+        </div>
+      </div>
     </section>
 
     <footer class="footer">
-        <div class="container">
-            <div class="footer-content">
-                <div>
-                    <h3>Documentation</h3>
-                    <p><a href="api-docs.html">API Reference</a></p>
-                    <p><a href="step-definitions.html">Step Definitions</a></p>
-                    <p><a href="configuration.html">Configuration Guide</a></p>
-                    <p><a href="examples.html">Examples</a></p>
-                </div>
-                <div>
-                    <h3>Community</h3>
-                    <p><a href="https://github.com/MiroslavRusev/cuppet">Template Repository</a></p>
-                    <p><a href="https://github.com/MiroslavRusev/cuppet-core">Core Package</a></p>
-                    <p><a href="https://github.com/MiroslavRusev/cuppet-core/issues">Issues</a></p>
-                    <p><a href="https://github.com/MiroslavRusev/cuppet-core/blob/main/CONTRIBUTING.md">Contributing</a></p>
-                </div>
-                <div>
-                    <h3>Package</h3>
-                    <p><a href="https://www.npmjs.com/package/@cuppet/core">NPM Package</a></p>
-                    <p><a href="https://github.com/MiroslavRusev/cuppet-core/blob/main/CHANGELOG.md">Changelog</a></p>
-                    <p><a href="https://github.com/MiroslavRusev/cuppet-core/blob/main/LICENSE">License</a></p>
-                </div>
-            </div>
-            <div class="footer-bottom">
-                <p>&copy; 2024 Cuppet Core. Licensed under ISC License.</p>
-            </div>
+      <div class="container">
+        <div class="footer-content">
+          <div>
+            <h3>Documentation</h3>
+            <p><a href="api-docs.html">API Reference</a></p>
+            <p><a href="step-definitions.html">Step Definitions</a></p>
+            <p><a href="configuration.html">Configuration Guide</a></p>
+            <p><a href="examples.html">Examples</a></p>
+          </div>
+          <div>
+            <h3>Community</h3>
+            <p><a href="https://github.com/MiroslavRusev/cuppet">Template Repository</a></p>
+            <p><a href="https://github.com/MiroslavRusev/cuppet-core">Core Package</a></p>
+            <p><a href="https://github.com/MiroslavRusev/cuppet-core/issues">Issues</a></p>
+            <p>
+              <a href="https://github.com/MiroslavRusev/cuppet-core/blob/main/CONTRIBUTING.md">Contributing</a>
+            </p>
+          </div>
+          <div>
+            <h3>Package</h3>
+            <p><a href="https://www.npmjs.com/package/@cuppet/core">NPM Package</a></p>
+            <p>
+              <a href="https://github.com/MiroslavRusev/cuppet-core/blob/main/CHANGELOG.md">Changelog</a>
+            </p>
+            <p><a href="https://github.com/MiroslavRusev/cuppet-core/blob/main/LICENSE">License</a></p>
+          </div>
         </div>
+        <div class="footer-bottom">
+          <p>&copy; 2024 Cuppet Core. Licensed under ISC License.</p>
+        </div>
+      </div>
     </footer>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-</body>
+  </body>
 </html>

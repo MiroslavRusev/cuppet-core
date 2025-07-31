@@ -1,380 +1,392 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Examples & Tutorials - Cuppet Core</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
 
-        body {
-            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
-            line-height: 1.6;
-            color: #333;
-            background: #f8f9fa;
-        }
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f8f9fa;
+      }
 
-        .navbar {
-            background: #2c3e50;
-            color: white;
-            padding: 1rem 0;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
-        }
+      .navbar {
+        background: #2c3e50;
+        color: white;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
 
-        .navbar .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
+      .navbar .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
 
-        .navbar .logo {
-            font-size: 1.5rem;
-            font-weight: bold;
-            color: #3498db;
-            text-decoration: none;
-        }
+      .navbar .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #3498db;
+        text-decoration: none;
+      }
 
-        .navbar nav ul {
-            display: flex;
-            list-style: none;
-            gap: 2rem;
-        }
+      .navbar nav ul {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
 
-        .navbar nav a {
-            color: white;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
+      .navbar nav a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
 
-        .navbar nav a:hover {
-            color: #3498db;
-        }
+      .navbar nav a:hover {
+        color: #3498db;
+      }
 
-        .container {
-            max-width: 1200px;
-            margin: 0 auto;
-            padding: 0 2rem;
-        }
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
 
-        .main-content {
-            margin-top: 90px;
-            padding: 2rem;
-            background: white;
-            border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-        }
+      .main-content {
+        margin-top: 90px;
+        padding: 2rem;
+        background: white;
+        border-radius: 8px;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+      }
 
-        .hero {
-            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-            color: white;
-            padding: 3rem 2rem;
-            text-align: center;
-            margin-bottom: 2rem;
-            border-radius: 8px;
-        }
+      .hero {
+        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        color: white;
+        padding: 3rem 2rem;
+        text-align: center;
+        margin-bottom: 2rem;
+        border-radius: 8px;
+      }
 
-        .hero h1 {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
-        }
+      .hero h1 {
+        font-size: 2.5rem;
+        margin-bottom: 1rem;
+      }
 
-        .example-section {
-            margin-bottom: 3rem;
-            border-bottom: 2px solid #e9ecef;
-            padding-bottom: 2rem;
-        }
+      .example-section {
+        margin-bottom: 3rem;
+        border-bottom: 2px solid #e9ecef;
+        padding-bottom: 2rem;
+      }
 
-        .example-section:last-child {
-            border-bottom: none;
-        }
+      .example-section:last-child {
+        border-bottom: none;
+      }
 
-        .section-header {
-            display: flex;
-            align-items: center;
-            margin-bottom: 1.5rem;
-        }
+      .section-header {
+        display: flex;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
 
-        .section-icon {
-            font-size: 2rem;
-            margin-right: 1rem;
-        }
+      .section-icon {
+        font-size: 2rem;
+        margin-right: 1rem;
+      }
 
-        .section-title {
-            font-size: 2rem;
-            color: #2c3e50;
-            margin: 0;
-        }
+      .section-title {
+        font-size: 2rem;
+        color: #2c3e50;
+        margin: 0;
+      }
 
-        .tutorial-card {
-            background: #f8f9fa;
-            border-left: 4px solid #3498db;
-            padding: 1.5rem;
-            margin-bottom: 1.5rem;
-            border-radius: 4px;
-        }
+      .tutorial-card {
+        background: #f8f9fa;
+        border-left: 4px solid #3498db;
+        padding: 1.5rem;
+        margin-bottom: 1.5rem;
+        border-radius: 4px;
+      }
 
-        .tutorial-title {
-            font-size: 1.3rem;
-            font-weight: bold;
-            color: #2c3e50;
-            margin-bottom: 1rem;
-        }
+      .tutorial-title {
+        font-size: 1.3rem;
+        font-weight: bold;
+        color: #2c3e50;
+        margin-bottom: 1rem;
+      }
 
-        .tutorial-description {
-            margin-bottom: 1rem;
-            line-height: 1.6;
-        }
+      .tutorial-description {
+        margin-bottom: 1rem;
+        line-height: 1.6;
+      }
 
-        .difficulty-badge {
-            display: inline-block;
-            padding: 0.25rem 0.75rem;
-            border-radius: 12px;
-            font-size: 0.75rem;
-            font-weight: bold;
-            margin-bottom: 1rem;
-        }
+      .difficulty-badge {
+        display: inline-block;
+        padding: 0.25rem 0.75rem;
+        border-radius: 12px;
+        font-size: 0.75rem;
+        font-weight: bold;
+        margin-bottom: 1rem;
+      }
 
-        .difficulty-beginner {
-            background: #27ae60;
-            color: white;
-        }
+      .difficulty-beginner {
+        background: #27ae60;
+        color: white;
+      }
 
-        .difficulty-intermediate {
-            background: #f39c12;
-            color: white;
-        }
+      .difficulty-intermediate {
+        background: #f39c12;
+        color: white;
+      }
 
-        .difficulty-advanced {
-            background: #e74c3c;
-            color: white;
-        }
+      .difficulty-advanced {
+        background: #e74c3c;
+        color: white;
+      }
 
-        .code-example {
-            background: #1e1e1e;
-            border-radius: 4px;
-            padding: 1rem;
-            margin: 1rem 0;
-            overflow-x: auto;
-        }
+      .code-example {
+        background: #1e1e1e;
+        border-radius: 4px;
+        padding: 1rem;
+        margin: 1rem 0;
+        overflow-x: auto;
+      }
 
+      .file-tabs {
+        display: flex;
+        background: #f8f9fa;
+        border-radius: 8px 8px 0 0;
+        overflow: hidden;
+        margin-top: 1rem;
+      }
+
+      .file-tab {
+        padding: 0.75rem 1rem;
+        background: #34495e;
+        color: white;
+        border: none;
+        cursor: pointer;
+        font-size: 0.9rem;
+        transition: background 0.3s;
+      }
+
+      .file-tab.active {
+        background: #2c3e50;
+      }
+
+      .file-content {
+        display: none;
+        background: #1e1e1e;
+        padding: 1rem;
+        border-radius: 0 0 8px 8px;
+        overflow-x: auto;
+      }
+
+      .file-content.active {
+        display: block;
+      }
+
+      .step-list {
+        counter-reset: step-counter;
+        list-style: none;
+        padding: 0;
+      }
+
+      .step-list li {
+        counter-increment: step-counter;
+        margin-bottom: 1.5rem;
+        padding-left: 3rem;
+        position: relative;
+      }
+
+      .step-list li::before {
+        content: counter(step-counter);
+        position: absolute;
+        left: 0;
+        top: 0;
+        background: #3498db;
+        color: white;
+        width: 2rem;
+        height: 2rem;
+        border-radius: 50%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        font-weight: bold;
+        font-size: 0.9rem;
+      }
+
+      .tip-box {
+        background: #e8f6f3;
+        border: 2px solid #27ae60;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+      }
+
+      .tip-box h4 {
+        color: #27ae60;
+        margin-bottom: 0.5rem;
+      }
+
+      .warning-box {
+        background: #fff3cd;
+        border: 2px solid #ffc107;
+        border-radius: 8px;
+        padding: 1rem;
+        margin: 1rem 0;
+      }
+
+      .warning-box h4 {
+        color: #856404;
+        margin-bottom: 0.5rem;
+      }
+
+      .demo-project {
+        background: #e3f2fd;
+        border: 2px solid #2196f3;
+        border-radius: 8px;
+        padding: 1.5rem;
+        margin: 1rem 0;
+      }
+
+      .demo-project h4 {
+        color: #1976d2;
+        margin-bottom: 1rem;
+      }
+
+      .btn {
+        display: inline-block;
+        padding: 0.75rem 1.5rem;
+        background: #3498db;
+        color: white;
+        text-decoration: none;
+        border-radius: 4px;
+        font-weight: bold;
+        transition: background 0.3s;
+      }
+
+      .btn:hover {
+        background: #2980b9;
+        text-decoration: none;
+        color: white;
+      }
+
+      .btn-secondary {
+        background: #6c757d;
+      }
+
+      .btn-secondary:hover {
+        background: #5a6268;
+      }
+
+      @media (max-width: 768px) {
         .file-tabs {
-            display: flex;
-            background: #f8f9fa;
-            border-radius: 8px 8px 0 0;
-            overflow: hidden;
-            margin-top: 1rem;
+          flex-direction: column;
         }
-
-        .file-tab {
-            padding: 0.75rem 1rem;
-            background: #34495e;
-            color: white;
-            border: none;
-            cursor: pointer;
-            font-size: 0.9rem;
-            transition: background 0.3s;
-        }
-
-        .file-tab.active {
-            background: #2c3e50;
-        }
-
-        .file-content {
-            display: none;
-            background: #1e1e1e;
-            padding: 1rem;
-            border-radius: 0 0 8px 8px;
-            overflow-x: auto;
-        }
-
-        .file-content.active {
-            display: block;
-        }
-
-        .step-list {
-            counter-reset: step-counter;
-            list-style: none;
-            padding: 0;
-        }
-
-        .step-list li {
-            counter-increment: step-counter;
-            margin-bottom: 1.5rem;
-            padding-left: 3rem;
-            position: relative;
-        }
-
-        .step-list li::before {
-            content: counter(step-counter);
-            position: absolute;
-            left: 0;
-            top: 0;
-            background: #3498db;
-            color: white;
-            width: 2rem;
-            height: 2rem;
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            font-weight: bold;
-            font-size: 0.9rem;
-        }
-
-        .tip-box {
-            background: #e8f6f3;
-            border: 2px solid #27ae60;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-
-        .tip-box h4 {
-            color: #27ae60;
-            margin-bottom: 0.5rem;
-        }
-
-        .warning-box {
-            background: #fff3cd;
-            border: 2px solid #ffc107;
-            border-radius: 8px;
-            padding: 1rem;
-            margin: 1rem 0;
-        }
-
-        .warning-box h4 {
-            color: #856404;
-            margin-bottom: 0.5rem;
-        }
-
-        .demo-project {
-            background: #e3f2fd;
-            border: 2px solid #2196f3;
-            border-radius: 8px;
-            padding: 1.5rem;
-            margin: 1rem 0;
-        }
-
-        .demo-project h4 {
-            color: #1976d2;
-            margin-bottom: 1rem;
-        }
-
-        .btn {
-            display: inline-block;
-            padding: 0.75rem 1.5rem;
-            background: #3498db;
-            color: white;
-            text-decoration: none;
-            border-radius: 4px;
-            font-weight: bold;
-            transition: background 0.3s;
-        }
-
-        .btn:hover {
-            background: #2980b9;
-            text-decoration: none;
-            color: white;
-        }
-
-        .btn-secondary {
-            background: #6c757d;
-        }
-
-        .btn-secondary:hover {
-            background: #5a6268;
-        }
-
-        @media (max-width: 768px) {
-            .file-tabs {
-                flex-direction: column;
-            }
-        }
+      }
     </style>
-</head>
-<body>
+  </head>
+  <body>
     <nav class="navbar">
-        <div class="container">
-            <a href="index.html" class="logo">🏆 Cuppet Core</a>
-            <nav>
-                <ul>
-                    <li><a href="index.html">Home</a></li>
-                    <li><a href="api-docs.html">API Docs</a></li>
-                    <li><a href="step-definitions.html">Step Definitions</a></li>
-                    <li><a href="configuration.html">Configuration</a></li>
-                    <li><a href="examples.html">Examples</a></li>
-                    <li><a href="https://github.com/MiroslavRusev/cuppet-core">GitHub</a></li>
-                </ul>
-            </nav>
-        </div>
+      <div class="container">
+        <a href="index.html" class="logo">🏆 Cuppet Core</a>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="api-docs.html">API Docs</a></li>
+            <li><a href="step-definitions.html">Step Definitions</a></li>
+            <li><a href="configuration.html">Configuration</a></li>
+            <li><a href="examples.html">Examples</a></li>
+            <li><a href="https://github.com/MiroslavRusev/cuppet-core">GitHub</a></li>
+          </ul>
+        </nav>
+      </div>
     </nav>
 
     <div class="container">
-        <div class="main-content">
-            <div class="hero">
-                <h1>Examples & Tutorials</h1>
-                <p>Learn Cuppet Core through practical examples and step-by-step tutorials</p>
+      <div class="main-content">
+        <div class="hero">
+          <h1>Examples & Tutorials</h1>
+          <p>Learn Cuppet Core through practical examples and step-by-step tutorials</p>
+        </div>
+
+        <!-- Getting Started -->
+        <div class="example-section">
+          <div class="section-header">
+            <div class="section-icon">🚀</div>
+            <h2 class="section-title">Getting Started</h2>
+          </div>
+
+          <div class="demo-project">
+            <h4>🎯 Quick Start with Template Repository</h4>
+            <p>
+              The fastest way to get started is using the
+              <a href="https://github.com/MiroslavRusev/cuppet" style="color: #1976d2; text-decoration: none; font-weight: bold">
+                Cuppet Template Repository
+              </a>
+              . It includes:
+            </p>
+            <ul style="margin: 1rem 0; padding-left: 2rem">
+              <li>Complete project structure with examples</li>
+              <li>Pre-configured environments (dev, staging, production)</li>
+              <li>Ready-to-run test suites</li>
+              <li>GitHub Actions CI/CD workflows</li>
+              <li>Best practices and documentation</li>
+            </ul>
+            <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem">
+              <a href="https://github.com/MiroslavRusev/cuppet" class="btn">Use Template Repository</a>
+              <a href="https://github.com/MiroslavRusev/cuppet/generate" class="btn btn-secondary">Generate from Template</a>
             </div>
+          </div>
 
-            <!-- Getting Started -->
-            <div class="example-section">
-                <div class="section-header">
-                    <div class="section-icon">🚀</div>
-                    <h2 class="section-title">Getting Started</h2>
-                </div>
+          <div class="tutorial-card">
+            <div class="difficulty-badge difficulty-beginner">BEGINNER</div>
+            <div class="tutorial-title">Quick Start with Template Repository</div>
+            <div class="tutorial-description">Get up and running in minutes using the pre-configured template with examples and best practices.</div>
 
-                <div class="demo-project">
-                    <h4>🎯 Quick Start with Template Repository</h4>
-                    <p>The fastest way to get started is using the <a href="https://github.com/MiroslavRusev/cuppet" style="color: #1976d2; text-decoration: none; font-weight: bold;">Cuppet Template Repository</a>. It includes:</p>
-                    <ul style="margin: 1rem 0; padding-left: 2rem;">
-                        <li>Complete project structure with examples</li>
-                        <li>Pre-configured environments (dev, staging, production)</li>
-                        <li>Ready-to-run test suites</li>
-                        <li>GitHub Actions CI/CD workflows</li>
-                        <li>Best practices and documentation</li>
-                    </ul>
-                    <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
-                        <a href="https://github.com/MiroslavRusev/cuppet" class="btn">Use Template Repository</a>
-                        <a href="https://github.com/MiroslavRusev/cuppet/generate" class="btn btn-secondary">Generate from Template</a>
-                    </div>
-                </div>
-
-                <div class="tutorial-card">
-                    <div class="difficulty-badge difficulty-beginner">BEGINNER</div>
-                    <div class="tutorial-title">Quick Start with Template Repository</div>
-                    <div class="tutorial-description">Get up and running in minutes using the pre-configured template with examples and best practices.</div>
-                    
-                    <ol class="step-list">
-                        <li><strong>Create from Template:</strong> Use the template repository to create your project
-                            <div class="code-example">
-                                <pre><code class="language-bash"># Option 1: Clone directly
+            <ol class="step-list">
+              <li>
+                <strong>Create from Template:</strong>
+                Use the template repository to create your project
+                <div class="code-example">
+                  <pre><code class="language-bash"># Option 1: Clone directly
 git clone https://github.com/MiroslavRusev/cuppet.git my-test-project
 cd my-test-project
 
 # Option 2: Use GitHub template feature
 # Visit: https://github.com/MiroslavRusev/cuppet/generate</code></pre>
-                            </div>
-                        </li>
-                        <li><strong>Install Dependencies:</strong> Set up the project dependencies
-                            <div class="code-example">
-                                <pre><code class="language-bash">yarn install</code></pre>
-                            </div>
-                        </li>
-                        <li><strong>Explore the Structure:</strong> The template includes organized folders and examples
-                            <div class="code-example">
-                                <pre><code>project/
+                </div>
+              </li>
+              <li>
+                <strong>Install Dependencies:</strong>
+                Set up the project dependencies
+                <div class="code-example">
+                  <pre><code class="language-bash">yarn install</code></pre>
+                </div>
+              </li>
+              <li>
+                <strong>Explore the Structure:</strong>
+                The template includes organized folders and examples
+                <div class="code-example">
+                  <pre><code>project/
 ├── config/           # Environment configurations
 ├── features/
 │   ├── app/         # Custom components & step definitions
@@ -383,50 +395,61 @@ cd my-test-project
 ├── jsonFiles/       # Test data storage
 ├── reports/         # Test reports
 └── screenshots/     # Failure screenshots</code></pre>
-                            </div>
-                        </li>
-                        <li><strong>Run Example Tests:</strong> Execute the pre-configured test suite
-                            <div class="code-example">
-                                <pre><code class="language-bash"># Run all example tests in development environment
+                </div>
+              </li>
+              <li>
+                <strong>Run Example Tests:</strong>
+                Execute the pre-configured test suite
+                <div class="code-example">
+                  <pre><code class="language-bash"># Run all example tests in development environment
 yarn test exampleAll dev features/tests
 
 # Run specific feature file
 yarn test exampleAll dev features/tests/example.feature</code></pre>
-                            </div>
-                        </li>
-                        <li><strong>Customize for Your Project:</strong> Modify configurations and add your tests
-                            <ul style="margin-top: 0.5rem; list-style-type: disc; margin-left: 1.5rem;">
-                                <li>Update `config/default.json` with your application URL</li>
-                                <li>Add your feature files in `features/tests/`</li>
-                                <li>Define custom selectors in `features/app/commonComponents/`</li>
-                                <li>Add project-specific step definitions if needed</li>
-                            </ul>
-                        </li>
-                    </ol>
-
-                    <div class="tip-box">
-                        <h4>💡 Template Benefits</h4>
-                        <p>The template repository includes pre-configured examples for web testing, API testing, mobile testing, accessibility audits, and performance testing. It also includes GitHub Actions workflows for CI/CD integration.</p>
-                    </div>
                 </div>
+              </li>
+              <li>
+                <strong>Customize for Your Project:</strong>
+                Modify configurations and add your tests
+                <ul style="margin-top: 0.5rem; list-style-type: disc; margin-left: 1.5rem">
+                  <li>Update `config/default.json` with your application URL</li>
+                  <li>Add your feature files in `features/tests/`</li>
+                  <li>Define custom selectors in `features/app/commonComponents/`</li>
+                  <li>Add project-specific step definitions if needed</li>
+                </ul>
+              </li>
+            </ol>
 
-                <div class="tutorial-card">
-                    <div class="difficulty-badge difficulty-beginner">BEGINNER</div>
-                    <div class="tutorial-title">Manual Setup - Your First Test</div>
-                    <div class="tutorial-description">Learn how to manually set up Cuppet Core from scratch and write your first web automation test.</div>
-                    
-                    <ol class="step-list">
-                        <li><strong>Install Cuppet Core:</strong> Add the package to your project
-                            <div class="code-example">
-                                <pre><code class="language-bash">yarn add @cuppet/core @cucumber/cucumber config</code></pre>
-                            </div>
-                        </li>
-                        <li><strong>Create Configuration:</strong> Set up your test configuration
-                            <div class="file-tabs">
-                                <button class="file-tab active" onclick="showFile(event, 'config-default')">config/default.json</button>
-                            </div>
-                            <div id="config-default" class="file-content active">
-                                <pre><code class="language-json">{
+            <div class="tip-box">
+              <h4>💡 Template Benefits</h4>
+              <p>
+                The template repository includes pre-configured examples for web testing, API testing, mobile testing, accessibility audits, and
+                performance testing. It also includes GitHub Actions workflows for CI/CD integration.
+              </p>
+            </div>
+          </div>
+
+          <div class="tutorial-card">
+            <div class="difficulty-badge difficulty-beginner">BEGINNER</div>
+            <div class="tutorial-title">Manual Setup - Your First Test</div>
+            <div class="tutorial-description">Learn how to manually set up Cuppet Core from scratch and write your first web automation test.</div>
+
+            <ol class="step-list">
+              <li>
+                <strong>Install Cuppet Core:</strong>
+                Add the package to your project
+                <div class="code-example">
+                  <pre><code class="language-bash">yarn add @cuppet/core @cucumber/cucumber config</code></pre>
+                </div>
+              </li>
+              <li>
+                <strong>Create Configuration:</strong>
+                Set up your test configuration
+                <div class="file-tabs">
+                  <button class="file-tab active" onclick="showFile(event, 'config-default')">config/default.json</button>
+                </div>
+                <div id="config-default" class="file-content active">
+                  <pre><code class="language-json">{
   "jsonFilePath": "jsonFiles/test-data.json",
   "screenshotsPath": "screenshots/",
   "credentials": {
@@ -439,14 +462,16 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     }
   }
 }</code></pre>
-                            </div>
-                        </li>
-                        <li><strong>Configure Cucumber:</strong> Set up Cucumber to use Cuppet Core step definitions
-                            <div class="file-tabs">
-                                <button class="file-tab active" onclick="showFile(event, 'cucumber-config')">cucumber.js</button>
-                            </div>
-                            <div id="cucumber-config" class="file-content active">
-                                <pre><code class="language-javascript">module.exports = {
+                </div>
+              </li>
+              <li>
+                <strong>Configure Cucumber:</strong>
+                Set up Cucumber to use Cuppet Core step definitions
+                <div class="file-tabs">
+                  <button class="file-tab active" onclick="showFile(event, 'cucumber-config')">cucumber.js</button>
+                </div>
+                <div id="cucumber-config" class="file-content active">
+                  <pre><code class="language-javascript">module.exports = {
     default: {
         requireModule: ['@cuppet/core'],
         require: [
@@ -459,14 +484,16 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
         }
     }
 };</code></pre>
-                            </div>
-                        </li>
-                        <li><strong>Write Your First Feature:</strong> Create a simple test scenario
-                            <div class="file-tabs">
-                                <button class="file-tab active" onclick="showFile(event, 'first-feature')">features/first-test.feature</button>
-                            </div>
-                            <div id="first-feature" class="file-content active">
-                                <pre><code class="language-gherkin">Feature: First Test
+                </div>
+              </li>
+              <li>
+                <strong>Write Your First Feature:</strong>
+                Create a simple test scenario
+                <div class="file-tabs">
+                  <button class="file-tab active" onclick="showFile(event, 'first-feature')">features/first-test.feature</button>
+                </div>
+                <div id="first-feature" class="file-content active">
+                  <pre><code class="language-gherkin">Feature: First Test
   As a new user of Cuppet Core
   I want to test basic functionality
   So that I can understand how the framework works
@@ -475,40 +502,45 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     Given I go to "/"
     Then I should see "ToolsQA"
     And I should see the element with selector "h1"</code></pre>
-                            </div>
-                        </li>
-                        <li><strong>Run Your Test:</strong> Execute the test
-                            <div class="code-example">
-                                <pre><code class="language-bash">npx cucumber-js</code></pre>
-                            </div>
-                        </li>
-                    </ol>
-
-                    <div class="tip-box">
-                        <h4>💡 Pro Tip</h4>
-                        <p>Start with simple navigation and visibility tests before moving to complex interactions. This helps you understand the framework's capabilities.</p>
-                    </div>
                 </div>
+              </li>
+              <li>
+                <strong>Run Your Test:</strong>
+                Execute the test
+                <div class="code-example">
+                  <pre><code class="language-bash">npx cucumber-js</code></pre>
+                </div>
+              </li>
+            </ol>
+
+            <div class="tip-box">
+              <h4>💡 Pro Tip</h4>
+              <p>
+                Start with simple navigation and visibility tests before moving to complex interactions. This helps you understand the framework's
+                capabilities.
+              </p>
             </div>
+          </div>
+        </div>
 
-            <!-- Web Testing -->
-            <div class="example-section">
-                <div class="section-header">
-                    <div class="section-icon">🌐</div>
-                    <h2 class="section-title">Web Testing Examples</h2>
-                </div>
+        <!-- Web Testing -->
+        <div class="example-section">
+          <div class="section-header">
+            <div class="section-icon">🌐</div>
+            <h2 class="section-title">Web Testing Examples</h2>
+          </div>
 
-                <div class="tutorial-card">
-                    <div class="difficulty-badge difficulty-intermediate">INTERMEDIATE</div>
-                    <div class="tutorial-title">Complete Form Testing</div>
-                    <div class="tutorial-description">Learn how to test complex forms with validations, dropdowns, and file uploads.</div>
-                    
-                    <div class="file-tabs">
-                        <button class="file-tab active" onclick="showFile(event, 'form-feature')">form-testing.feature</button>
-                        <button class="file-tab" onclick="showFile(event, 'form-config')">config/form-test.json</button>
-                    </div>
-                    <div id="form-feature" class="file-content active">
-                        <pre><code class="language-gherkin">Feature: Form Testing
+          <div class="tutorial-card">
+            <div class="difficulty-badge difficulty-intermediate">INTERMEDIATE</div>
+            <div class="tutorial-title">Complete Form Testing</div>
+            <div class="tutorial-description">Learn how to test complex forms with validations, dropdowns, and file uploads.</div>
+
+            <div class="file-tabs">
+              <button class="file-tab active" onclick="showFile(event, 'form-feature')">form-testing.feature</button>
+              <button class="file-tab" onclick="showFile(event, 'form-config')">config/form-test.json</button>
+            </div>
+            <div id="form-feature" class="file-content active">
+              <pre><code class="language-gherkin">Feature: Form Testing
   
   Background:
     Given I go to "/automation-practice-form"
@@ -532,9 +564,9 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     When I click on the element "#submit"
     Then I should see the element with selector ".was-validated"
     And I should see "Please fill out this field"</code></pre>
-                    </div>
-                    <div id="form-config" class="file-content">
-                        <pre><code class="language-json">{
+            </div>
+            <div id="form-config" class="file-content">
+              <pre><code class="language-json">{
   "jsonFilePath": "jsonFiles/form-data.json",
   "screenshotsPath": "screenshots/forms/",
   "credentials": {
@@ -548,19 +580,19 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     }
   }
 }</code></pre>
-                    </div>
-                </div>
+            </div>
+          </div>
 
-                <div class="tutorial-card">
-                    <div class="difficulty-badge difficulty-beginner">BEGINNER</div>
-                    <div class="tutorial-title">E-commerce Testing</div>
-                    <div class="tutorial-description">Test product browsing, cart functionality, and checkout process.</div>
-                    
-                    <div class="file-tabs">
-                        <button class="file-tab active" onclick="showFile(event, 'ecommerce-feature')">ecommerce.feature</button>
-                    </div>
-                    <div id="ecommerce-feature" class="file-content active">
-                        <pre><code class="language-gherkin">Feature: E-commerce Testing
+          <div class="tutorial-card">
+            <div class="difficulty-badge difficulty-beginner">BEGINNER</div>
+            <div class="tutorial-title">E-commerce Testing</div>
+            <div class="tutorial-description">Test product browsing, cart functionality, and checkout process.</div>
+
+            <div class="file-tabs">
+              <button class="file-tab active" onclick="showFile(event, 'ecommerce-feature')">ecommerce.feature</button>
+            </div>
+            <div id="ecommerce-feature" class="file-content active">
+              <pre><code class="language-gherkin">Feature: E-commerce Testing
 
   Scenario: Add product to cart and checkout
     Given I go to "/books"
@@ -583,28 +615,28 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     And I press key "Enter"
     Then I should see "Learning JavaScript Design Patterns"
     And I should not see "Git Pocket Guide"</code></pre>
-                    </div>
-                </div>
             </div>
+          </div>
+        </div>
 
-            <!-- API Testing -->
-            <div class="example-section">
-                <div class="section-header">
-                    <div class="section-icon">🌍</div>
-                    <h2 class="section-title">API Testing Examples</h2>
-                </div>
+        <!-- API Testing -->
+        <div class="example-section">
+          <div class="section-header">
+            <div class="section-icon">🌍</div>
+            <h2 class="section-title">API Testing Examples</h2>
+          </div>
 
-                <div class="tutorial-card">
-                    <div class="difficulty-badge difficulty-intermediate">INTERMEDIATE</div>
-                    <div class="tutorial-title">RESTful API Testing</div>
-                    <div class="tutorial-description">Test REST API endpoints with authentication, data validation, and error handling.</div>
-                    
-                    <div class="file-tabs">
-                        <button class="file-tab active" onclick="showFile(event, 'api-feature')">api-testing.feature</button>
-                        <button class="file-tab" onclick="showFile(event, 'api-config')">config/api.json</button>
-                    </div>
-                    <div id="api-feature" class="file-content active">
-                        <pre><code class="language-gherkin">Feature: API Testing
+          <div class="tutorial-card">
+            <div class="difficulty-badge difficulty-intermediate">INTERMEDIATE</div>
+            <div class="tutorial-title">RESTful API Testing</div>
+            <div class="tutorial-description">Test REST API endpoints with authentication, data validation, and error handling.</div>
+
+            <div class="file-tabs">
+              <button class="file-tab active" onclick="showFile(event, 'api-feature')">api-testing.feature</button>
+              <button class="file-tab" onclick="showFile(event, 'api-config')">config/api.json</button>
+            </div>
+            <div id="api-feature" class="file-content active">
+              <pre><code class="language-gherkin">Feature: API Testing
 
   Background:
     Given I have request body
@@ -649,9 +681,9 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     """
     When I send a "POST" request to "/BookStore/v1/Books"
     Then the response code should be "201"</code></pre>
-                    </div>
-                    <div id="api-config" class="file-content">
-                        <pre><code class="language-json">{
+            </div>
+            <div id="api-config" class="file-content">
+              <pre><code class="language-json">{
   "jsonFilePath": "jsonFiles/api-data.json",
   "api": {
     "baseApiUrl": "https://bookstore.toolsqa.com/",
@@ -662,28 +694,28 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     "authPass": "Test@123"
   }
 }</code></pre>
-                    </div>
-                </div>
             </div>
+          </div>
+        </div>
 
-            <!-- Mobile Testing -->
-            <div class="example-section">
-                <div class="section-header">
-                    <div class="section-icon">📱</div>
-                    <h2 class="section-title">Mobile Testing Examples</h2>
-                </div>
+        <!-- Mobile Testing -->
+        <div class="example-section">
+          <div class="section-header">
+            <div class="section-icon">📱</div>
+            <h2 class="section-title">Mobile Testing Examples</h2>
+          </div>
 
-                <div class="tutorial-card">
-                    <div class="difficulty-badge difficulty-advanced">ADVANCED</div>
-                    <div class="tutorial-title">Android App Testing</div>
-                    <div class="tutorial-description">Test native Android applications using Appium integration.</div>
-                    
-                    <div class="file-tabs">
-                        <button class="file-tab active" onclick="showFile(event, 'mobile-feature')">mobile-testing.feature</button>
-                        <button class="file-tab" onclick="showFile(event, 'mobile-config')">config/mobile.json</button>
-                    </div>
-                    <div id="mobile-feature" class="file-content active">
-                        <pre><code class="language-gherkin">Feature: Mobile App Testing
+          <div class="tutorial-card">
+            <div class="difficulty-badge difficulty-advanced">ADVANCED</div>
+            <div class="tutorial-title">Android App Testing</div>
+            <div class="tutorial-description">Test native Android applications using Appium integration.</div>
+
+            <div class="file-tabs">
+              <button class="file-tab active" onclick="showFile(event, 'mobile-feature')">mobile-testing.feature</button>
+              <button class="file-tab" onclick="showFile(event, 'mobile-config')">config/mobile.json</button>
+            </div>
+            <div id="mobile-feature" class="file-content active">
+              <pre><code class="language-gherkin">Feature: Mobile App Testing
 
   Scenario: Launch calculator app and perform calculation
     Given I go to "com.android.calculator2" app package and ".Calculator" activity
@@ -698,9 +730,9 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     When I scroll to the element "text:About phone" on mobile
     And I click on the element "text:About phone" on mobile
     Then I should see "Android version" on mobile</code></pre>
-                    </div>
-                    <div id="mobile-config" class="file-content">
-                        <pre><code class="language-json">{
+            </div>
+            <div id="mobile-config" class="file-content">
+              <pre><code class="language-json">{
   "jsonFilePath": "jsonFiles/mobile-data.json",
   "screenshotsPath": "screenshots/mobile/",
   "appiumCapabilities": {
@@ -713,33 +745,33 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     "appium:connectHardwareKeyboard": true
   }
 }</code></pre>
-                    </div>
-                </div>
-
-                <div class="warning-box">
-                    <h4>⚠️ Prerequisites for Mobile Testing</h4>
-                    <p>Make sure you have Android SDK, Appium Server, and a connected device or emulator before running mobile tests.</p>
-                </div>
             </div>
+          </div>
 
-            <!-- Advanced Features -->
-            <div class="example-section">
-                <div class="section-header">
-                    <div class="section-icon">🔧</div>
-                    <h2 class="section-title">Advanced Features</h2>
-                </div>
+          <div class="warning-box">
+            <h4>⚠️ Prerequisites for Mobile Testing</h4>
+            <p>Make sure you have Android SDK, Appium Server, and a connected device or emulator before running mobile tests.</p>
+          </div>
+        </div>
 
-                <div class="tutorial-card">
-                    <div class="difficulty-badge difficulty-advanced">ADVANCED</div>
-                    <div class="tutorial-title">Accessibility & Performance Testing</div>
-                    <div class="tutorial-description">Combine accessibility testing with performance audits for comprehensive quality assurance.</div>
-                    
-                    <div class="file-tabs">
-                        <button class="file-tab active" onclick="showFile(event, 'quality-feature')">quality-assurance.feature</button>
-                        <button class="file-tab" onclick="showFile(event, 'quality-config')">config/quality.json</button>
-                    </div>
-                    <div id="quality-feature" class="file-content active">
-                        <pre><code class="language-gherkin">Feature: Quality Assurance Testing
+        <!-- Advanced Features -->
+        <div class="example-section">
+          <div class="section-header">
+            <div class="section-icon">🔧</div>
+            <h2 class="section-title">Advanced Features</h2>
+          </div>
+
+          <div class="tutorial-card">
+            <div class="difficulty-badge difficulty-advanced">ADVANCED</div>
+            <div class="tutorial-title">Accessibility & Performance Testing</div>
+            <div class="tutorial-description">Combine accessibility testing with performance audits for comprehensive quality assurance.</div>
+
+            <div class="file-tabs">
+              <button class="file-tab active" onclick="showFile(event, 'quality-feature')">quality-assurance.feature</button>
+              <button class="file-tab" onclick="showFile(event, 'quality-config')">config/quality.json</button>
+            </div>
+            <div id="quality-feature" class="file-content active">
+              <pre><code class="language-gherkin">Feature: Quality Assurance Testing
 
   Background:
     Given I go to "/"
@@ -765,9 +797,9 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     And I generate lighthouse report for the saved page
     And I generate reference screenshot for "/forms/dynamic-form"
     Then I should see "Quality audit completed"</code></pre>
-                    </div>
-                    <div id="quality-config" class="file-content">
-                        <pre><code class="language-json">{
+            </div>
+            <div id="quality-config" class="file-content">
+              <pre><code class="language-json">{
   "jsonFilePath": "jsonFiles/quality-data.json",
   "screenshotsPath": "screenshots/quality/",
   "credentials": {
@@ -785,19 +817,19 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     "runners": ["axe", "htmlcs"]
   }
 }</code></pre>
-                    </div>
-                </div>
+            </div>
+          </div>
 
-                <div class="tutorial-card">
-                    <div class="difficulty-badge difficulty-intermediate">INTERMEDIATE</div>
-                    <div class="tutorial-title">Data-Driven Testing</div>
-                    <div class="tutorial-description">Use variables and JSON data storage for flexible, reusable test scenarios.</div>
-                    
-                    <div class="file-tabs">
-                        <button class="file-tab active" onclick="showFile(event, 'data-feature')">data-driven.feature</button>
-                    </div>
-                    <div id="data-feature" class="file-content active">
-                        <pre><code class="language-gherkin">Feature: Data-Driven Testing
+          <div class="tutorial-card">
+            <div class="difficulty-badge difficulty-intermediate">INTERMEDIATE</div>
+            <div class="tutorial-title">Data-Driven Testing</div>
+            <div class="tutorial-description">Use variables and JSON data storage for flexible, reusable test scenarios.</div>
+
+            <div class="file-tabs">
+              <button class="file-tab active" onclick="showFile(event, 'data-feature')">data-driven.feature</button>
+            </div>
+            <div id="data-feature" class="file-content active">
+              <pre><code class="language-gherkin">Feature: Data-Driven Testing
 
   Background:
     Given I clear the json file
@@ -813,9 +845,9 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
 
   Scenario Outline: Multiple user registration
     Given I go to "/register"
-    When I fill in "#firstName" with "<firstName>"
-    And I fill in "#lastName" with "<lastName>"
-    And I fill in "#email" with "<email>"
+    When I fill in "#firstName" with "{firstName}"
+    And I fill in "#lastName" with "{lastName}"
+    And I fill in "#email" with "{email}"
     And I click on the element "#register"
     Then I should see "Registration successful"
     
@@ -823,37 +855,42 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
       | firstName | lastName | email                |
       | John      | Doe      | john.doe@test.com    |
       | Jane      | Smith    | jane.smith@test.com  |
-      | Bob       | Johnson  | bob.johnson@test.com |</code></pre>
-                    </div>
-                </div>
+      | Bob       | Johnson  | bob.johnson@test.com |
+    </code></pre>
             </div>
+          </div>
+        </div>
 
-            <!-- Demo Projects -->
-            <div class="demo-project">
-                <h4>🎯 Complete Demo Projects & Templates</h4>
-                <p>Ready-to-run projects demonstrating real-world testing scenarios:</p>
-                <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem;">
-                    <a href="https://github.com/MiroslavRusev/cuppet" class="btn">🚀 Complete Template Repository</a>
-                    <a href="https://github.com/MiroslavRusev/cuppet-core/tree/main/examples/ecommerce" class="btn btn-secondary">E-commerce Testing Suite</a>
-                    <a href="https://github.com/MiroslavRusev/cuppet-core/tree/main/examples/api" class="btn btn-secondary">API Testing Examples</a>
-                    <a href="https://github.com/MiroslavRusev/cuppet-core/tree/main/examples/mobile" class="btn btn-secondary">Mobile App Testing</a>
-                </div>
-                <p style="margin-top: 1rem; font-size: 0.9rem; color: #666;">
-                    💡 <strong>New to Cuppet?</strong> Start with the <a href="https://github.com/MiroslavRusev/cuppet" style="color: #3498db;">Template Repository</a> for the fastest setup with pre-configured examples, environments, and CI/CD workflows.
-                </p>
-            </div>
+        <!-- Demo Projects -->
+        <div class="demo-project">
+          <h4>🎯 Complete Demo Projects & Templates</h4>
+          <p>Ready-to-run projects demonstrating real-world testing scenarios:</p>
+          <div style="display: flex; gap: 1rem; flex-wrap: wrap; margin-top: 1rem">
+            <a href="https://github.com/MiroslavRusev/cuppet" class="btn">🚀 Complete Template Repository</a>
+            <a href="https://github.com/MiroslavRusev/cuppet-core/tree/main/examples/ecommerce" class="btn btn-secondary">E-commerce Testing Suite</a>
+            <a href="https://github.com/MiroslavRusev/cuppet-core/tree/main/examples/api" class="btn btn-secondary">API Testing Examples</a>
+            <a href="https://github.com/MiroslavRusev/cuppet-core/tree/main/examples/mobile" class="btn btn-secondary">Mobile App Testing</a>
+          </div>
+          <p style="margin-top: 1rem; font-size: 0.9rem; color: #666">
+            💡
+            <strong>New to Cuppet?</strong>
+            Start with the
+            <a href="https://github.com/MiroslavRusev/cuppet" style="color: #3498db">Template Repository</a>
+            for the fastest setup with pre-configured examples, environments, and CI/CD workflows.
+          </p>
+        </div>
 
-            <!-- Best Practices -->
-            <div class="example-section">
-                <div class="section-header">
-                    <div class="section-icon">💡</div>
-                    <h2 class="section-title">Best Practices</h2>
-                </div>
+        <!-- Best Practices -->
+        <div class="example-section">
+          <div class="section-header">
+            <div class="section-icon">💡</div>
+            <h2 class="section-title">Best Practices</h2>
+          </div>
 
-                <div class="tip-box">
-                    <h4>🏗️ Project Structure</h4>
-                    <div class="code-example">
-                        <pre><code>project/
+          <div class="tip-box">
+            <h4>🏗️ Project Structure</h4>
+            <div class="code-example">
+              <pre><code>project/
 ├── config/
 │   ├── default.json
 │   ├── development.json
@@ -872,61 +909,61 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
 ├── reports/
 ├── cucumber.js
 └── package.json</code></pre>
-                    </div>
-                </div>
-
-                <div class="tip-box">
-                    <h4>📝 Writing Maintainable Tests</h4>
-                    <ul>
-                        <li>Use descriptive scenario names and step descriptions</li>
-                        <li>Keep scenarios focused on single features or user flows</li>
-                        <li>Use Background sections for common setup steps</li>
-                        <li>Leverage data tables and scenario outlines for test variations</li>
-                        <li>Use variables and JSON storage for dynamic data</li>
-                    </ul>
-                </div>
-
-                <div class="tip-box">
-                    <h4>🔧 Configuration Management</h4>
-                    <ul>
-                        <li>Separate configurations for different environments</li>
-                        <li>Use environment variables for sensitive data</li>
-                        <li>Keep base URLs and common selectors in configuration</li>
-                        <li>Document all configuration options for team members</li>
-                    </ul>
-                </div>
             </div>
+          </div>
+
+          <div class="tip-box">
+            <h4>📝 Writing Maintainable Tests</h4>
+            <ul>
+              <li>Use descriptive scenario names and step descriptions</li>
+              <li>Keep scenarios focused on single features or user flows</li>
+              <li>Use Background sections for common setup steps</li>
+              <li>Leverage data tables and scenario outlines for test variations</li>
+              <li>Use variables and JSON storage for dynamic data</li>
+            </ul>
+          </div>
+
+          <div class="tip-box">
+            <h4>🔧 Configuration Management</h4>
+            <ul>
+              <li>Separate configurations for different environments</li>
+              <li>Use environment variables for sensitive data</li>
+              <li>Keep base URLs and common selectors in configuration</li>
+              <li>Document all configuration options for team members</li>
+            </ul>
+          </div>
         </div>
+      </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
     <script>
-        function showFile(evt, fileName) {
-            // Get the parent container of the clicked tab
-            const container = evt.target.closest('.tutorial-card') || evt.target.closest('.example-section');
-            
-            // Hide all file contents in this container
-            const fileContents = container.querySelectorAll('.file-content');
-            fileContents.forEach(content => {
-                content.classList.remove('active');
-            });
-            
-            // Remove active class from all tabs in this container
-            const fileTabs = container.querySelectorAll('.file-tab');
-            fileTabs.forEach(tab => {
-                tab.classList.remove('active');
-            });
-            
-            // Show the selected file content
-            const selectedContent = container.querySelector('#' + fileName);
-            if (selectedContent) {
-                selectedContent.classList.add('active');
-            }
-            
-            // Add active class to clicked tab
-            evt.target.classList.add('active');
+      function showFile(evt, fileName) {
+        // Get the parent container of the clicked tab
+        const container = evt.target.closest('.tutorial-card') || evt.target.closest('.example-section');
+
+        // Hide all file contents in this container
+        const fileContents = container.querySelectorAll('.file-content');
+        fileContents.forEach((content) => {
+          content.classList.remove('active');
+        });
+
+        // Remove active class from all tabs in this container
+        const fileTabs = container.querySelectorAll('.file-tab');
+        fileTabs.forEach((tab) => {
+          tab.classList.remove('active');
+        });
+
+        // Show the selected file content
+        const selectedContent = container.querySelector('#' + fileName);
+        if (selectedContent) {
+          selectedContent.classList.add('active');
         }
+
+        // Add active class to clicked tab
+        evt.target.classList.add('active');
+      }
     </script>
-</body>
+  </body>
 </html>

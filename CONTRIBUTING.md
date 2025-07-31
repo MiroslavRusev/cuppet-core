@@ -39,6 +39,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 ```
 
 #### Types
+
 - `feat`: A new feature
 - `fix`: A bug fix
 - `docs`: Documentation only changes
@@ -49,6 +50,7 @@ This project follows [Conventional Commits](https://www.conventionalcommits.org/
 - `chore`: Changes to the build process or auxiliary tools
 
 #### Examples
+
 ```
 feat: add new accessibility testing step definitions
 fix(api): resolve timeout issue in API response validation
@@ -75,6 +77,7 @@ This project uses [semantic-release](https://github.com/semantic-release/semanti
 - **MAJOR** (x.0.0): Breaking changes (`feat!:` or `fix!:` commits with `BREAKING CHANGE:` in body)
 
 **Important**: You do not need to manually update the version or changelog. The semantic-release workflow will automatically:
+
 - Analyze your commit messages
 - Determine the appropriate version bump
 - Update the CHANGELOG.md
