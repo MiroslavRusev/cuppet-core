@@ -1,0 +1,774 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Configuration Guide - Cuppet Core</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .navbar {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .navbar nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .navbar nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .navbar nav a:hover {
+            color: #3498db;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .main-content {
+            margin-top: 90px;
+            padding: 2rem;
+            background: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .config-section {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 2rem;
+        }
+
+        .config-section:last-child {
+            border-bottom: none;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .section-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .config-property {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+        }
+
+        .property-name {
+            font-family: 'Courier New', monospace;
+            font-size: 1.2rem;
+            font-weight: bold;
+            color: #2c3e50;
+            margin-bottom: 0.5rem;
+        }
+
+        .property-type {
+            display: inline-block;
+            background: #e74c3c;
+            color: white;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .property-type.optional {
+            background: #f39c12;
+        }
+
+        .property-description {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .property-usage {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+        }
+
+        .property-usage h4 {
+            color: #856404;
+            margin-bottom: 0.5rem;
+        }
+
+        .example-code {
+            background: #1e1e1e;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .config-tabs {
+            display: flex;
+            border-bottom: 2px solid #e9ecef;
+            margin-bottom: 2rem;
+        }
+
+        .tab {
+            padding: 1rem 2rem;
+            background: #f8f9fa;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: all 0.3s;
+            border-radius: 8px 8px 0 0;
+            margin-right: 0.5rem;
+        }
+
+        .tab.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .tab-content {
+            display: none;
+        }
+
+        .tab-content.active {
+            display: block;
+        }
+
+        .config-generator {
+            background: #e8f6f3;
+            border: 2px solid #27ae60;
+            padding: 2rem;
+            border-radius: 8px;
+            margin-bottom: 2rem;
+        }
+
+        .config-generator h3 {
+            color: #27ae60;
+            margin-bottom: 1rem;
+        }
+
+        .form-group {
+            margin-bottom: 1rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-weight: bold;
+            margin-bottom: 0.5rem;
+            color: #2c3e50;
+        }
+
+        .form-group input,
+        .form-group select {
+            width: 100%;
+            padding: 0.75rem;
+            border: 2px solid #e9ecef;
+            border-radius: 4px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .btn {
+            display: inline-block;
+            padding: 0.75rem 2rem;
+            background: #3498db;
+            color: white;
+            border: none;
+            border-radius: 4px;
+            cursor: pointer;
+            font-size: 1rem;
+            font-weight: bold;
+            transition: background 0.3s;
+        }
+
+        .btn:hover {
+            background: #2980b9;
+        }
+
+        .generated-config {
+            background: #1e1e1e;
+            color: #f8f9fa;
+            padding: 1.5rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+            overflow-x: auto;
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        @media (max-width: 768px) {
+            .config-tabs {
+                flex-direction: column;
+            }
+            
+            .tab {
+                margin-bottom: 0.5rem;
+                margin-right: 0;
+                border-radius: 4px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">🏆 Cuppet Core</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="api-docs.html">API Docs</a></li>
+                    <li><a href="step-definitions.html">Step Definitions</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                    <li><a href="examples.html">Examples</a></li>
+                    <li><a href="https://github.com/MiroslavRusev/cuppet-core">GitHub</a></li>
+                </ul>
+            </nav>
+        </div>
+    </nav>
+
+    <div class="container">
+        <div class="main-content">
+            <div class="hero">
+                <h1>Configuration Guide</h1>
+                <p>Complete configuration reference and interactive configuration generator</p>
+            </div>
+
+            <div class="config-generator">
+                <h3>🚀 Interactive Configuration Generator</h3>
+                <p>Create a custom configuration for your testing needs:</p>
+                
+                <div class="form-group">
+                    <label for="baseUrl">Base URL:</label>
+                    <input type="url" id="baseUrl" placeholder="https://example.com/" value="https://example.com/">
+                </div>
+                
+                <div class="form-group">
+                    <label for="testType">Primary Test Type:</label>
+                    <select id="testType">
+                        <option value="web">Web Testing</option>
+                        <option value="api">API Testing</option>
+                        <option value="mobile">Mobile Testing</option>
+                        <option value="accessibility">Accessibility Testing</option>
+                        <option value="complete">Complete Testing Suite</option>
+                    </select>
+                </div>
+                
+                <div class="form-group">
+                    <label for="environment">Environment:</label>
+                    <select id="environment">
+                        <option value="development">Development</option>
+                        <option value="staging">Staging</option>
+                        <option value="production">Production</option>
+                    </select>
+                </div>
+                
+                <button class="btn" onclick="generateConfig()">Generate Configuration</button>
+                
+                <div id="generatedConfig" class="generated-config" style="display: none;">
+                    <pre><code id="configOutput"></code></pre>
+                </div>
+            </div>
+
+            <div class="config-tabs">
+                <button class="tab active" onclick="openTab(event, 'basic')">Basic Configuration</button>
+                <button class="tab" onclick="openTab(event, 'browser')">Browser Options</button>
+                <button class="tab" onclick="openTab(event, 'api')">API Testing</button>
+                <button class="tab" onclick="openTab(event, 'mobile')">Mobile Testing</button>
+                <button class="tab" onclick="openTab(event, 'advanced')">Advanced Options</button>
+            </div>
+
+            <!-- Basic Configuration -->
+            <div id="basic" class="tab-content active">
+                <div class="config-section">
+                    <div class="section-header">
+                        <div class="section-icon">⚙️</div>
+                        <h2 class="section-title">Core Application Configuration</h2>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">jsonFilePath</div>
+                        <div class="property-type">string</div>
+                        <div class="property-description">Path to the JSON file where test data will be stored during test execution.</div>
+                        <div class="property-usage">
+                            <h4>Used by:</h4>
+                            Data storage operations, variable management
+                        </div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "jsonFilePath": "jsonFiles/test-data.json"
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">screenshotsPath</div>
+                        <div class="property-type">string</div>
+                        <div class="property-description">Directory path where screenshots will be saved when tests fail.</div>
+                        <div class="property-usage">
+                            <h4>Used by:</h4>
+                            Test failure handling, screenshot capture
+                        </div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "screenshotsPath": "screenshots/"
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">credentials</div>
+                        <div class="property-type">object</div>
+                        <div class="property-description">Main application credentials and base URL configuration.</div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "credentials": {
+    "baseUrl": "https://example.com/",
+    "username": "testuser",
+    "password": "testpass"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">language</div>
+                        <div class="property-type optional">string (optional)</div>
+                        <div class="property-description">Language setting for multilingual test support.</div>
+                        <div class="property-usage">
+                            <h4>Default:</h4>
+                            "en"
+                        </div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "language": "fr"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Browser Configuration -->
+            <div id="browser" class="tab-content">
+                <div class="config-section">
+                    <div class="section-header">
+                        <div class="section-icon">🌐</div>
+                        <h2 class="section-title">Browser Configuration</h2>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">browserOptions</div>
+                        <div class="property-type">object</div>
+                        <div class="property-description">Puppeteer browser configuration options including arguments and viewport settings.</div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "browserOptions": {
+    "args": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--headless=new"
+    ],
+    "viewport": {
+      "default": { "width": 1920, "height": 1080 },
+      "mobile": { "width": 375, "height": 667 },
+      "tablet": { "width": 768, "height": 1024 },
+      "backstop": { "width": 1600, "height": 900 }
+    }
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">regionMap</div>
+                        <div class="property-type optional">object (optional)</div>
+                        <div class="property-description">Mapping of region names to CSS selectors for page regions.</div>
+                        <div class="property-usage">
+                            <h4>Used by:</h4>
+                            Region-specific step definitions, element interaction within regions
+                        </div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "regionMap": {
+    "Header": ".site-header",
+    "MainContent": ".main-content",
+    "Footer": ".site-footer",
+    "Navigation": ".navbar"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">blockingCookie</div>
+                        <div class="property-type optional">string (optional)</div>
+                        <div class="property-description">CSS selector for cookie consent button to auto-click during page visits.</div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "blockingCookie": ".cookie-consent-accept"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Configuration -->
+            <div id="api" class="tab-content">
+                <div class="config-section">
+                    <div class="section-header">
+                        <div class="section-icon">🌍</div>
+                        <h2 class="section-title">API Testing Configuration</h2>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">api</div>
+                        <div class="property-type optional">object (optional)</div>
+                        <div class="property-description">Configuration for API testing capabilities including base URL and authentication.</div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "api": {
+    "baseApiUrl": "https://api.example.com/v1/",
+    "x-api-key": "your-api-key-here",
+    "Authorization": "Bearer your-token-here"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">basicAuth</div>
+                        <div class="property-type optional">object (optional)</div>
+                        <div class="property-description">HTTP Basic Authentication credentials for API requests.</div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "basicAuth": {
+    "authUser": "apiuser",
+    "authPass": "apipassword"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Configuration -->
+            <div id="mobile" class="tab-content">
+                <div class="config-section">
+                    <div class="section-header">
+                        <div class="section-icon">📱</div>
+                        <h2 class="section-title">Mobile Testing Configuration</h2>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">appiumCapabilities</div>
+                        <div class="property-type">object</div>
+                        <div class="property-description">Appium capabilities for mobile testing configuration.</div>
+                        <div class="property-usage">
+                            <h4>Used by:</h4>
+                            Mobile step definitions, Appium session management
+                        </div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "appiumCapabilities": {
+    "platformName": "Android",
+    "appium:automationName": "UiAutomator2",
+    "appium:deviceName": "Android",
+    "appium:disableIdLocatorAutocompletion": true,
+    "appium:appPackage": "com.example.app",
+    "appium:appActivity": ".MainActivity"
+  }
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Advanced Configuration -->
+            <div id="advanced" class="tab-content">
+                <div class="config-section">
+                    <div class="section-header">
+                        <div class="section-icon">🔧</div>
+                        <h2 class="section-title">Advanced Options</h2>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">pa11yConfig</div>
+                        <div class="property-type optional">object (optional)</div>
+                        <div class="property-description">Configuration for Pa11y accessibility testing.</div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "pa11yConfig": {
+    "hideElements": ".ads, .tracking",
+    "standard": "WCAG2AA",
+    "runners": ["axe", "htmlcs"]
+  }
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">skipSteps</div>
+                        <div class="property-type optional">string (optional)</div>
+                        <div class="property-description">Text value to conditionally skip certain test steps.</div>
+                        <div class="property-usage">
+                            <h4>Used by:</h4>
+                            Conditional step definitions (if visible steps)
+                        </div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "skipSteps": "Skip in CI"
+}</code></pre>
+                        </div>
+                    </div>
+
+                    <div class="config-property">
+                        <div class="property-name">trimRegex</div>
+                        <div class="property-type optional">string (optional)</div>
+                        <div class="property-description">Custom regex pattern for trimming variable values.</div>
+                        <div class="property-usage">
+                            <h4>Default:</h4>
+                            /[?&@$#:,;]/
+                        </div>
+                        <div class="example-code">
+                            <pre><code class="language-json">{
+  "trimRegex": "[?&@$#:,;|]"
+}</code></pre>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Environment Examples -->
+            <div class="config-section">
+                <div class="section-header">
+                    <div class="section-icon">🌍</div>
+                    <h2 class="section-title">Environment-Specific Examples</h2>
+                </div>
+
+                <h3>Development Environment (config/development.json)</h3>
+                <div class="example-code">
+                    <pre><code class="language-json">{
+  "jsonFilePath": "jsonFiles/dev-data.json",
+  "screenshotsPath": "screenshots/dev/",
+  "credentials": {
+    "baseUrl": "http://localhost:3000/",
+    "username": "devuser",
+    "password": "devpass"
+  },
+  "browserOptions": {
+    "args": ["--no-sandbox"],
+    "viewport": {
+      "default": { "width": 1920, "height": 1080 }
+    }
+  }
+}</code></pre>
+                </div>
+
+                <h3>Production Environment (config/production.json)</h3>
+                <div class="example-code">
+                    <pre><code class="language-json">{
+  "jsonFilePath": "jsonFiles/prod-data.json",
+  "screenshotsPath": "screenshots/prod/",
+  "credentials": {
+    "baseUrl": "https://myapp.com/"
+  },
+  "browserOptions": {
+    "args": [
+      "--no-sandbox",
+      "--disable-setuid-sandbox",
+      "--headless=new"
+    ],
+    "viewport": {
+      "default": { "width": 1920, "height": 1080 }
+    }
+  },
+  "pa11yConfig": {
+    "standard": "WCAG2AA",
+    "runners": ["axe"]
+  }
+}</code></pre>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>
+        function openTab(evt, tabName) {
+            var i, tabcontent, tabs;
+            tabcontent = document.getElementsByClassName("tab-content");
+            for (i = 0; i < tabcontent.length; i++) {
+                tabcontent[i].classList.remove("active");
+            }
+            tabs = document.getElementsByClassName("tab");
+            for (i = 0; i < tabs.length; i++) {
+                tabs[i].classList.remove("active");
+            }
+            document.getElementById(tabName).classList.add("active");
+            evt.currentTarget.classList.add("active");
+        }
+
+        function generateConfig() {
+            const baseUrl = document.getElementById('baseUrl').value;
+            const testType = document.getElementById('testType').value;
+            const environment = document.getElementById('environment').value;
+
+            let config = {
+                jsonFilePath: `jsonFiles/${environment}-data.json`,
+                screenshotsPath: `screenshots/${environment}/`,
+                credentials: {
+                    baseUrl: baseUrl
+                }
+            };
+
+            // Add browser options for web testing
+            if (testType === 'web' || testType === 'complete') {
+                config.browserOptions = {
+                    args: environment === 'production' ? 
+                        ["--no-sandbox", "--disable-setuid-sandbox", "--headless=new"] :
+                        ["--no-sandbox"],
+                    viewport: {
+                        default: { width: 1920, height: 1080 },
+                        mobile: { width: 375, height: 667 },
+                        tablet: { width: 768, height: 1024 }
+                    }
+                };
+                
+                config.regionMap = {
+                    "Header": ".site-header",
+                    "MainContent": ".main-content",
+                    "Footer": ".site-footer"
+                };
+            }
+
+            // Add API configuration
+            if (testType === 'api' || testType === 'complete') {
+                config.api = {
+                    baseApiUrl: baseUrl.replace(/\/$/, '') + "/api/v1/",
+                    "x-api-key": "your-api-key-here"
+                };
+                
+                config.basicAuth = {
+                    authUser: "apiuser",
+                    authPass: "apipass"
+                };
+            }
+
+            // Add mobile configuration
+            if (testType === 'mobile' || testType === 'complete') {
+                config.appiumCapabilities = {
+                    platformName: "Android",
+                    "appium:automationName": "UiAutomator2",
+                    "appium:deviceName": "Android",
+                    "appium:disableIdLocatorAutocompletion": true,
+                    "appium:appPackage": "com.example.app",
+                    "appium:appActivity": ".MainActivity"
+                };
+            }
+
+            // Add accessibility configuration
+            if (testType === 'accessibility' || testType === 'complete') {
+                config.pa11yConfig = {
+                    hideElements: ".ads, .tracking",
+                    standard: "WCAG2AA",
+                    runners: ["axe", "htmlcs"]
+                };
+            }
+
+            // Add complete testing suite options
+            if (testType === 'complete') {
+                config.blockingCookie = ".cookie-consent-accept";
+                config.skipSteps = environment === 'production' ? "Skip in production" : "";
+            }
+
+            const configOutput = document.getElementById('configOutput');
+            const generatedConfigDiv = document.getElementById('generatedConfig');
+            
+            configOutput.textContent = JSON.stringify(config, null, 2);
+            generatedConfigDiv.style.display = 'block';
+            
+            // Re-highlight syntax
+            if (window.Prism) {
+                window.Prism.highlightElement(configOutput);
+            }
+        }
+    </script>
+</body>
+</html>

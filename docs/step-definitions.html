@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Step Definitions - Cuppet Core</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: #f8f9fa;
+        }
+
+        .navbar {
+            background: #2c3e50;
+            color: white;
+            padding: 1rem 0;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .navbar .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .navbar .logo {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #3498db;
+            text-decoration: none;
+        }
+
+        .navbar nav ul {
+            display: flex;
+            list-style: none;
+            gap: 2rem;
+        }
+
+        .navbar nav a {
+            color: white;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .navbar nav a:hover {
+            color: #3498db;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 2rem;
+        }
+
+        .content {
+            display: flex;
+            margin-top: 70px;
+            min-height: calc(100vh - 70px);
+        }
+
+        .sidebar {
+            width: 300px;
+            background: white;
+            padding: 2rem;
+            border-right: 1px solid #e9ecef;
+            position: sticky;
+            top: 70px;
+            height: calc(100vh - 70px);
+            overflow-y: auto;
+        }
+
+        .sidebar h2 {
+            margin-bottom: 1rem;
+            color: #2c3e50;
+            font-size: 1.2rem;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            margin-bottom: 2rem;
+        }
+
+        .sidebar ul li {
+            margin-bottom: 0.5rem;
+        }
+
+        .sidebar ul li a {
+            color: #666;
+            text-decoration: none;
+            padding: 0.5rem;
+            display: block;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .sidebar ul li a:hover,
+        .sidebar ul li a.active {
+            background: #3498db;
+            color: white;
+        }
+
+        .main-content {
+            flex: 1;
+            padding: 2rem;
+            background: white;
+            margin-left: 1rem;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+
+        .hero {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 3rem 2rem;
+            text-align: center;
+            margin-bottom: 2rem;
+            border-radius: 8px;
+        }
+
+        .hero h1 {
+            font-size: 2.5rem;
+            margin-bottom: 1rem;
+        }
+
+        .search-box {
+            margin-bottom: 2rem;
+            position: relative;
+        }
+
+        .search-box input {
+            width: 100%;
+            padding: 1rem;
+            border: 2px solid #e9ecef;
+            border-radius: 8px;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .search-box input:focus {
+            outline: none;
+            border-color: #3498db;
+        }
+
+        .category-section {
+            margin-bottom: 3rem;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 2rem;
+        }
+
+        .category-section:last-child {
+            border-bottom: none;
+        }
+
+        .category-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .category-icon {
+            font-size: 2rem;
+            margin-right: 1rem;
+        }
+
+        .category-title {
+            font-size: 2rem;
+            color: #2c3e50;
+            margin: 0;
+        }
+
+        .step-card {
+            background: #f8f9fa;
+            border-left: 4px solid #3498db;
+            padding: 1.5rem;
+            margin-bottom: 1.5rem;
+            border-radius: 4px;
+            transition: all 0.3s;
+        }
+
+        .step-card:hover {
+            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            transform: translateY(-2px);
+        }
+
+        .step-definition {
+            font-family: 'Courier New', monospace;
+            background: #2c3e50;
+            color: #3498db;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-bottom: 1rem;
+            overflow-x: auto;
+            font-weight: bold;
+        }
+
+        .step-description {
+            margin-bottom: 1rem;
+            line-height: 1.6;
+        }
+
+        .step-type {
+            display: inline-block;
+            padding: 0.25rem 0.75rem;
+            border-radius: 12px;
+            font-size: 0.75rem;
+            font-weight: bold;
+            margin-bottom: 1rem;
+        }
+
+        .step-given {
+            background: #27ae60;
+            color: white;
+        }
+
+        .step-when {
+            background: #f39c12;
+            color: white;
+        }
+
+        .step-then {
+            background: #e74c3c;
+            color: white;
+        }
+
+        .example {
+            background: #1e1e1e;
+            border-radius: 4px;
+            padding: 1rem;
+            margin: 1rem 0;
+            overflow-x: auto;
+        }
+
+        .parameters {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 1rem;
+            border-radius: 4px;
+            margin-top: 1rem;
+        }
+
+        .parameters h4 {
+            margin-bottom: 0.5rem;
+            color: #856404;
+        }
+
+        .parameter {
+            margin-bottom: 0.5rem;
+        }
+
+        .param-name {
+            font-weight: bold;
+            color: #d63384;
+        }
+
+        @media (max-width: 768px) {
+            .content {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                position: static;
+                height: auto;
+            }
+            
+            .main-content {
+                margin-left: 0;
+                margin-top: 1rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <nav class="navbar">
+        <div class="container">
+            <a href="index.html" class="logo">🏆 Cuppet Core</a>
+            <nav>
+                <ul>
+                    <li><a href="index.html">Home</a></li>
+                    <li><a href="api-docs.html">API Docs</a></li>
+                    <li><a href="step-definitions.html">Step Definitions</a></li>
+                    <li><a href="configuration.html">Configuration</a></li>
+                    <li><a href="examples.html">Examples</a></li>
+                    <li><a href="https://github.com/MiroslavRusev/cuppet-core">GitHub</a></li>
+                </ul>
+            </nav>
+        </div>
+    </nav>
+
+    <div class="content">
+        <div class="sidebar">
+            <h2>Step Categories</h2>
+            <ul>
+                <li><a href="#general">🌐 General Steps</a></li>
+                <li><a href="#pageElements">🎯 Page Elements</a></li>
+                <li><a href="#conditional">❓ Conditional Steps</a></li>
+                <li><a href="#api">🌍 API Testing</a></li>
+                <li><a href="#mobile">📱 Mobile Testing</a></li>
+                <li><a href="#accessibility">♿ Accessibility</a></li>
+                <li><a href="#performance">🚀 Performance</a></li>
+                <li><a href="#visual">👁️ Visual Regression</a></li>
+                <li><a href="#iframe">🖼️ Iframe Steps</a></li>
+                <li><a href="#helpers">🔧 Helper Steps</a></li>
+            </ul>
+            
+            <div class="search-box">
+                <input type="text" placeholder="Search step definitions..." id="searchInput">
+            </div>
+        </div>
+
+        <div class="main-content">
+            <div class="hero">
+                <h1>Step Definitions</h1>
+                <p>Comprehensive guide to all available Gherkin step definitions</p>
+            </div>
+
+            <!-- General Steps -->
+            <div class="category-section" id="general">
+                <div class="category-header">
+                    <div class="category-icon">🌐</div>
+                    <h2 class="category-title">General Steps</h2>
+                </div>
+                <p>Core navigation and authentication steps for basic web interactions.</p>
+
+                <div class="step-card">
+                    <div class="step-type step-given">GIVEN</div>
+                    <div class="step-definition">I go to "{string}"</div>
+                    <div class="step-description">Navigate to a specific page path. Supports both relative and absolute URLs.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Given I go to "/login"
+Given I go to "https://example.com/about"</code></pre>
+                    </div>
+                    <div class="parameters">
+                        <h4>Parameters:</h4>
+                        <div class="parameter"><span class="param-name">path</span> - URL path or full URL to navigate to</div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-given">GIVEN</div>
+                    <div class="step-definition">I log in</div>
+                    <div class="step-description">Perform login using default credentials from configuration.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Given I log in</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-given">GIVEN</div>
+                    <div class="step-definition">I log in as "{string}" "{string}"</div>
+                    <div class="step-description">Login with specific username and password credentials.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Given I log in as "testuser" "password123"</code></pre>
+                    </div>
+                    <div class="parameters">
+                        <h4>Parameters:</h4>
+                        <div class="parameter"><span class="param-name">username</span> - Username for login</div>
+                        <div class="parameter"><span class="param-name">password</span> - Password for login</div>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-given">GIVEN</div>
+                    <div class="step-definition">I follow "{string}"</div>
+                    <div class="step-description">Click on a link with the specified text.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Given I follow "About Us"</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Page Elements -->
+            <div class="category-section" id="pageElements">
+                <div class="category-header">
+                    <div class="category-icon">🎯</div>
+                    <h2 class="category-title">Page Elements</h2>
+                </div>
+                <p>Core UI interaction steps for elements, forms, and content validation.</p>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I should see "{string}"</div>
+                    <div class="step-description">Verify that text is visible on the page. Supports variables and multilingual strings.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I should see "Welcome to our site"
+Then I should see "{variable_name}"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-when">WHEN</div>
+                    <div class="step-definition">I click on the element "{string}"</div>
+                    <div class="step-description">Click on an element using CSS selector or common field name.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">When I click on the element "#submit-button"
+When I click on the element "SubmitButton"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-when">WHEN</div>
+                    <div class="step-definition">I click on the text "{string}"</div>
+                    <div class="step-description">Click on an element containing specific text.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">When I click on the text "Continue"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I fill in "{string}" with "{string}"</div>
+                    <div class="step-description">Fill a form field with specified text.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I fill in "#email" with "test@example.com"
+Then I fill in "EmailField" with "user@test.com"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I should see the element with selector "{string}"</div>
+                    <div class="step-description">Verify that an element is visible on the page.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I should see the element with selector ".success-message"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I upload the "{string}" in "{string}" field</div>
+                    <div class="step-description">Upload a file using a file input field.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I upload the "test-image.jpg" in "#file-upload" field</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I select "{string}" from "{string}"</div>
+                    <div class="step-description">Select an option from a dropdown by value.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I select "option1" from "#country-select"</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Conditional Steps -->
+            <div class="category-section" id="conditional">
+                <div class="category-header">
+                    <div class="category-icon">❓</div>
+                    <h2 class="category-title">Conditional Steps</h2>
+                </div>
+                <p>Steps that execute conditionally based on element visibility or configuration.</p>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I should see "{string}" if visible</div>
+                    <div class="step-description">Check for text only if it's visible, skip if not found.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I should see "Optional message" if visible</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-when">WHEN</div>
+                    <div class="step-definition">I click on the element "{string}" if visible</div>
+                    <div class="step-description">Click on element only if it's present and visible.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">When I click on the element ".optional-button" if visible</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I fill in "{string}" with "{string}" if visible</div>
+                    <div class="step-description">Fill field only if it exists and is visible.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I fill in "#optional-field" with "value" if visible</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- API Testing -->
+            <div class="category-section" id="api">
+                <div class="category-header">
+                    <div class="category-icon">🌍</div>
+                    <h2 class="category-title">API Testing</h2>
+                </div>
+                <p>RESTful API testing steps with comprehensive validation capabilities.</p>
+
+                <div class="step-card">
+                    <div class="step-type step-when">WHEN</div>
+                    <div class="step-definition">I send a "{string}" request to "{string}"</div>
+                    <div class="step-description">Send HTTP request with specified method to endpoint.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">When I send a "GET" request to "/api/users"
+When I send a "POST" request to "/api/users"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">the response code should be "{string}"</div>
+                    <div class="step-description">Validate HTTP response status code.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then the response code should be "200"
+Then the response code should be "404"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">the property "{string}" should be an "{string}"</div>
+                    <div class="step-description">Validate JSON response property type.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then the property "name" should be an "string"
+Then the property "age" should be an "number"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-given">GIVEN</div>
+                    <div class="step-definition">I have request body</div>
+                    <div class="step-description">Prepare request body for API calls from docstring.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Given I have request body
+"""
+{
+  "name": "John Doe",
+  "email": "john@example.com"
+}
+"""</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Mobile Testing -->
+            <div class="category-section" id="mobile">
+                <div class="category-header">
+                    <div class="category-icon">📱</div>
+                    <h2 class="category-title">Mobile Testing</h2>
+                </div>
+                <p>Mobile application testing steps using Appium integration.</p>
+
+                <div class="step-card">
+                    <div class="step-type step-given">GIVEN</div>
+                    <div class="step-definition">I go to "{string}" app package and "{string}" activity</div>
+                    <div class="step-description">Navigate to specific Android app package and activity.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Given I go to "com.example.app" app package and ".MainActivity" activity</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I click on the element "{string}" on mobile</div>
+                    <div class="step-description">Click on mobile element using Appium locators.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I click on the element "id:button-login" on mobile</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I scroll to the element "{string}" on mobile</div>
+                    <div class="step-description">Scroll to make element visible on mobile device.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I scroll to the element "id:footer-text" on mobile</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Accessibility -->
+            <div class="category-section" id="accessibility">
+                <div class="category-header">
+                    <div class="category-icon">♿</div>
+                    <h2 class="category-title">Accessibility Testing</h2>
+                </div>
+                <p>Web accessibility testing with Pa11y integration and automated reporting.</p>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I validate the saved page accessibility</div>
+                    <div class="step-description">Run accessibility tests on the current page and generate HTML report.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I validate the saved page accessibility</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-when">WHEN</div>
+                    <div class="step-definition">I validate the accessibility of the "{string}" page</div>
+                    <div class="step-description">Run accessibility tests on a specific page path.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">When I validate the accessibility of the "/contact" page</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Performance -->
+            <div class="category-section" id="performance">
+                <div class="category-header">
+                    <div class="category-icon">🚀</div>
+                    <h2 class="category-title">Performance Testing</h2>
+                </div>
+                <p>Performance testing with Google Lighthouse integration.</p>
+
+                <div class="step-card">
+                    <div class="step-type step-given">GIVEN</div>
+                    <div class="step-definition">I generate lighthouse report for the saved page</div>
+                    <div class="step-description">Generate Lighthouse performance report for current page.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Given I generate lighthouse report for the saved page</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-when">WHEN</div>
+                    <div class="step-definition">I generate lighthouse report for "{string}" page</div>
+                    <div class="step-description">Generate Lighthouse report for specific page path.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">When I generate lighthouse report for "/products" page</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Visual Regression -->
+            <div class="category-section" id="visual">
+                <div class="category-header">
+                    <div class="category-icon">👁️</div>
+                    <h2 class="category-title">Visual Regression Testing</h2>
+                </div>
+                <p>Visual regression testing with BackstopJS integration.</p>
+
+                <div class="step-card">
+                    <div class="step-type step-given">GIVEN</div>
+                    <div class="step-definition">I generate reference screenshot for "{string}"</div>
+                    <div class="step-description">Create reference screenshot for visual comparison.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Given I generate reference screenshot for "/homepage"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I compare "{string}" to reference screenshot</div>
+                    <div class="step-description">Compare current page to reference screenshot.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I compare "/homepage" to reference screenshot</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-given">GIVEN</div>
+                    <div class="step-definition">I generate reference screenshot for multiple pages</div>
+                    <div class="step-description">Create reference screenshots for multiple pages from docstring.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Given I generate reference screenshot for multiple pages
+"""
+/homepage
+/about
+/contact
+"""</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Iframe Steps -->
+            <div class="category-section" id="iframe">
+                <div class="category-header">
+                    <div class="category-icon">🖼️</div>
+                    <h2 class="category-title">Iframe Interactions</h2>
+                </div>
+                <p>Specialized steps for working with iframe elements.</p>
+
+                <div class="step-card">
+                    <div class="step-type step-then">THEN</div>
+                    <div class="step-definition">I should see "{string}" in iframe "{string}"</div>
+                    <div class="step-description">Verify text is visible inside an iframe.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Then I should see "Content loaded" in iframe "#payment-frame"</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-when">WHEN</div>
+                    <div class="step-definition">I click on element "{string}" in iframe with selector "{string}"</div>
+                    <div class="step-description">Click on element inside an iframe.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">When I click on element "#submit" in iframe with selector "#payment-form"</code></pre>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Helper Steps -->
+            <div class="category-section" id="helpers">
+                <div class="category-header">
+                    <div class="category-icon">🔧</div>
+                    <h2 class="category-title">Helper Steps</h2>
+                </div>
+                <p>Utility steps for data management, waiting, and debugging.</p>
+
+                <div class="step-card">
+                    <div class="step-type step-when">WHEN</div>
+                    <div class="step-definition">I wait for "{string}" seconds</div>
+                    <div class="step-description">Wait for specified number of seconds.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">When I wait for "3" seconds</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-given">GIVEN</div>
+                    <div class="step-definition">I store "{string}" in "{string}" variable</div>
+                    <div class="step-description">Store a value in a variable for later use.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Given I store "John Doe" in "username" variable</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-given">GIVEN</div>
+                    <div class="step-definition">I save the path of the current page</div>
+                    <div class="step-description">Save current page URL path for later reference.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">Given I save the path of the current page</code></pre>
+                    </div>
+                </div>
+
+                <div class="step-card">
+                    <div class="step-type step-when">WHEN</div>
+                    <div class="step-definition">I wait for AJAX loading to finish</div>
+                    <div class="step-description">Wait until all AJAX requests are completed.</div>
+                    <div class="example">
+                        <pre><code class="language-gherkin">When I wait for AJAX loading to finish</code></pre>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    <script>
+        // Search functionality
+        const searchInput = document.getElementById('searchInput');
+        const stepCards = document.querySelectorAll('.step-card');
+
+        searchInput.addEventListener('input', function() {
+            const searchTerm = this.value.toLowerCase();
+            
+            stepCards.forEach(card => {
+                const stepDefinition = card.querySelector('.step-definition').textContent.toLowerCase();
+                const stepDescription = card.querySelector('.step-description').textContent.toLowerCase();
+                
+                if (stepDefinition.includes(searchTerm) || stepDescription.includes(searchTerm)) {
+                    card.style.display = 'block';
+                } else {
+                    card.style.display = 'none';
+                }
+            });
+        });
+
+        // Sidebar navigation
+        document.querySelectorAll('.sidebar a[href^="#"]').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const target = document.querySelector(this.getAttribute('href'));
+                if (target) {
+                    target.scrollIntoView({ behavior: 'smooth' });
+                    
+                    // Update active link
+                    document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+                    this.classList.add('active');
+                }
+            });
+        });
+
+        // Highlight active section on scroll
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.category-section');
+            const scrollPos = window.scrollY + 100;
+
+            sections.forEach(section => {
+                const top = section.offsetTop;
+                const bottom = top + section.offsetHeight;
+                const id = section.getAttribute('id');
+
+                if (scrollPos >= top && scrollPos <= bottom) {
+                    document.querySelectorAll('.sidebar a').forEach(a => a.classList.remove('active'));
+                    const activeLink = document.querySelector(`.sidebar a[href="#${id}"]`);
+                    if (activeLink) {
+                        activeLink.classList.add('active');
+                    }
+                }
+            });
+        });
+    </script>
+</body>
+</html>
