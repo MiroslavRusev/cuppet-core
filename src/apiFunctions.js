@@ -3,12 +3,17 @@ const config = require('config');
 const storage = require('./dataStorage');
 const xml2js = require('xml2js');
 const assert = require('chai').assert;
+const fs = require('fs');
+const mime = require('mime-types');
+const FormData = require('form-data');
 
 module.exports = {
     /** @type {object} */
     response: null,
     /** @type {object} */
     request: null,
+    /** @type {object} */
+    formData: null,
 
     /**
      * Prepare path for API test usage
@@ -40,11 +45,15 @@ module.exports = {
             'Content-Type': 'application/json',
             Accept: 'application/json',
         };
+        if (this.formData) {
+            defaultHeaders = {};
+            Object.assign(defaultHeaders, this.formData.getHeaders());
+        }
         if (config.has('api.x-api-key')) {
             defaultHeaders['X-Api-Key'] = config.get('api.x-api-key');
         }
         if (config.has('api.Authorization')) {
-            defaultHeaders['X-Api-Key'] = config.get('api.Authorization');
+            defaultHeaders['Authorization'] = config.get('api.Authorization');
         }
         if (headers && defaultHeaders) {
             defaultHeaders = {
@@ -97,6 +106,9 @@ module.exports = {
         if (this.request) {
             data = this.request;
         }
+        if (this.formData) {
+            data = this.formData;
+        }
         try {
             this.response = await axios.request({
                 url: apiUrl,
@@ -104,9 +116,10 @@ module.exports = {
                 ...(Object.keys(auth).length && { auth }),
                 // The data is conditionally added to the request, because it's not used with GET requests and creates conflict.
                 // The following checks if data object is not empty, returns data object if not empty or skip if empty.
-                ...(Object.keys(data).length && { data }),
+                ...((data instanceof FormData || Object.keys(data).length) && { data }),
                 headers: requestHeaders,
             });
+
             return this.response;
         } catch (error) {
             console.log('Request has failed, use response code step definition to validate the response!');
@@ -262,32 +275,48 @@ module.exports = {
     },
 
     /**
-     *
-     * @param {string} method - method - GET,POST, PUT etc.
-     * @param {string} currentUrl - url of the page/endpoint
-     * @param {object} reqHeaders - request headers
-     * @param {string} resHeaders - response headers
-     * @param {boolean} flag - direction of presence (true/false)
+     * Validate response header
+     * @param {string} header - header name
+     * @param {string} value - header value
      * @returns {Promise<void>}
      */
-    validateResponseHeader: async function (method, currentUrl, reqHeaders, resHeaders, flag) {
-        const prepareUrl = await this.prepareUrl(currentUrl);
-        const requestHeaders = await this.setHeaders(reqHeaders);
-        const auth = await this.setBasicAuth();
-        let response;
-        try {
-            response = await axios.request({
-                url: prepareUrl,
-                method: method,
-                ...(Object.keys(auth).length && { auth }),
-                headers: requestHeaders,
-            });
-        } catch (error) {
-            throw new Error(`Request failed with: ${error}`);
+    validateResponseHeader: async function (header, value) {
+        // Resolve header and value from variables or user input.
+        // The header is checked directly for faster execution as it is less likely to contain variables.
+        const resolveHeader = await storage.checkForVariable(header);
+        const resolveValue = await storage.checkForSavedVariable(value);
+        const actualValue = this.response.headers[resolveHeader.toLowerCase()];
+        assert.isDefined(actualValue, `The response header "${resolveHeader}" is not found!`);
+        assert.strictEqual(
+            actualValue,
+            resolveValue,
+            `The response header "${resolveHeader}" does not have the expected value`
+        );
+    },
+
+    /**
+     * Build multipart/form-data request body
+     * If you want to send a file, you need to pass the file name (not the path) as a string.
+     * Please use the files from the files folder.
+     * @param {object} data - the data to be sent in the request body
+     * @returns {Promise<Object>} - returns the request body object
+     */
+    buildMultipartFormData: async function (data) {
+        const filePath = config.get('filePath');
+        const formData = new FormData();
+        for (const [key, value] of Object.entries(data)) {
+            if (key === 'file') {
+                const mimeType = mime.contentType(value) || 'application/octet-stream';
+                formData.append('file', fs.createReadStream(filePath + value), {
+                    filename: value,
+                    contentType: mimeType,
+                });
+                formData.append('type', mimeType);
+            } else {
+                formData.append(key, await storage.checkForSavedVariable(value));
+            }
         }
-        const hasProperty = Object.prototype.hasOwnProperty.call(response.headers, resHeaders.toLowerCase());
-        if (hasProperty !== flag) {
-            throw new Error('The response headers are different than expected!');
-        }
+        this.formData = formData;
+        return this.formData;
     },
 };
