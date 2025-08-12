@@ -109,7 +109,7 @@ module.exports = {
             });
             return this.response;
         } catch (error) {
-            throw new Error(`Request failed with: ${error}`);
+            throw new Error(`Request failed with: ${error}. Response: ${JSON.stringify(this.response)}`);
         }
     },
 

@@ -8,14 +8,14 @@ git clone https://github.com/yourusername/cuppet-core.git
 cd cuppet-core
 
 # Install dependencies
-npm install
+yarn install
 
 # Link the package locally for testing
-npm link
+yarn link
 
 # In your main project, link to the local version
 cd ../cuppet
-npm link @cuppet/core
+yarn link @cuppet/core
 ```
 
 ### 2. Making Changes
@@ -26,19 +26,9 @@ npm link @cuppet/core
 
 # Test in your main project
 cd ../cuppet
-npm test
+yarn test
 ```
 
 ### 3. Publishing Updates
 
-```bash
-# In cuppet-core repository
-# Update version (patch, minor, or major)
-npm version patch  # or minor, major
-
-# Publish to npm
-npm publish
-
-# Push to git
-git push --tags
-```
+Follow the [README.MD](./README.MD)
