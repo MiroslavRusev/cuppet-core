@@ -156,7 +156,7 @@ module.exports = {
     validateResponseCode: async function (code) {
         if (this.response.status !== Number(code)) {
             throw new Error(
-                `Response code is different than expected, code: ${this.response.status}. Response: ${this.response.data}`
+                `Unexpected response code, code: ${this.response.status}. Response: ${JSON.stringify(this.response.data)}`
             );
         }
     },

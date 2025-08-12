@@ -61,8 +61,10 @@
     "scripts": {
         "test": "cucumber-js features/tests",
         "postinstall": "node postinstall.js",
-        "lint": "eslint .",
-        "format": "prettier --write ."
+        "lint:check": "eslint .",
+        "format:check": "prettier --check .",
+        "format": "eslint . --fix && prettier --write .",
+        "verify": "yarn lint:check && yarn format:check"
     },
     "repository": {
         "type": "git",
