@@ -7,7 +7,7 @@ Given('that I send a {string} request to {string}', async function (method, path
     await apiSteps.sendRequest(method, path);
 });
 When(
-    'I send a {string} request to {string} with http header {string} and value {string}',
+    'that I send a {string} request to {string} with http header {string} and value {string}',
     async function (method, path, headerName, headerValue) {
         const name = await dataStorage.checkForSavedVariable(headerName);
         const value = await dataStorage.checkForSavedVariable(headerValue);
@@ -35,6 +35,10 @@ Given('that I have request body', async function (docString) {
     const body = JSON.stringify(docString);
     await apiSteps.prepareRequestBody(body);
 });
+Given('that I have a multipart request body', async function (docString) {
+    const body = JSON.parse(docString);
+    await apiSteps.buildMultipartFormData(body);
+});
 Given(
     'I put {string} to {string} property of {string} element in the body',
     async function (value, property, parentObj) {
@@ -49,4 +53,7 @@ Given('I create json object from {string} file', async function (filePath) {
 Given('I validate that the page is a valid XML', async function () {
     const currentPath = main.extractPath(this.page, true);
     await apiSteps.validateXMLEndpoint(currentPath);
+});
+Then('the response header {string} should be {string}', async function (header, value) {
+    await apiSteps.validateResponseHeader(header, value);
 });

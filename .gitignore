@@ -3,7 +3,6 @@
 .vscode
 .env
 screenshots/
-files/
 reports/
 jsonFiles/
 # Ignore all backstop artifacts except the config
