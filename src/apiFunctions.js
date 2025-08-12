@@ -109,7 +109,8 @@ module.exports = {
             });
             return this.response;
         } catch (error) {
-            throw new Error(`Request failed with: ${error}. Response: ${JSON.stringify(this.response)}`);
+            console.log('Request has failed, use response code step definition to validate the response!');
+            return (this.response = error.response);
         }
     },
 
@@ -154,7 +155,9 @@ module.exports = {
      */
     validateResponseCode: async function (code) {
         if (this.response.status !== Number(code)) {
-            throw new Error(`Response code is different than expected, code: ${this.response.status}`);
+            throw new Error(
+                `Response code is different than expected, code: ${this.response.status}. Response: ${this.response.data}`
+            );
         }
     },
 
