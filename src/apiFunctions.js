@@ -43,9 +43,9 @@ module.exports = {
             'Content-Type': 'application/json',
             Accept: 'application/json',
         };
-        if (this.formData) {
+        if (this.request instanceof FormData) {
             defaultHeaders = {};
-            Object.assign(defaultHeaders, this.formData.getHeaders());
+            Object.assign(defaultHeaders, this.request.getHeaders());
         }
         if (config.has('api.x-api-key')) {
             defaultHeaders['X-Api-Key'] = config.get('api.x-api-key');
