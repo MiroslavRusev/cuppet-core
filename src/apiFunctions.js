@@ -12,8 +12,6 @@ module.exports = {
     response: null,
     /** @type {object} */
     request: null,
-    /** @type {object} */
-    formData: null,
 
     /**
      * Prepare path for API test usage
@@ -105,9 +103,6 @@ module.exports = {
         const auth = await this.setBasicAuth();
         if (this.request) {
             data = this.request;
-        }
-        if (this.formData) {
-            data = this.formData;
         }
         try {
             this.response = await axios.request({
@@ -316,7 +311,7 @@ module.exports = {
                 formData.append(key, await storage.checkForSavedVariable(value));
             }
         }
-        this.formData = formData;
-        return this.formData;
+        this.request = formData;
+        return this.request;
     },
 };
