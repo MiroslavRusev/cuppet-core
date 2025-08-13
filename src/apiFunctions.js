@@ -114,6 +114,8 @@ module.exports = {
                 ...((data instanceof FormData || Object.keys(data).length) && { data }),
                 headers: requestHeaders,
             });
+            // Delete the request object after the request is sent to avoid conflicts with the next request.
+            delete this.request;
 
             return this.response;
         } catch (error) {
@@ -302,10 +304,14 @@ module.exports = {
         for (const [key, value] of Object.entries(data)) {
             if (key === 'file') {
                 const mimeType = mime.contentType(value) || 'application/octet-stream';
+                if (fs.existsSync(filePath + value)) {
                 formData.append('file', fs.createReadStream(filePath + value), {
-                    filename: value,
-                    contentType: mimeType,
-                });
+                        filename: value,
+                        contentType: mimeType,
+                    });
+                } else {
+                    throw new Error(`File ${filePath + value} does not exist in the files folder!`);
+                }
                 formData.append('type', mimeType);
             } else {
                 formData.append(key, await storage.checkForSavedVariable(value));
