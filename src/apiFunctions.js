@@ -305,7 +305,7 @@ module.exports = {
             if (key === 'file') {
                 const mimeType = mime.contentType(value) || 'application/octet-stream';
                 if (fs.existsSync(filePath + value)) {
-                formData.append('file', fs.createReadStream(filePath + value), {
+                    formData.append('file', fs.createReadStream(filePath + value), {
                         filename: value,
                         contentType: mimeType,
                     });
