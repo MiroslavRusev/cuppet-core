@@ -4,7 +4,7 @@ const AppiumManager = require('./appiumManager');
 const fs = require('fs');
 const config = require('config');
 const dataStore = require('../../src/dataStorage');
-const profile = process.env.NODE_CONFIG_ENV;
+const profile = process.env.NODE_CONFIG_ENV || 'default';
 
 let screenshotPath = config.get('screenshotsPath').toString() ?? 'screenshots/';
 
