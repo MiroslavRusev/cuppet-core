@@ -44,7 +44,7 @@ module.exports = {
      * @returns {Promise<void>}
      */
     createHtmlReport: async function (fileName, data) {
-        const profile = process.env.NODE_CONFIG_ENV;
+        const profile = process.env.NODE_CONFIG_ENV || 'default';
         fs.writeFile(`reports/${profile}/${fileName}.html`, data, (err) => {
             if (err) throw err;
             console.log(`Html report: ${fileName}.html is generated!`);

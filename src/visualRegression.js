@@ -9,7 +9,7 @@ module.exports = {
      */
     backstopConfigPrepare: function () {
         let newConfig = backStopConfig;
-        newConfig.id = process.env.NODE_CONFIG_ENV;
+        newConfig.id = process.env.NODE_CONFIG_ENV || 'default';
         const browserViewport = config.get('browserOptions.viewport.backstop');
         newConfig.viewports[0].width = Number(browserViewport.width);
         newConfig.viewports[0].height = Number(browserViewport.height);

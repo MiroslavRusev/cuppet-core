@@ -20,7 +20,7 @@
     "html_report": "backStopData/html_report",
     "ci_report": "backStopData/ci_report"
   },
-  "report": ["browser"],
+  "report": ["CI"],
   "engine": "puppeteer",
   "engineOptions": {
     "args": ["--headless=new"]
