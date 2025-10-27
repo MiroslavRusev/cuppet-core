@@ -74,14 +74,14 @@ module.exports = {
     publishJsonMessage: async function (mqttManager, jsonString, topic, qos = 0, retain = false) {
         const resolvedTopic = await this.prepareTopic(topic);
         const resolvedJson = await this.prepareMessage(jsonString);
-        
+
         // Validate JSON
         try {
             JSON.parse(resolvedJson);
         } catch (error) {
             throw new Error(`Invalid JSON message: ${error.message}`);
         }
-        
+
         await mqttManager.publish(resolvedTopic, resolvedJson, { qos, retain });
     },
 
@@ -106,11 +106,11 @@ module.exports = {
     getLatestMessage: async function (mqttManager, topic) {
         const resolvedTopic = await this.prepareTopic(topic);
         const message = mqttManager.getLatestMessage(resolvedTopic);
-        
+
         if (!message) {
             throw new Error(`No messages received on topic: ${resolvedTopic}`);
         }
-        
+
         return message;
     },
 
@@ -186,7 +186,7 @@ module.exports = {
         const resolvedExpected = await storage.checkForSavedVariable(expectedValue);
         const message = await this.getLatestMessage(mqttManager, topic);
         const jsonData = this.parseMessageAsJson(message);
-        
+
         // Navigate through nested properties
         const keys = property.split('.');
         let value = jsonData;
@@ -196,15 +196,16 @@ module.exports = {
             }
             value = value[key];
         }
-        
+
         if (value === undefined) {
             throw new Error(`Property "${property}" not found in JSON message`);
         }
-        
+
         // Convert to string for comparison if needed
         const actualValue = typeof value === 'string' ? value : JSON.stringify(value);
-        const expectedValueStr = typeof resolvedExpected === 'string' ? resolvedExpected : JSON.stringify(resolvedExpected);
-        
+        const expectedValueStr =
+            typeof resolvedExpected === 'string' ? resolvedExpected : JSON.stringify(resolvedExpected);
+
         assert.strictEqual(
             actualValue,
             expectedValueStr,
@@ -223,18 +224,18 @@ module.exports = {
     validateJsonPropertyType: async function (mqttManager, topic, property, type) {
         const message = await this.getLatestMessage(mqttManager, topic);
         const jsonData = this.parseMessageAsJson(message);
-        
+
         // Navigate through nested properties
         const keys = property.split('.');
         let value = jsonData;
         for (let key of keys) {
             value = value[key];
         }
-        
+
         if (value === undefined) {
             throw new Error(`Property "${property}" not found in JSON message`);
         }
-        
+
         await assert.typeOf(value, type, `Property "${property}" is not of type ${type}`);
     },
 
@@ -249,18 +250,18 @@ module.exports = {
     rememberJsonProperty: async function (mqttManager, topic, property, variableName) {
         const message = await this.getLatestMessage(mqttManager, topic);
         const jsonData = this.parseMessageAsJson(message);
-        
+
         // Navigate through nested properties
         const keys = property.split('.');
         let value = jsonData;
         for (let key of keys) {
             value = value[key];
         }
-        
+
         if (value === undefined) {
             throw new Error(`Property "${property}" not found in JSON message`);
         }
-        
+
         await storage.iStoreVariableWithValueToTheJsonFile(value, variableName);
     },
 
@@ -319,4 +320,3 @@ module.exports = {
         );
     },
 };
-

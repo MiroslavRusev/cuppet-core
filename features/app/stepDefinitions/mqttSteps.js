@@ -40,10 +40,13 @@ When('I publish {string} to MQTT topic {string}', async function (message, topic
  * Publish a message with QoS and retain options
  * @example When I publish "Alert" to MQTT topic "alerts/critical" with QoS 1 and retain true
  */
-When('I publish {string} to MQTT topic {string} with QoS {int} and retain {word}', async function (message, topic, qos, retain) {
-    const retainFlag = retain === 'true';
-    await mqttFunctions.publishMessage(this.mqttManager, message, topic, qos, retainFlag);
-});
+When(
+    'I publish {string} to MQTT topic {string} with QoS {int} and retain {word}',
+    async function (message, topic, qos, retain) {
+        const retainFlag = retain === 'true';
+        await mqttFunctions.publishMessage(this.mqttManager, message, topic, qos, retainFlag);
+    }
+);
 
 /**
  * Publish a JSON message to an MQTT topic
@@ -87,26 +90,35 @@ Then('the MQTT message on topic {string} should contain {string}', async functio
  * @example Then the MQTT message on topic "sensors/temp" should have property "temperature" with value "25"
  * @example Then the MQTT message on topic "data/user" should have property "user.name" with value "John"
  */
-Then('the MQTT message on topic {string} should have property {string} with value {string}', async function (topic, property, expectedValue) {
-    await mqttFunctions.validateJsonProperty(this.mqttManager, topic, property, expectedValue);
-});
+Then(
+    'the MQTT message on topic {string} should have property {string} with value {string}',
+    async function (topic, property, expectedValue) {
+        await mqttFunctions.validateJsonProperty(this.mqttManager, topic, property, expectedValue);
+    }
+);
 
 /**
  * Validate JSON message property type
  * @example Then the MQTT message on topic "sensors/data" property "temperature" should be a "number"
  */
-Then('the MQTT message on topic {string} property {string} should be a {string}', async function (topic, property, type) {
-    await mqttFunctions.validateJsonPropertyType(this.mqttManager, topic, property, type);
-});
+Then(
+    'the MQTT message on topic {string} property {string} should be a {string}',
+    async function (topic, property, type) {
+        await mqttFunctions.validateJsonPropertyType(this.mqttManager, topic, property, type);
+    }
+);
 
 /**
  * Remember a JSON property value from MQTT message
  * @example Then I remember the MQTT message property "id" from topic "devices/sensor1/response" as "deviceId"
  * @example Then I remember the MQTT message property "data.temperature" from topic "sensors/temp" as "currentTemp"
  */
-Then('I remember the MQTT message property {string} from topic {string} as {string}', async function (property, topic, variableName) {
-    await mqttFunctions.rememberJsonProperty(this.mqttManager, topic, property, variableName);
-});
+Then(
+    'I remember the MQTT message property {string} from topic {string} as {string}',
+    async function (property, topic, variableName) {
+        await mqttFunctions.rememberJsonProperty(this.mqttManager, topic, property, variableName);
+    }
+);
 
 /**
  * Remember the entire message content
@@ -155,4 +167,3 @@ Given('I disconnect from MQTT broker', async function () {
         this.mqttClient = null;
     }
 });
-

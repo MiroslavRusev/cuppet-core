@@ -68,14 +68,14 @@ Before(async function (testCase) {
     const appiumTag = arrayTags.find((item) => item.name === '@appium');
     const mqttTag = arrayTags.find((item) => item.name === '@mqtt');
     const apiTag = arrayTags.find((item) => item.name === '@api');
-    
+
     // Initialize MQTT Manager if @mqtt tag is present
     if (mqttTag) {
         const mqttManager = new MqttManager();
         await mqttManager.initialize();
         this.mqttManager = mqttManager;
     }
-    
+
     // Initialize browser unless it's API-only or MQTT-only test
     if (!appiumTag && !apiTag && !mqttTag) {
         const browserManager = new BrowserManager(browserViewport, browserArgs, credentials);
@@ -99,13 +99,13 @@ After(async function (testCase) {
     if (testCase.result.status === Status.FAILED) {
         console.log(`Scenario: '${testCase.pickle.name}' - has failed...\r\n`);
     }
-    
+
     // Cleanup MQTT connection if present
     if (this.mqttManager) {
         await this.mqttManager.stop();
         this.mqttManager = null;
     }
-    
+
     // Cleanup browser/appium connections
     if (this.browser) {
         await this.browserManager.stop();

@@ -33,29 +33,29 @@ Add your MQTT broker configuration to `config/default.json`:
 
 ```json
 {
-  "mqtt": {
-    "brokerUrl": "mqtt://localhost:1883",
-    "username": "your_username",
-    "password": "your_password",
-    "clientId": "",
-    "cleanSession": true,
-    "connectTimeout": 5000,
-    "keepalive": 60
-  }
+    "mqtt": {
+        "brokerUrl": "mqtt://localhost:1883",
+        "username": "your_username",
+        "password": "your_password",
+        "clientId": "",
+        "cleanSession": true,
+        "connectTimeout": 5000,
+        "keepalive": 60
+    }
 }
 ```
 
 **Configuration Options:**
 
-| Option | Description | Default |
-|--------|-------------|---------|
-| `brokerUrl` | MQTT broker URL (mqtt://, mqtts://, ws://, wss://) | `mqtt://localhost:1883` |
-| `username` | Authentication username | `""` (empty) |
-| `password` | Authentication password | `""` (empty) |
-| `clientId` | Custom client ID | Auto-generated |
-| `cleanSession` | Start with a clean session | `true` |
-| `connectTimeout` | Connection timeout in milliseconds | `5000` |
-| `keepalive` | Keep-alive interval in seconds | `60` |
+| Option           | Description                                        | Default                 |
+| ---------------- | -------------------------------------------------- | ----------------------- |
+| `brokerUrl`      | MQTT broker URL (mqtt://, mqtts://, ws://, wss://) | `mqtt://localhost:1883` |
+| `username`       | Authentication username                            | `""` (empty)            |
+| `password`       | Authentication password                            | `""` (empty)            |
+| `clientId`       | Custom client ID                                   | Auto-generated          |
+| `cleanSession`   | Start with a clean session                         | `true`                  |
+| `connectTimeout` | Connection timeout in milliseconds                 | `5000`                  |
+| `keepalive`      | Keep-alive interval in seconds                     | `60`                    |
 
 ## Usage
 
@@ -90,6 +90,7 @@ When I unsubscribe from MQTT topic "devices/sensor1/data"
 ```
 
 **Wildcard Support:**
+
 - `+` - Single-level wildcard (e.g., `devices/+/status`)
 - `#` - Multi-level wildcard (e.g., `devices/#`)
 
@@ -251,13 +252,13 @@ Scenario: Test end-to-end device workflow
   When I send a "POST" request to "/api/devices"
   Then the response code should be "201"
   And I remember the value of the "id" property as "deviceId"
-  
+
   # Subscribe to device topic
   When I subscribe to MQTT topic "devices/%deviceId%/data"
-  
+
   # Simulate device sending data
   When I publish JSON '{"temperature": 28.5, "timestamp": 1234567890}' to MQTT topic "devices/%deviceId%/data"
-  
+
   # Validate MQTT message
   Then I should receive a message on MQTT topic "devices/%deviceId%/data" within 5 seconds
   And the MQTT message on topic "devices/%deviceId%/data" should have property "temperature" with value "28.5"
@@ -269,9 +270,9 @@ Scenario: Test end-to-end device workflow
 
 ```json
 {
-  "mqtt": {
-    "brokerUrl": "mqtt://localhost:1883"
-  }
+    "mqtt": {
+        "brokerUrl": "mqtt://localhost:1883"
+    }
 }
 ```
 
@@ -279,11 +280,11 @@ Scenario: Test end-to-end device workflow
 
 ```json
 {
-  "mqtt": {
-    "brokerUrl": "mqtts://your-cluster.s1.eu.hivemq.cloud:8883",
-    "username": "your_username",
-    "password": "your_password"
-  }
+    "mqtt": {
+        "brokerUrl": "mqtts://your-cluster.s1.eu.hivemq.cloud:8883",
+        "username": "your_username",
+        "password": "your_password"
+    }
 }
 ```
 
@@ -291,13 +292,13 @@ Scenario: Test end-to-end device workflow
 
 ```json
 {
-  "mqtt": {
-    "brokerUrl": "mqtts://your-endpoint.iot.us-east-1.amazonaws.com:8883",
-    "clientId": "test-client",
-    "cert": "/path/to/cert.pem",
-    "key": "/path/to/private.key",
-    "ca": "/path/to/root-CA.crt"
-  }
+    "mqtt": {
+        "brokerUrl": "mqtts://your-endpoint.iot.us-east-1.amazonaws.com:8883",
+        "clientId": "test-client",
+        "cert": "/path/to/cert.pem",
+        "key": "/path/to/private.key",
+        "ca": "/path/to/root-CA.crt"
+    }
 }
 ```
 
@@ -387,4 +388,3 @@ The MQTT implementation follows Cuppet's existing patterns:
 - **`features/app/hooks.js`**: Automatic connection via `@mqtt` tag
 
 This design ensures consistency with your existing testing framework!
-

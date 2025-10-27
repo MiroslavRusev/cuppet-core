@@ -8,7 +8,8 @@ const config = require('config');
 class MqttManager {
     constructor(brokerUrl = null, options = {}) {
         this.client = null;
-        this.brokerUrl = brokerUrl || (config.has('mqtt.brokerUrl') ? config.get('mqtt.brokerUrl') : 'mqtt://localhost:1883');
+        this.brokerUrl =
+            brokerUrl || (config.has('mqtt.brokerUrl') ? config.get('mqtt.brokerUrl') : 'mqtt://localhost:1883');
         this.options = this.prepareOptions(options);
         this.messageBuffer = new Map(); // Store messages by topic
         this.subscriptions = new Set(); // Track active subscriptions
@@ -21,7 +22,9 @@ class MqttManager {
      */
     prepareOptions(customOptions) {
         const defaultOptions = {
-            clientId: config.has('mqtt.clientId') ? config.get('mqtt.clientId') : `cuppet-test-${Math.random().toString(16).slice(2, 8)}`,
+            clientId: config.has('mqtt.clientId')
+                ? config.get('mqtt.clientId')
+                : `cuppet-test-${Math.random().toString(16).slice(2, 8)}`,
             clean: config.has('mqtt.cleanSession') ? config.get('mqtt.cleanSession') : true,
             connectTimeout: config.has('mqtt.connectTimeout') ? config.get('mqtt.connectTimeout') : 5000,
             keepalive: config.has('mqtt.keepalive') ? config.get('mqtt.keepalive') : 60,
@@ -79,19 +82,19 @@ class MqttManager {
     setupMessageHandler() {
         this.client.on('message', (topic, message) => {
             console.log(`Received message on topic: ${topic}`);
-            
+
             // Store message in buffer for the specific topic
             if (!this.messageBuffer.has(topic)) {
                 this.messageBuffer.set(topic, []);
             }
-            
+
             const messageData = {
                 topic: topic,
                 message: message.toString(),
                 timestamp: Date.now(),
                 raw: message,
             };
-            
+
             this.messageBuffer.get(topic).push(messageData);
         });
     }
@@ -110,7 +113,7 @@ class MqttManager {
                     reject(error);
                 } else {
                     const topics = Array.isArray(topic) ? topic : [topic];
-                    topics.forEach(t => this.subscriptions.add(t));
+                    topics.forEach((t) => this.subscriptions.add(t));
                     console.log(`Successfully subscribed to: ${JSON.stringify(granted)}`);
                     resolve(granted);
                 }
@@ -131,7 +134,7 @@ class MqttManager {
                     reject(error);
                 } else {
                     const topics = Array.isArray(topic) ? topic : [topic];
-                    topics.forEach(t => this.subscriptions.delete(t));
+                    topics.forEach((t) => this.subscriptions.delete(t));
                     console.log(`Successfully unsubscribed from: ${topic}`);
                     resolve();
                 }
@@ -206,7 +209,7 @@ class MqttManager {
         return new Promise((resolve, reject) => {
             const checkInterval = setInterval(() => {
                 const latestMessage = this.getLatestMessage(topic);
-                
+
                 if (latestMessage && latestMessage.timestamp >= startTime) {
                     clearInterval(checkInterval);
                     resolve(latestMessage);
@@ -234,17 +237,17 @@ class MqttManager {
         return new Promise((resolve) => {
             if (this.client && this.client.connected) {
                 console.log('Disconnecting from MQTT broker...');
-                
+
                 // Unsubscribe from all topics
                 if (this.subscriptions.size > 0) {
                     const topicsArray = Array.from(this.subscriptions);
                     this.client.unsubscribe(topicsArray);
                 }
-                
+
                 // Clear buffers
                 this.messageBuffer.clear();
                 this.subscriptions.clear();
-                
+
                 // End connection
                 this.client.end(false, () => {
                     console.log('MQTT client disconnected');
@@ -258,4 +261,3 @@ class MqttManager {
 }
 
 module.exports = MqttManager;
-
