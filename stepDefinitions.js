@@ -10,6 +10,7 @@ module.exports = {
     iframeSteps: require('./features/app/stepDefinitions/iframeSteps'),
     ifVisibleSteps: require('./features/app/stepDefinitions/ifVisibleSteps'),
     lighthouseSteps: require('./features/app/stepDefinitions/lighthouseSteps'),
+    mqttSteps: require('./features/app/stepDefinitions/mqttSteps'),
     pageElements: require('./features/app/stepDefinitions/pageElements'),
     pageElementsConfig: require('./features/app/stepDefinitions/pageElementsConfig'),
     pageElementsJson: require('./features/app/stepDefinitions/pageElementsJson'),

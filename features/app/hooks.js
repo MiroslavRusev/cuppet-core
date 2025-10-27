@@ -1,6 +1,7 @@
 const { BeforeAll, AfterAll, Before, After, AfterStep, Status } = require('@cucumber/cucumber');
 const BrowserManager = require('./browserManager');
 const AppiumManager = require('./appiumManager');
+const MqttManager = require('./mqttManager');
 const fs = require('fs');
 const config = require('config');
 const dataStore = require('../../src/dataStorage');
@@ -62,10 +63,21 @@ Before(async function (testCase) {
     // Get Appium capabilities from config
     const appiumCapabilities = config.get('appiumCapabilities');
 
-    // Check if the test is tagged with @appium to either use Appium or Chromium
+    // Check if the test is tagged with @appium, @mqtt or neither
     const arrayTags = testCase.pickle.tags;
-    const found = arrayTags.find((item) => item.name === '@appium');
-    if (!found) {
+    const appiumTag = arrayTags.find((item) => item.name === '@appium');
+    const mqttTag = arrayTags.find((item) => item.name === '@mqtt');
+    const apiTag = arrayTags.find((item) => item.name === '@api');
+    
+    // Initialize MQTT Manager if @mqtt tag is present
+    if (mqttTag) {
+        const mqttManager = new MqttManager();
+        await mqttManager.initialize();
+        this.mqttManager = mqttManager;
+    }
+    
+    // Initialize browser unless it's API-only or MQTT-only test
+    if (!appiumTag && !apiTag && !mqttTag) {
         const browserManager = new BrowserManager(browserViewport, browserArgs, credentials);
         await browserManager.initialize();
 
@@ -74,7 +86,7 @@ Before(async function (testCase) {
         this.browser = browserManager.browser;
         this.page = browserManager.page;
         this.scenarioName = testCase.pickle.name;
-    } else {
+    } else if (appiumTag) {
         const appiumManager = new AppiumManager(appiumCapabilities);
         await appiumManager.initialize();
         this.appiumManager = appiumManager;
@@ -87,6 +99,14 @@ After(async function (testCase) {
     if (testCase.result.status === Status.FAILED) {
         console.log(`Scenario: '${testCase.pickle.name}' - has failed...\r\n`);
     }
+    
+    // Cleanup MQTT connection if present
+    if (this.mqttManager) {
+        await this.mqttManager.stop();
+        this.mqttManager = null;
+    }
+    
+    // Cleanup browser/appium connections
     if (this.browser) {
         await this.browserManager.stop();
     } else if (this.appiumDriver) {

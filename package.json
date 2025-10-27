@@ -17,6 +17,8 @@
         "cucumber",
         "puppeteer",
         "appium",
+        "mqtt",
+        "iot",
         "automation",
         "e2e"
     ],
@@ -38,6 +40,7 @@
         "mime": "^3.0.0",
         "mime-types": "^3.0.1",
         "moment": "^2.30.1",
+        "mqtt": "^5.11.3",
         "pa11y": "^9.0.0",
         "pa11y-reporter-html": "^2.0.0",
         "puppeteer": "^24.0.1",
