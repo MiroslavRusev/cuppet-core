@@ -291,14 +291,16 @@
         <ul>
           <li><a href="#overview">Overview</a></li>
           <li><a href="#features">Features</a></li>
-          <li><a href="#setup">Setup</a>
+          <li>
+            <a href="#setup">Setup</a>
             <ul>
               <li><a href="#install-dependencies">Install Dependencies</a></li>
               <li><a href="#configure-mqtt">Configure MQTT Broker</a></li>
             </ul>
           </li>
           <li><a href="#usage">Usage</a></li>
-          <li><a href="#step-definitions">Step Definitions</a>
+          <li>
+            <a href="#step-definitions">Step Definitions</a>
             <ul>
               <li><a href="#subscription-steps">Subscription Steps</a></li>
               <li><a href="#publishing-steps">Publishing Steps</a></li>
@@ -308,7 +310,8 @@
               <li><a href="#connection-steps">Connection Steps</a></li>
             </ul>
           </li>
-          <li><a href="#examples">Examples</a>
+          <li>
+            <a href="#examples">Examples</a>
             <ul>
               <li><a href="#example-1">Echo Test</a></li>
               <li><a href="#example-2">Device Registration</a></li>
@@ -332,8 +335,8 @@
         <section id="overview">
           <h2>Overview</h2>
           <p>
-            Cuppet Core now includes comprehensive MQTT testing support, allowing you to test IoT devices, message brokers, 
-            and event-driven architectures using Cucumber BDD scenarios.
+            Cuppet Core now includes comprehensive MQTT testing support, allowing you to test IoT devices, message brokers, and event-driven
+            architectures using Cucumber BDD scenarios.
           </p>
         </section>
 
@@ -350,14 +353,40 @@
             <span class="feature-badge">✅ Async Message Handling</span>
           </div>
           <ul>
-            <li><strong>Hook-based Connection Management</strong> - Automatic connection/cleanup with <code>@mqtt</code> tag</li>
-            <li><strong>Topic Subscriptions</strong> - Subscribe to topics with wildcard support (+, #)</li>
-            <li><strong>Message Publishing</strong> - Send text and JSON messages</li>
-            <li><strong>QoS Support</strong> - Configure Quality of Service levels (0, 1, 2)</li>
-            <li><strong>Message Validation</strong> - Assert message content, JSON properties, and types</li>
-            <li><strong>Variable Storage</strong> - Save and reuse message data across scenarios</li>
-            <li><strong>Message Buffering</strong> - Track all received messages per topic</li>
-            <li><strong>Async Message Handling</strong> - Wait for messages with configurable timeouts</li>
+            <li>
+              <strong>Hook-based Connection Management</strong>
+              - Automatic connection/cleanup with
+              <code>@mqtt</code>
+              tag
+            </li>
+            <li>
+              <strong>Topic Subscriptions</strong>
+              - Subscribe to topics with wildcard support (+, #)
+            </li>
+            <li>
+              <strong>Message Publishing</strong>
+              - Send text and JSON messages
+            </li>
+            <li>
+              <strong>QoS Support</strong>
+              - Configure Quality of Service levels (0, 1, 2)
+            </li>
+            <li>
+              <strong>Message Validation</strong>
+              - Assert message content, JSON properties, and types
+            </li>
+            <li>
+              <strong>Variable Storage</strong>
+              - Save and reuse message data across scenarios
+            </li>
+            <li>
+              <strong>Message Buffering</strong>
+              - Track all received messages per topic
+            </li>
+            <li>
+              <strong>Async Message Handling</strong>
+              - Wait for messages with configurable timeouts
+            </li>
           </ul>
         </section>
 
@@ -365,13 +394,21 @@
           <h2>Setup</h2>
 
           <h3 id="install-dependencies">1. Install Dependencies</h3>
-          <p>The <code>mqtt</code> package is already included in the dependencies. Just run:</p>
+          <p>
+            The
+            <code>mqtt</code>
+            package is already included in the dependencies. Just run:
+          </p>
           <pre><code class="language-bash">npm install
 # or
 yarn install</code></pre>
 
           <h3 id="configure-mqtt">2. Configure MQTT Broker</h3>
-          <p>Add your MQTT broker configuration to <code>config/default.json</code>:</p>
+          <p>
+            Add your MQTT broker configuration to
+            <code>config/default.json</code>
+            :
+          </p>
           <pre><code class="language-json">{
     "mqtt": {
         "brokerUrl": "mqtt://localhost:1883",
@@ -402,12 +439,18 @@ yarn install</code></pre>
               <tr>
                 <td><code>username</code></td>
                 <td>Authentication username</td>
-                <td><code>""</code> (empty)</td>
+                <td>
+                  <code>""</code>
+                  (empty)
+                </td>
               </tr>
               <tr>
                 <td><code>password</code></td>
                 <td>Authentication password</td>
-                <td><code>""</code> (empty)</td>
+                <td>
+                  <code>""</code>
+                  (empty)
+                </td>
               </tr>
               <tr>
                 <td><code>clientId</code></td>
@@ -436,7 +479,11 @@ yarn install</code></pre>
         <section id="usage">
           <h2>Usage</h2>
           <h3>Basic Scenario Structure</h3>
-          <p>Tag your scenarios with <code>@mqtt</code> to automatically connect to the broker:</p>
+          <p>
+            Tag your scenarios with
+            <code>@mqtt</code>
+            to automatically connect to the broker:
+          </p>
           <pre><code class="language-gherkin">@mqtt
 Feature: Device Telemetry Testing
 
@@ -462,8 +509,18 @@ When I unsubscribe from MQTT topic "devices/sensor1/data"</code></pre>
 
           <h4>Wildcard Support:</h4>
           <ul>
-            <li><code>+</code> - Single-level wildcard (e.g., <code>devices/+/status</code>)</li>
-            <li><code>#</code> - Multi-level wildcard (e.g., <code>devices/#</code>)</li>
+            <li>
+              <code>+</code>
+              - Single-level wildcard (e.g.,
+              <code>devices/+/status</code>
+              )
+            </li>
+            <li>
+              <code>#</code>
+              - Multi-level wildcard (e.g.,
+              <code>devices/#</code>
+              )
+            </li>
           </ul>
 
           <h3 id="publishing-steps">Publishing Steps</h3>
@@ -531,7 +588,10 @@ Given I connect to MQTT broker "mqtt://test-broker.example.com:1883"
 Given I disconnect from MQTT broker</code></pre>
 
           <div class="note-box">
-            <strong>Note:</strong> These steps are optional when using the <code>@mqtt</code> tag, which handles connections automatically.
+            <strong>Note:</strong>
+            These steps are optional when using the
+            <code>@mqtt</code>
+            tag, which handles connections automatically.
           </div>
         </section>
 
@@ -693,22 +753,61 @@ await mqttManager.stop();</code></pre>
 
           <h3>Tips</h3>
           <ol>
-            <li><strong>Check message buffer:</strong> Messages are stored per topic</li>
-            <li><strong>Use wildcards carefully:</strong> <code>+</code> vs <code>#</code> have different behaviors</li>
-            <li><strong>Clear buffers:</strong> Between tests to avoid stale data</li>
+            <li>
+              <strong>Check message buffer:</strong>
+              Messages are stored per topic
+            </li>
+            <li>
+              <strong>Use wildcards carefully:</strong>
+              <code>+</code>
+              vs
+              <code>#</code>
+              have different behaviors
+            </li>
+            <li>
+              <strong>Clear buffers:</strong>
+              Between tests to avoid stale data
+            </li>
           </ol>
         </section>
 
         <section id="best-practices">
           <h2>Best Practices</h2>
           <ol>
-            <li><strong>Use <code>@mqtt</code> tag:</strong> Let hooks manage connections automatically</li>
-            <li><strong>Subscribe before publishing:</strong> Ensure you're listening before messages arrive</li>
-            <li><strong>Clear buffers:</strong> Between related tests to avoid cross-test pollution</li>
-            <li><strong>Use meaningful topics:</strong> Follow topic naming conventions (e.g., <code>domain/device/datatype</code>)</li>
-            <li><strong>Set appropriate timeouts:</strong> Balance between reliability and test speed</li>
-            <li><strong>Use QoS wisely:</strong> QoS 0 for most tests, higher levels when delivery guarantee is tested</li>
-            <li><strong>Variable storage:</strong> Save dynamic IDs and reuse them across steps</li>
+            <li>
+              <strong>
+                Use
+                <code>@mqtt</code>
+                tag:
+              </strong>
+              Let hooks manage connections automatically
+            </li>
+            <li>
+              <strong>Subscribe before publishing:</strong>
+              Ensure you're listening before messages arrive
+            </li>
+            <li>
+              <strong>Clear buffers:</strong>
+              Between related tests to avoid cross-test pollution
+            </li>
+            <li>
+              <strong>Use meaningful topics:</strong>
+              Follow topic naming conventions (e.g.,
+              <code>domain/device/datatype</code>
+              )
+            </li>
+            <li>
+              <strong>Set appropriate timeouts:</strong>
+              Balance between reliability and test speed
+            </li>
+            <li>
+              <strong>Use QoS wisely:</strong>
+              QoS 0 for most tests, higher levels when delivery guarantee is tested
+            </li>
+            <li>
+              <strong>Variable storage:</strong>
+              Save dynamic IDs and reuse them across steps
+            </li>
           </ol>
         </section>
 
@@ -716,10 +815,36 @@ await mqttManager.stop();</code></pre>
           <h2>Architecture</h2>
           <p>The MQTT implementation follows Cuppet's existing patterns:</p>
           <ul>
-            <li><strong><code>features/app/mqttManager.js</code>:</strong> Connection lifecycle management (like BrowserManager)</li>
-            <li><strong><code>src/mqttFunctions.js</code>:</strong> Core MQTT operations (like apiFunctions)</li>
-            <li><strong><code>features/app/stepDefinitions/mqttSteps.js</code>:</strong> Cucumber step definitions</li>
-            <li><strong><code>features/app/hooks.js</code>:</strong> Automatic connection via <code>@mqtt</code> tag</li>
+            <li>
+              <strong>
+                <code>features/app/mqttManager.js</code>
+                :
+              </strong>
+              Connection lifecycle management (like BrowserManager)
+            </li>
+            <li>
+              <strong>
+                <code>src/mqttFunctions.js</code>
+                :
+              </strong>
+              Core MQTT operations (like apiFunctions)
+            </li>
+            <li>
+              <strong>
+                <code>features/app/stepDefinitions/mqttSteps.js</code>
+                :
+              </strong>
+              Cucumber step definitions
+            </li>
+            <li>
+              <strong>
+                <code>features/app/hooks.js</code>
+                :
+              </strong>
+              Automatic connection via
+              <code>@mqtt</code>
+              tag
+            </li>
           </ul>
           <p>This design ensures consistency with your existing testing framework!</p>
         </section>
@@ -732,4 +857,3 @@ await mqttManager.stop();</code></pre>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
   </body>
 </html>
-

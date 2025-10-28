@@ -186,12 +186,16 @@ module.exports = {
     validateJsonProperty: async function (mqttManager, topic, property, expectedValue) {
         let resolvedExpected = await storage.checkForSavedVariable(expectedValue);
         resolvedExpected = helper.castPrimitiveType(resolvedExpected);
-        
+
         const message = await this.getLatestMessage(mqttManager, topic);
         const jsonData = this.parseMessageAsJson(message);
         const value = helper.getPropertyValue(jsonData, property);
 
-        assert.strictEqual(value, resolvedExpected, `The value of the property "${property}" does not match: Expected: ${resolvedExpected}, Actual: ${value}`);
+        assert.strictEqual(
+            value,
+            resolvedExpected,
+            `The value of the property "${property}" does not match: Expected: ${resolvedExpected}, Actual: ${value}`
+        );
     },
 
     /**

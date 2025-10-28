@@ -219,7 +219,6 @@ module.exports = {
         await storage.iStoreVariableWithValueToTheJsonFile(propValue, variable);
     },
 
-
     /**
      * Load custom json file and make a request body from it
      * @param path
