@@ -4,6 +4,8 @@
  * @typedef {import('puppeteer').Browser} Browser
  */
 const config = require('config');
+const { v4: uuidv4 } = require('uuid');
+
 module.exports = {
     /**
      * Waits for a keypress event to continue the test execution.
@@ -30,6 +32,15 @@ module.exports = {
         return Math.random()
             .toString(36)
             .substring(2, length + 2);
+    },
+
+    /**
+     * Generate random v4 UUID
+     * @example 123e4567-e89b-12d3-a456-426614174000
+     * @returns {string}
+     */
+    generateRandomUuid: function () {
+        return uuidv4();
     },
 
     /**

@@ -77,3 +77,8 @@ Given('I switch back to original window', async function () {
 Given('I switch to {string} tab', async function (tabNumber) {
     this.page = await helper.switchToTab(this.browser, tabNumber);
 });
+
+Then('I generate UUID and store it in {string} variable', async function (variable) {
+    const uuid = helper.generateRandomUuid();
+    await dataStorage.iStoreVariableWithValueToTheJsonFile(uuid, variable);
+});
