@@ -33,6 +33,24 @@ module.exports = {
     },
 
     /**
+     * Iterate through  json object and return the value of specific property
+     * @param object - the json object to iterate through
+     * @param property - name of the property. For nested structure use -> parent.child1.child2 etc.
+     * @returns {*}
+     */
+    getPropertyValue: function (object, property) {
+        const keys = property.split('.');
+        let value = object;
+        for (let key of keys) {
+            if (value === undefined || value === null) {
+                throw new Error(`Property path "${property}" not found in object`);
+            }
+            value = value[key];
+        }
+        return value;
+    },
+
+    /**
      * Wait until AJAX request is completed
      * @param {Page} page
      * @returns {Promise<void>}
@@ -161,5 +179,29 @@ module.exports = {
         const newUrl = new URL(path);
         let pathName = newUrl.pathname;
         return pathName.replace(/[^a-z0-9]/gi, '_').toLowerCase();
+    },
+
+    /**
+     * Convert string representations of primitive types to their actual types
+     * Handles: "null" -> null, "true" -> true, "false" -> false, "undefined" -> undefined, numeric strings -> numbers
+     * @param {*} value - The value to convert
+     * @returns {*} - The converted value or original value if no conversion needed
+     */
+    castPrimitiveType: function (value) {
+        if (typeof value === 'string') {
+            if (value === 'null') {
+                return null;
+            } else if (value === 'true') {
+                return true;
+            } else if (value === 'false') {
+                return false;
+            } else if (value === 'undefined') {
+                return undefined;
+            } else if (!isNaN(value) && value.trim() !== '') {
+                // Convert numeric strings to numbers
+                return Number(value);
+            }
+        }
+        return value;
     },
 };

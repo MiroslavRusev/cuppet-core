@@ -1,6 +1,7 @@
 const axios = require('axios');
 const config = require('config');
 const storage = require('./dataStorage');
+const helper = require('./helperFunctions');
 const xml2js = require('xml2js');
 const assert = require('chai').assert;
 const fs = require('fs');
@@ -201,7 +202,7 @@ module.exports = {
      * @returns {Promise<void>}
      */
     propertyHasValue: async function (property, expectedValue) {
-        const actualValue = await this.getPropertyValue(property);
+        const actualValue = await helper.getPropertyValue(this.response.data, property);
         assert.strictEqual(actualValue, expectedValue, `Property "${property}" does not have the expected value`);
     },
 
@@ -214,26 +215,8 @@ module.exports = {
      * @returns {Promise<void>}
      */
     iRememberVariable: async function (property, variable) {
-        const propValue = await this.getPropertyValue(property);
+        const propValue = await helper.getPropertyValue(this.response.data, property);
         await storage.iStoreVariableWithValueToTheJsonFile(propValue, variable);
-    },
-
-    /**
-     * Go through the response object and return the value of specific property
-     * @param property - name of the property. For nested structure use -> parent.child1.child2 etc.
-     * @returns {Promise<*>}
-     */
-    getPropertyValue: async function (property) {
-        const response = this.response.data;
-        const keys = property.split('.');
-        let value = response;
-        for (let key of keys) {
-            value = value[key];
-        }
-        if (!value) {
-            throw new Error(`Value with property: ${property} is not found!`);
-        }
-        return value;
     },
 
     /**
