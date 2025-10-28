@@ -155,15 +155,14 @@ Then('I should have received {int} messages on MQTT topic {string}', async funct
  */
 Given('I connect to MQTT broker {string}', async function (brokerUrl) {
     const MqttManager = require('../mqttManager');
-    this.mqttManager = new MqttManager(brokerUrl);
-    await this.mqttManager.initialize();
-    this.mqttClient = this.mqttManager.client;
+    const mqttManager = new MqttManager(brokerUrl);
+    await mqttManager.initialize();
+    this.mqttManager = mqttManager;
 });
 
 Given('I disconnect from MQTT broker', async function () {
     if (this.mqttManager) {
         await this.mqttManager.stop();
         this.mqttManager = null;
-        this.mqttClient = null;
     }
 });

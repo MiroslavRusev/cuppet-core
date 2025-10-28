@@ -2196,7 +2196,7 @@ b4a@^1.6.4:
   resolved "https://registry.yarnpkg.com/b4a/-/b4a-1.6.7.tgz#a99587d4ebbfbd5a6e3b21bdb5d5fa385767abe4"
   integrity sha512-OnAYlL5b7LEkALw87fUVafQw5rVR9RjwGd4KUwNQ6DrrNmaVaUCgLipfVlzrPQ4tWOR9P0IXGNOx50jYCCdSJg==
 
-backstopjs@^6.3.23:
+backstopjs@^6.3.25:
   version "6.3.25"
   resolved "https://registry.yarnpkg.com/backstopjs/-/backstopjs-6.3.25.tgz#751533f03eb8a6a62de06991cbb9ed51bcd367cd"
   integrity sha512-jy0dxlk45tItXLcj9zjRTCyCa6D27M9OMK5kM8To0ELLclKhI/dWn/igUTMBBMJXe4Kql+CGyDRErMtTv2+40Q==

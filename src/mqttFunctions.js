@@ -1,5 +1,6 @@
 const assert = require('chai').assert;
 const storage = require('./dataStorage');
+const helper = require('./helperFunctions');
 
 /**
  * MQTT Functions Module
@@ -183,34 +184,14 @@ module.exports = {
      * @returns {Promise<void>}
      */
     validateJsonProperty: async function (mqttManager, topic, property, expectedValue) {
-        const resolvedExpected = await storage.checkForSavedVariable(expectedValue);
+        let resolvedExpected = await storage.checkForSavedVariable(expectedValue);
+        resolvedExpected = helper.castPrimitiveType(resolvedExpected);
+        
         const message = await this.getLatestMessage(mqttManager, topic);
         const jsonData = this.parseMessageAsJson(message);
+        const value = helper.getPropertyValue(jsonData, property);
 
-        // Navigate through nested properties
-        const keys = property.split('.');
-        let value = jsonData;
-        for (let key of keys) {
-            if (value === undefined || value === null) {
-                throw new Error(`Property path "${property}" not found in message`);
-            }
-            value = value[key];
-        }
-
-        if (value === undefined) {
-            throw new Error(`Property "${property}" not found in JSON message`);
-        }
-
-        // Convert to string for comparison if needed
-        const actualValue = typeof value === 'string' ? value : JSON.stringify(value);
-        const expectedValueStr =
-            typeof resolvedExpected === 'string' ? resolvedExpected : JSON.stringify(resolvedExpected);
-
-        assert.strictEqual(
-            actualValue,
-            expectedValueStr,
-            `Property "${property}" does not match. Expected: ${expectedValueStr}, Actual: ${actualValue}`
-        );
+        assert.strictEqual(value, resolvedExpected, `The value of the property "${property}" does not match: Expected: ${resolvedExpected}, Actual: ${value}`);
     },
 
     /**
@@ -224,19 +205,8 @@ module.exports = {
     validateJsonPropertyType: async function (mqttManager, topic, property, type) {
         const message = await this.getLatestMessage(mqttManager, topic);
         const jsonData = this.parseMessageAsJson(message);
-
-        // Navigate through nested properties
-        const keys = property.split('.');
-        let value = jsonData;
-        for (let key of keys) {
-            value = value[key];
-        }
-
-        if (value === undefined) {
-            throw new Error(`Property "${property}" not found in JSON message`);
-        }
-
-        await assert.typeOf(value, type, `Property "${property}" is not of type ${type}`);
+        const value = helper.getPropertyValue(jsonData, property);
+        assert.typeOf(value, type, `Property "${property}" is not of type ${type}`);
     },
 
     /**
@@ -250,18 +220,7 @@ module.exports = {
     rememberJsonProperty: async function (mqttManager, topic, property, variableName) {
         const message = await this.getLatestMessage(mqttManager, topic);
         const jsonData = this.parseMessageAsJson(message);
-
-        // Navigate through nested properties
-        const keys = property.split('.');
-        let value = jsonData;
-        for (let key of keys) {
-            value = value[key];
-        }
-
-        if (value === undefined) {
-            throw new Error(`Property "${property}" not found in JSON message`);
-        }
-
+        const value = helper.getPropertyValue(jsonData, property);
         await storage.iStoreVariableWithValueToTheJsonFile(value, variableName);
     },
 
@@ -300,8 +259,7 @@ module.exports = {
      */
     getMessageCount: async function (mqttManager, topic) {
         const resolvedTopic = await this.prepareTopic(topic);
-        const messages = mqttManager.getMessages(resolvedTopic);
-        return messages.length;
+        return (await mqttManager.getMessages(resolvedTopic)).length;
     },
 
     /**
@@ -312,7 +270,8 @@ module.exports = {
      * @returns {Promise<void>}
      */
     validateMessageCount: async function (mqttManager, topic, expectedCount) {
-        const actualCount = await this.getMessageCount(mqttManager, topic);
+        const resolvedTopic = await this.prepareTopic(topic);
+        const actualCount = await this.getMessageCount(mqttManager, resolvedTopic);
         assert.strictEqual(
             actualCount,
             expectedCount,

@@ -52,24 +52,51 @@ class MqttManager {
                 console.log(`Connecting to MQTT broker: ${this.brokerUrl}`);
                 this.client = mqtt.connect(this.brokerUrl, this.options);
 
-                this.client.on('connect', () => {
-                    console.log(`Successfully connected to MQTT broker: ${this.brokerUrl}`);
-                    this.setupMessageHandler();
-                    resolve();
-                });
+                let settled = false; // Guard against multiple resolve/reject calls
 
-                this.client.on('error', (error) => {
-                    console.error(`MQTT connection error: ${error.message}`);
-                    reject(error);
-                });
+                // Centralized cleanup function
+                const cleanup = () => {
+                    clearTimeout(timeoutId);
+                    this.client.removeListener('connect', onConnect);
+                    this.client.removeListener('error', onError);
+                };
 
-                // Set connection timeout
-                setTimeout(() => {
-                    if (!this.client.connected) {
+                // Declare timeout first
+                const timeoutId = setTimeout(() => {
+                    if (!settled) {
+                        settled = true;
+                        cleanup();
+                        this.client.end(true);
                         reject(new Error(`MQTT connection timeout after ${this.options.connectTimeout}ms`));
                     }
                 }, this.options.connectTimeout);
+
+                const onConnect = () => {
+                    if (!settled) {
+                        settled = true;
+                        cleanup();
+                        console.log(`Successfully connected to MQTT broker: ${this.brokerUrl}`);
+                        this.setupMessageHandler();
+                        resolve();
+                    }
+                };
+
+                const onError = (error) => {
+                    if (!settled) {
+                        settled = true;
+                        cleanup();
+                        console.error(`MQTT connection error: ${error.message}`);
+                        this.client.end(true);
+                        reject(error);
+                    }
+                };
+
+                this.client.once('connect', onConnect);
+                this.client.once('error', onError);
             } catch (error) {
+                if (this.client) {
+                    this.client.end(true);
+                }
                 reject(error);
             }
         });
@@ -185,6 +212,7 @@ class MqttManager {
     /**
      * Clear message buffer for a specific topic or all topics
      * @param {string|null} topic - Topic to clear or null to clear all
+     * @returns {<void>}
      */
     clearMessageBuffer(topic = null) {
         if (topic) {

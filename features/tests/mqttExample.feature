@@ -20,12 +20,11 @@ Feature: MQTT Testing Examples
     And the MQTT message on topic "sensors/temperature" property "humidity" should be a "number"
 
   Scenario: Store and reuse MQTT message data
+    Given I subscribe to MQTT topic "devices/sensor-001/status"
     When I publish JSON '{"deviceId": "sensor-001", "status": "active"}' to MQTT topic "devices/sensor-001/status"
-    And I subscribe to MQTT topic "devices/sensor-001/status"
     Then I should receive a message on MQTT topic "devices/sensor-001/status" within 5 seconds
     And I remember the MQTT message property "deviceId" from topic "devices/sensor-001/status" as "savedDeviceId"
-    # Now you can use %savedDeviceId% in subsequent steps
-    When I publish "Command for %savedDeviceId%" to MQTT topic "devices/commands"
+    And I publish "Command for %savedDeviceId%" to MQTT topic "devices/commands"
 
   Scenario: Test message with QoS and retain
     When I publish "Critical Alert" to MQTT topic "alerts/critical" with QoS 1 and retain true
