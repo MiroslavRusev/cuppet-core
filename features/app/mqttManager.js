@@ -249,6 +249,35 @@ class MqttManager {
         });
     }
 
+    /** Wait for specific message on a topic with timeout. IMPORTANT: Message is position,case and whitespace sensitive.
+     * @param {string} topic - Topic to wait for message on
+     * @param {string} message - Message to wait for
+     * @param {number} timeoutSeconds - Timeout in seconds
+     * @returns {Promise<Object>} - Resolves with message when received
+     */
+    async waitForSpecificMessage(topic, message, timeoutSeconds = 10) {
+        const timeoutMs = timeoutSeconds * 1000;
+        const startTime = Date.now();
+
+        while (Date.now() - startTime < timeoutMs) {
+            const latestMessage = this.getLatestMessage(topic);
+            if (latestMessage) {
+                const latestMessageString = JSON.stringify(latestMessage.message);
+                const expectedMessageString = JSON.stringify(message);
+                if (latestMessageString === expectedMessageString) {
+                    return latestMessage;
+                } else {
+                    throw new Error(
+                        `Message: ${latestMessageString} on topic ${topic} does not match expected: ${expectedMessageString}`
+                    );
+                }
+            }
+            await new Promise((resolve) => setTimeout(resolve, 100));
+        }
+
+        throw new Error(`Timeout waiting for message on topic: ${topic} after ${timeoutSeconds} seconds`);
+    }
+
     /**
      * Check if client is connected
      * @returns {boolean}

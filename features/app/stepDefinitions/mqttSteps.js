@@ -70,6 +70,20 @@ Then('I should receive a message on MQTT topic {string}', async function (topic)
 });
 
 /**
+ * Wait for a specific message on a topic with timeout
+ * @example Then I should receive the message "Hello World" on MQTT topic "test/response" within 5 seconds
+ */
+Then(
+    'I should receive the message {string} on MQTT topic {string} within {int} seconds',
+    async function (message, topic, timeout) {
+        await mqttFunctions.waitForSpecificMessage(this.mqttManager, topic, message, timeout);
+    }
+);
+
+Then('I should receive the message {string} on MQTT topic {string}', async function (message, topic) {
+    await mqttFunctions.waitForSpecificMessage(this.mqttManager, topic, message, 10);
+});
+/**
  * Validate the content of the latest message on a topic
  * @example Then the MQTT message on topic "test/echo" should equal "Hello World"
  */
