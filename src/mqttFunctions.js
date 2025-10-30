@@ -99,6 +99,20 @@ module.exports = {
     },
 
     /**
+     * Wait for a specific message on a topic with timeout
+     * @param {object} mqttManager - MQTT manager instance
+     * @param {string} topic - Topic to wait for message on
+     * @param {string} message - Message to wait for
+     * @param {number} timeoutSeconds - Timeout in seconds
+     * @returns {Promise<Object>} - Message object
+     */
+    waitForSpecificMessage: async function (mqttManager, topic, message, timeoutSeconds = 10) {
+        const resolvedTopic = await this.prepareTopic(topic);
+        const resolvedMessage = await this.prepareMessage(message);
+        return await mqttManager.waitForSpecificMessage(resolvedTopic, resolvedMessage, timeoutSeconds);
+    },
+
+    /**
      * Get the latest message from a topic
      * @param {object} mqttManager - MQTT manager instance
      * @param {string} topic - Topic to get message from
