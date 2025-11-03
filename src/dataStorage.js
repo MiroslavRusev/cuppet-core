@@ -31,9 +31,8 @@ module.exports = {
      */
     clearJsonFile: function () {
         if (jsonFilePath) {
-            fs.truncate(jsonFilePath, 0, () => {
-                console.log('JSON File Cleared successfully!');
-            });
+            fs.truncateSync(jsonFilePath, 0);
+            console.log('JSON File Cleared successfully!');
         }
     },
 
