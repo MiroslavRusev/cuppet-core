@@ -22,8 +22,11 @@ module.exports = {
     prepareUrl: async function (url) {
         const path = await storage.checkForMultipleVariables(url);
         if (!path.startsWith('http') && config.has('api.baseApiUrl')) {
-            return config.get('api.baseApiUrl') + path;
+            // Replace placeholders in base path with variables
+            const resolveBasePath = await storage.checkForMultipleVariables(config.get('api.baseApiUrl'));
+            return resolveBasePath + path;
         }
+        // Return the path as is if it's already an absolute URL or if no base path is configured
         return path;
     },
 
