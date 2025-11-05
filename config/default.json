@@ -53,5 +53,11 @@
         "cleanSession": true,
         "connectTimeout": 5000,
         "keepalive": 60
+    },
+    "kafka": {
+        "clientId": "",
+        "brokers": ["localhost:9092"],
+        "connectionTimeout": 5000,
+        "requestTimeout": 30000
     }
 }

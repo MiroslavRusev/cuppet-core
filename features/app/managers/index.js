@@ -2,5 +2,6 @@
 module.exports = {
     BrowserManager: require('./browserManager'),
     AppiumManager: require('./appiumManager'),
-    MqttManager: require('./mqttManager'),
+    MqttManager: require('./mqttManager'),  
+    KafkaManager: require('./kafkaManager'),
 };

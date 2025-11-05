@@ -36,6 +36,7 @@
         "axios": "^1.11.0",
         "backstopjs": "^6.3.25",
         "chai": "6.0.1",
+        "kafkajs": "^2.2.4",
         "lighthouse": "^12.8.0",
         "mime": "^3.0.0",
         "mime-types": "^3.0.1",
