@@ -14,9 +14,7 @@ const lighthouse = require('./src/lighthouse');
 const visualRegression = require('./src/visualRegression');
 
 // Export managers
-const BrowserManager = require('./features/app/browserManager');
-const AppiumManager = require('./features/app/appiumManager');
-const MqttManager = require('./features/app/mqttManager');
+const { BrowserManager, AppiumManager, MqttManager } = require('./features/app/managers');
 
 // Export step definitions
 const stepDefinitions = require('./stepDefinitions');

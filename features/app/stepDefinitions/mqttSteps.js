@@ -168,7 +168,7 @@ Then('I should have received {int} messages on MQTT topic {string}', async funct
  * These are not needed if using the @mqtt tag (connection is automatic)
  */
 Given('I connect to MQTT broker {string}', async function (brokerUrl) {
-    const MqttManager = require('../mqttManager');
+    const { MqttManager } = require('../managers');
     const mqttManager = new MqttManager(brokerUrl);
     await mqttManager.initialize();
     this.mqttManager = mqttManager;

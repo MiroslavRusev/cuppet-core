@@ -1,7 +1,5 @@
 const { BeforeAll, AfterAll, Before, After, AfterStep, Status } = require('@cucumber/cucumber');
-const BrowserManager = require('./browserManager');
-const AppiumManager = require('./appiumManager');
-const MqttManager = require('./mqttManager');
+const { BrowserManager, AppiumManager, MqttManager } = require('./managers');
 const fs = require('fs');
 const config = require('config');
 const dataStore = require('../../src/dataStorage');
