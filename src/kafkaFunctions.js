@@ -1,5 +1,4 @@
 const storage = require('./dataStorage');
-const helper = require('./helperFunctions');
 
 module.exports = {
     /** @type {Array} */

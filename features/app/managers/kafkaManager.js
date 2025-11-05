@@ -107,9 +107,9 @@ class KafkaManager {
     async sendMessages(topic, messages = []) {
         await this.producer.send({
             topic,
-            messages: messages.map(message => ({
-               ...(message.key && { key: message.key }),
-                value: message.value 
+            messages: messages.map((message) => ({
+                ...(message.key && { key: message.key }),
+                value: message.value,
             })),
         });
     }
@@ -119,15 +119,15 @@ class KafkaManager {
      * @returns {Promise<Object>} - Object with topic, partition, and message properties
      */
     async subscribe(topics = []) {
-        await this.consumer.subscribe({ 
-            topics: topics.map(topic => ({ topic }))
+        await this.consumer.subscribe({
+            topics: topics.map((topic) => ({ topic })),
         });
         return new Promise((resolve) => {
             this.consumer.run({
                 eachMessage: async ({ topic, partition, message }) => {
                     resolve({ topic, partition, message });
-                }
-            })
+                },
+            });
         });
     }
 
