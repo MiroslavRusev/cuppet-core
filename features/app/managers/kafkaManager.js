@@ -99,18 +99,18 @@ class KafkaManager {
         return this.isInitialized;
     }
 
-    /** Send a message to a topic
-     * @param {string} topic - Topic to send messages to
-     * @param {Array} messages - Array of messages to send. Each message is an object with key and value properties.
+    /** Send a message to a topic (currently only supports one message at a time)
+     * @param {string} topic - Topic to send message to
+     * @param {Object} message - Message to send. An object with key and value properties.
      * @returns {Promise<void>}
      */
-    async sendMessages(topic, messages = []) {
+    async sendMessage(topic, message = {}) {
+        if (!this.producer) {
+            await this.createProducer();
+        }
         await this.producer.send({
             topic,
-            messages: messages.map((message) => ({
-                ...(message.key && { key: message.key }),
-                value: message.value,
-            })),
+            messages: [message],
         });
     }
 
@@ -118,9 +118,12 @@ class KafkaManager {
      * @param {Array} topics - Array of topics to subscribe to
      * @returns {Promise<Object>} - Object with topic, partition, and message properties
      */
-    async subscribe(topics = []) {
+    async consumeMessage(topics = []) {
+        if (!this.consumer) {
+            await this.createConsumer();
+        }
         await this.consumer.subscribe({
-            topics: topics.map((topic) => ({ topic })),
+            topics: topics,
         });
         return new Promise((resolve) => {
             this.consumer.run({
