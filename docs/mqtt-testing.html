@@ -62,6 +62,77 @@
         color: #3498db;
       }
 
+      .subnav {
+        background: #34495e;
+        color: white;
+        padding: 0;
+        position: fixed;
+        width: 100%;
+        top: 70px;
+        z-index: 999;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .subnav .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        gap: 0;
+      }
+
+      .subnav-item {
+        position: relative;
+      }
+
+      .subnav-item > a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        padding: 1rem 1.5rem;
+        transition: background 0.3s;
+        font-weight: 500;
+      }
+
+      .subnav-item > a:hover {
+        background: #2c3e50;
+      }
+
+      .subnav-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        min-width: 250px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 0 0 8px 8px;
+        z-index: 1000;
+      }
+
+      .subnav-item:hover .subnav-dropdown {
+        display: block;
+      }
+
+      .subnav-dropdown a {
+        display: block;
+        color: #333;
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        transition: background 0.3s;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .subnav-dropdown a:last-child {
+        border-bottom: none;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .subnav-dropdown a:hover {
+        background: #f8f9fa;
+        color: #3498db;
+      }
+
       .container {
         max-width: 1200px;
         margin: 0 auto;
@@ -70,8 +141,8 @@
 
       .content {
         display: flex;
-        margin-top: 70px;
-        min-height: calc(100vh - 70px);
+        margin-top: 122px;
+        min-height: calc(100vh - 122px);
       }
 
       .sidebar {
@@ -80,8 +151,8 @@
         padding: 2rem;
         border-right: 1px solid #e9ecef;
         position: sticky;
-        top: 70px;
-        height: calc(100vh - 70px);
+        top: 122px;
+        height: calc(100vh - 122px);
         overflow-y: auto;
       }
 
@@ -274,14 +345,40 @@
         <nav>
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="api-docs.html">API Docs</a></li>
+            <li><a href="api-docs.html">Structure</a></li>
             <li><a href="step-definitions.html">Step Definitions</a></li>
             <li><a href="configuration.html">Configuration</a></li>
-            <li><a href="mqtt-testing.html">MQTT Testing</a></li>
             <li><a href="examples.html">Examples</a></li>
             <li><a href="https://github.com/MiroslavRusev/cuppet-core">GitHub</a></li>
           </ul>
         </nav>
+      </div>
+    </nav>
+
+    <nav class="subnav">
+      <div class="container">
+        <div class="subnav-item">
+          <a href="core-modules.html">Core Modules</a>
+          <div class="subnav-dropdown">
+            <a href="core-modules.html#mainFunctions">🌐 mainFunctions</a>
+            <a href="core-modules.html#elementInteraction">🎯 elementInteraction</a>
+            <a href="core-modules.html#dataStorage">💾 dataStorage</a>
+            <a href="core-modules.html#helperFunctions">🔧 helperFunctions</a>
+            <a href="core-modules.html#apiFunctions">🌍 apiFunctions</a>
+          </div>
+        </div>
+        <div class="subnav-item">
+          <a href="testing-modules.html">Testing Modules</a>
+          <div class="subnav-dropdown">
+            <a href="testing-modules.html#browser">🎭 Browser Testing</a>
+            <a href="testing-modules.html#appium">📱 Appium Testing</a>
+            <a href="testing-modules.html#accessibility">♿ Accessibility</a>
+            <a href="testing-modules.html#lighthouse">🚀 Lighthouse</a>
+            <a href="testing-modules.html#visual">👁️ Visual Regression</a>
+            <a href="mqtt-testing.html">📡 MQTT Testing</a>
+            <a href="kafka-testing.html">🔄 Kafka Testing</a>
+          </div>
+        </div>
       </div>
     </nav>
 

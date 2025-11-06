@@ -1,0 +1,1068 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Kafka Testing Guide - Cuppet Core</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+      }
+
+      body {
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, sans-serif;
+        line-height: 1.6;
+        color: #333;
+        background: #f8f9fa;
+      }
+
+      .navbar {
+        background: #2c3e50;
+        color: white;
+        padding: 1rem 0;
+        position: fixed;
+        width: 100%;
+        top: 0;
+        z-index: 1000;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .navbar .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+      }
+
+      .navbar .logo {
+        font-size: 1.5rem;
+        font-weight: bold;
+        color: #3498db;
+        text-decoration: none;
+      }
+
+      .navbar nav ul {
+        display: flex;
+        list-style: none;
+        gap: 2rem;
+      }
+
+      .navbar nav a {
+        color: white;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .navbar nav a:hover {
+        color: #3498db;
+      }
+
+      .subnav {
+        background: #34495e;
+        color: white;
+        padding: 0;
+        position: fixed;
+        width: 100%;
+        top: 70px;
+        z-index: 999;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .subnav .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        gap: 0;
+      }
+
+      .subnav-item {
+        position: relative;
+      }
+
+      .subnav-item > a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        padding: 1rem 1.5rem;
+        transition: background 0.3s;
+        font-weight: 500;
+      }
+
+      .subnav-item > a:hover {
+        background: #2c3e50;
+      }
+
+      .subnav-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        min-width: 250px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 0 0 8px 8px;
+        z-index: 1000;
+      }
+
+      .subnav-item:hover .subnav-dropdown {
+        display: block;
+      }
+
+      .subnav-dropdown a {
+        display: block;
+        color: #333;
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        transition: background 0.3s;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .subnav-dropdown a:last-child {
+        border-bottom: none;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .subnav-dropdown a:hover {
+        background: #f8f9fa;
+        color: #3498db;
+      }
+
+      .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+      }
+
+      .content {
+        display: flex;
+        margin-top: 122px;
+        min-height: calc(100vh - 122px);
+      }
+
+      .sidebar {
+        width: 300px;
+        background: white;
+        padding: 2rem;
+        border-right: 1px solid #e9ecef;
+        position: sticky;
+        top: 122px;
+        height: calc(100vh - 122px);
+        overflow-y: auto;
+      }
+
+      .sidebar h2 {
+        margin-bottom: 1rem;
+        color: #2c3e50;
+        font-size: 1.2rem;
+      }
+
+      .sidebar ul {
+        list-style: none;
+        margin-bottom: 2rem;
+      }
+
+      .sidebar ul li {
+        margin-bottom: 0.5rem;
+      }
+
+      .sidebar ul li a {
+        color: #555;
+        text-decoration: none;
+        transition: color 0.3s;
+      }
+
+      .sidebar ul li a:hover {
+        color: #3498db;
+      }
+
+      .sidebar ul ul {
+        margin-left: 1rem;
+        margin-top: 0.5rem;
+      }
+
+      .main-content {
+        flex: 1;
+        padding: 3rem;
+        background: white;
+        margin-left: 0;
+      }
+
+      .main-content h1 {
+        color: #2c3e50;
+        margin-bottom: 2rem;
+        padding-bottom: 1rem;
+        border-bottom: 2px solid #3498db;
+      }
+
+      .main-content h2 {
+        color: #2c3e50;
+        margin-top: 3rem;
+        margin-bottom: 1.5rem;
+        padding-bottom: 0.5rem;
+        border-bottom: 1px solid #e9ecef;
+      }
+
+      .main-content h3 {
+        color: #34495e;
+        margin-top: 2rem;
+        margin-bottom: 1rem;
+      }
+
+      .main-content h4 {
+        color: #555;
+        margin-top: 1.5rem;
+        margin-bottom: 0.75rem;
+      }
+
+      .main-content p {
+        margin-bottom: 1rem;
+      }
+
+      .main-content ul,
+      .main-content ol {
+        margin-bottom: 1rem;
+        padding-left: 2rem;
+      }
+
+      .main-content li {
+        margin-bottom: 0.5rem;
+      }
+
+      .main-content code {
+        background: #f8f9fa;
+        padding: 0.2rem 0.4rem;
+        border-radius: 3px;
+        font-family: 'Courier New', Courier, monospace;
+        font-size: 0.9em;
+        color: #e83e8c;
+      }
+
+      .main-content pre {
+        background: #1e1e1e;
+        padding: 1.5rem;
+        border-radius: 5px;
+        overflow-x: auto;
+        margin-bottom: 1.5rem;
+      }
+
+      .main-content pre code {
+        background: transparent;
+        padding: 0;
+        color: #abb2bf;
+      }
+
+      .main-content table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-bottom: 1.5rem;
+      }
+
+      .main-content table th,
+      .main-content table td {
+        padding: 0.75rem;
+        border: 1px solid #e9ecef;
+        text-align: left;
+      }
+
+      .main-content table th {
+        background: #f8f9fa;
+        font-weight: 600;
+        color: #2c3e50;
+      }
+
+      .main-content table tr:hover {
+        background: #f8f9fa;
+      }
+
+      .feature-badge {
+        display: inline-block;
+        background: #e3f2fd;
+        color: #1976d2;
+        padding: 0.25rem 0.75rem;
+        border-radius: 15px;
+        font-size: 0.9rem;
+        margin-right: 0.5rem;
+        margin-bottom: 0.5rem;
+      }
+
+      .note-box {
+        background: #fff3cd;
+        border-left: 4px solid #ffc107;
+        padding: 1rem;
+        margin: 1.5rem 0;
+        border-radius: 4px;
+      }
+
+      .note-box strong {
+        color: #856404;
+      }
+
+      .info-box {
+        background: #d1ecf1;
+        border-left: 4px solid #17a2b8;
+        padding: 1rem;
+        margin: 1.5rem 0;
+        border-radius: 4px;
+      }
+
+      .info-box strong {
+        color: #0c5460;
+      }
+
+      .back-to-top {
+        position: fixed;
+        bottom: 2rem;
+        right: 2rem;
+        background: #3498db;
+        color: white;
+        padding: 0.75rem 1rem;
+        border-radius: 5px;
+        text-decoration: none;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+        transition: background 0.3s;
+      }
+
+      .back-to-top:hover {
+        background: #2980b9;
+      }
+
+      @media (max-width: 968px) {
+        .content {
+          flex-direction: column;
+        }
+
+        .sidebar {
+          width: 100%;
+          position: relative;
+          height: auto;
+          top: 0;
+        }
+
+        .main-content {
+          margin-left: 0;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <nav class="navbar">
+      <div class="container">
+        <a href="index.html" class="logo">🏆 Cuppet Core</a>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="api-docs.html">Structure</a></li>
+            <li><a href="step-definitions.html">Step Definitions</a></li>
+            <li><a href="configuration.html">Configuration</a></li>
+            <li><a href="examples.html">Examples</a></li>
+            <li><a href="https://github.com/MiroslavRusev/cuppet-core">GitHub</a></li>
+          </ul>
+        </nav>
+      </div>
+    </nav>
+
+    <nav class="subnav">
+      <div class="container">
+        <div class="subnav-item">
+          <a href="core-modules.html">Core Modules</a>
+          <div class="subnav-dropdown">
+            <a href="core-modules.html#mainFunctions">🌐 mainFunctions</a>
+            <a href="core-modules.html#elementInteraction">🎯 elementInteraction</a>
+            <a href="core-modules.html#dataStorage">💾 dataStorage</a>
+            <a href="core-modules.html#helperFunctions">🔧 helperFunctions</a>
+            <a href="core-modules.html#apiFunctions">🌍 apiFunctions</a>
+          </div>
+        </div>
+        <div class="subnav-item">
+          <a href="testing-modules.html">Testing Modules</a>
+          <div class="subnav-dropdown">
+            <a href="testing-modules.html#browser">🎭 Browser Testing</a>
+            <a href="testing-modules.html#appium">📱 Appium Testing</a>
+            <a href="testing-modules.html#accessibility">♿ Accessibility</a>
+            <a href="testing-modules.html#lighthouse">🚀 Lighthouse</a>
+            <a href="testing-modules.html#visual">👁️ Visual Regression</a>
+            <a href="mqtt-testing.html">📡 MQTT Testing</a>
+            <a href="kafka-testing.html">🔄 Kafka Testing</a>
+          </div>
+        </div>
+      </div>
+    </nav>
+
+    <div class="content">
+      <aside class="sidebar">
+        <h2>Table of Contents</h2>
+        <ul>
+          <li><a href="#overview">Overview</a></li>
+          <li><a href="#features">Features</a></li>
+          <li>
+            <a href="#setup">Setup</a>
+            <ul>
+              <li><a href="#install-dependencies">Install Dependencies</a></li>
+              <li><a href="#configure-kafka">Configure Kafka</a></li>
+            </ul>
+          </li>
+          <li><a href="#usage">Usage</a></li>
+          <li>
+            <a href="#step-definitions">Step Definitions</a>
+            <ul>
+              <li><a href="#subscription-steps">Subscription Steps</a></li>
+              <li><a href="#publishing-steps">Publishing Steps</a></li>
+              <li><a href="#validation-steps">Message Validation</a></li>
+            </ul>
+          </li>
+          <li>
+            <a href="#examples">Examples</a>
+            <ul>
+              <li><a href="#example-1">Simple Pub/Sub</a></li>
+              <li><a href="#example-2">JSON Messages</a></li>
+              <li><a href="#example-3">Message Keys</a></li>
+              <li><a href="#example-4">Complex Validation</a></li>
+            </ul>
+          </li>
+          <li><a href="#brokers">Testing Different Brokers</a></li>
+          <li><a href="#programmatic">Programmatic Usage</a></li>
+          <li><a href="#troubleshooting">Troubleshooting</a></li>
+          <li><a href="#best-practices">Best Practices</a></li>
+          <li><a href="#architecture">Architecture</a></li>
+        </ul>
+      </aside>
+
+      <main class="main-content">
+        <h1>Kafka Testing Guide</h1>
+
+        <section id="overview">
+          <h2>Overview</h2>
+          <p>
+            Cuppet Core now includes comprehensive Apache Kafka testing support, allowing you to test event-driven architectures, microservices
+            communication, and streaming data pipelines using Cucumber BDD scenarios.
+          </p>
+          <p>
+            Built on
+            <strong>KafkaJS</strong>
+            , this integration provides a robust and developer-friendly way to test Kafka producers, consumers, and message flows in your
+            applications.
+          </p>
+        </section>
+
+        <section id="features">
+          <h2>Features</h2>
+          <div>
+            <span class="feature-badge">✅ Hook-based Connection Management</span>
+            <span class="feature-badge">✅ Topic Subscriptions</span>
+            <span class="feature-badge">✅ Message Publishing</span>
+            <span class="feature-badge">✅ Message Keys Support</span>
+            <span class="feature-badge">✅ JSON Message Validation</span>
+            <span class="feature-badge">✅ Variable Storage</span>
+            <span class="feature-badge">✅ SASL Authentication</span>
+            <span class="feature-badge">✅ SSL/TLS Support</span>
+          </div>
+          <ul>
+            <li>
+              <strong>Hook-based Connection Management</strong>
+              - Automatic connection/cleanup with
+              <code>@kafka</code>
+              tag
+            </li>
+            <li>
+              <strong>Topic Subscriptions</strong>
+              - Subscribe to single or multiple Kafka topics
+            </li>
+            <li>
+              <strong>Message Publishing</strong>
+              - Send text and JSON messages with optional keys
+            </li>
+            <li>
+              <strong>Message Keys</strong>
+              - Support for keyed messages for partitioning
+            </li>
+            <li>
+              <strong>JSON Message Validation</strong>
+              - Assert message properties, nested values, and types
+            </li>
+            <li>
+              <strong>Variable Storage</strong>
+              - Save and reuse message data across scenarios
+            </li>
+            <li>
+              <strong>SASL Authentication</strong>
+              - Support for PLAIN, SCRAM-SHA-256, and SCRAM-SHA-512
+            </li>
+            <li>
+              <strong>SSL/TLS Support</strong>
+              - Secure connections to Kafka brokers
+            </li>
+          </ul>
+        </section>
+
+        <section id="setup">
+          <h2>Setup</h2>
+
+          <h3 id="install-dependencies">Install Dependencies</h3>
+          <p>KafkaJS is included as a dependency in Cuppet Core. No additional installation required.</p>
+
+          <h3 id="configure-kafka">Configure Kafka Broker</h3>
+          <p>
+            Add your Kafka broker configuration to
+            <code>config/default.json</code>
+            :
+          </p>
+          <pre><code class="language-json">{
+    "kafka": {
+        "brokers": ["localhost:9092"],
+        "clientId": "cuppet-test",
+        "connectionTimeout": 5000,
+        "requestTimeout": 30000,
+        "logLevel": 1
+    }
+}</code></pre>
+
+          <h4>Configuration Options:</h4>
+          <table>
+            <thead>
+              <tr>
+                <th>Option</th>
+                <th>Description</th>
+                <th>Default</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <td><code>brokers</code></td>
+                <td>Array of Kafka broker addresses</td>
+                <td><code>["localhost:9092"]</code></td>
+              </tr>
+              <tr>
+                <td><code>clientId</code></td>
+                <td>Client identifier for Kafka</td>
+                <td>Auto-generated</td>
+              </tr>
+              <tr>
+                <td><code>connectionTimeout</code></td>
+                <td>Connection timeout in milliseconds</td>
+                <td><code>5000</code></td>
+              </tr>
+              <tr>
+                <td><code>requestTimeout</code></td>
+                <td>Request timeout in milliseconds</td>
+                <td><code>30000</code></td>
+              </tr>
+              <tr>
+                <td><code>logLevel</code></td>
+                <td>KafkaJS log level (0=NOTHING, 1=ERROR, 2=WARN, 4=INFO, 5=DEBUG)</td>
+                <td>
+                  <code>1</code>
+                  (ERROR)
+                </td>
+              </tr>
+            </tbody>
+          </table>
+
+          <h4>SASL Authentication Configuration:</h4>
+          <pre><code class="language-json">{
+    "kafka": {
+        "brokers": ["kafka.example.com:9093"],
+        "sasl": {
+            "mechanism": "plain",
+            "username": "your-username",
+            "password": "your-password"
+        },
+        "ssl": true
+    }
+}</code></pre>
+
+          <h4>Supported SASL Mechanisms:</h4>
+          <ul>
+            <li>
+              <code>plain</code>
+              - SASL/PLAIN authentication
+            </li>
+            <li>
+              <code>scram-sha-256</code>
+              - SASL/SCRAM-SHA-256
+            </li>
+            <li>
+              <code>scram-sha-512</code>
+              - SASL/SCRAM-SHA-512
+            </li>
+          </ul>
+        </section>
+
+        <section id="usage">
+          <h2>Usage</h2>
+          <h3>Basic Scenario Structure</h3>
+          <p>
+            Tag your scenarios with
+            <code>@kafka</code>
+            to automatically connect to the broker:
+          </p>
+          <pre><code class="language-gherkin">@kafka
+Feature: Kafka Message Testing
+
+  Scenario: Publish and consume a simple message
+    Given I subscribe to Kafka topic "test-topic"
+    Then I listen for a kafka message on the subscribed topics
+    When I send a kafka message to topic "test-topic" with value "Hello Kafka"
+    Then I should receive a kafka message with value "Hello Kafka"
+    And I unsubscribe from all Kafka topics</code></pre>
+
+          <div class="info-box">
+            <strong>Important:</strong>
+            Always subscribe to topics and start listening BEFORE publishing messages to ensure messages are captured.
+          </div>
+        </section>
+
+        <section id="step-definitions">
+          <h2>Available Step Definitions</h2>
+
+          <h3 id="subscription-steps">Subscription Steps</h3>
+          <pre><code class="language-gherkin"># Subscribe to a single topic
+Given I subscribe to Kafka topic "orders"
+
+# Subscribe to multiple topics (comma-separated)
+Given I subscribe to Kafka topic/topics "orders,payments,shipments"
+
+# Start listening for messages
+Then I listen for a kafka message on the subscribed topics
+
+# Unsubscribe from all topics
+Given I unsubscribe from all Kafka topics</code></pre>
+
+          <h3 id="publishing-steps">Publishing Steps</h3>
+          <pre><code class="language-gherkin"># Send a simple text message
+When I send a kafka message to topic "test-topic" with value "Hello World"
+
+# Send a message with a key
+When I send a kafka message to topic "orders" with value "Order data" and key "order-123"
+
+# Send a JSON message
+When I send a kafka message to topic "events" with JSON value
+  """
+  {
+    "eventType": "user.registered",
+    "userId": "12345",
+    "timestamp": 1234567890
+  }
+  """
+
+# Send a JSON message with a key
+When I send a kafka message to topic "users" with key "user-456" and JSON value
+  """
+  {
+    "name": "John Doe",
+    "email": "john@example.com"
+  }
+  """
+
+# Use saved variables in messages
+When I send a kafka message to topic "notifications" with value "%savedMessage%"</code></pre>
+
+          <h3 id="validation-steps">Message Validation Steps</h3>
+          <pre><code class="language-gherkin"># Validate simple message value
+Then I should receive a kafka message with value "Expected message"
+
+# Validate message with key and value
+Then I should receive a kafka message with key "order-123" and value "Order confirmed"
+
+# Validate JSON property value
+Then I should receive a kafka message with property "eventType" and value "user.registered"
+
+# Validate JSON property with key
+Then I should receive a kafka message with property "status" and value "success" and key "order-789"
+
+# Validate property does NOT match a value
+Then I should receive a kafka message with property "status" which value does not match "failed"
+
+# Validate property does NOT match with key
+Then I should receive a kafka message with property "status" and key "order-123" which value does not match "pending"</code></pre>
+
+          <h4>Nested Property Access:</h4>
+          <p>Use dot notation to access nested JSON properties:</p>
+          <pre><code class="language-gherkin">Then I should receive a kafka message with property "user.profile.email" and value "test@example.com"
+Then I should receive a kafka message with property "metadata.timestamp" and value "1234567890"</code></pre>
+        </section>
+
+        <section id="examples">
+          <h2>Examples</h2>
+
+          <h3 id="example-1">Example 1: Simple Publish and Subscribe</h3>
+          <pre><code class="language-gherkin">@kafka
+Feature: Basic Kafka Testing
+
+  Scenario: Simple message publish and receive
+    Given I subscribe to Kafka topic "test-topic"
+    Then I listen for a kafka message on the subscribed topics
+    When I send a kafka message to topic "test-topic" with value "Hello Kafka"
+    Then I should receive a kafka message with value "Hello Kafka"
+    And I unsubscribe from all Kafka topics</code></pre>
+
+          <h3 id="example-2">Example 2: JSON Message Validation</h3>
+          <pre><code class="language-gherkin">@kafka
+Feature: Kafka JSON Message Testing
+
+  Scenario: Validate JSON event structure
+    Given I subscribe to Kafka topic "events"
+    Then I listen for a kafka message on the subscribed topics
+    When I send a kafka message to topic "events" with JSON value
+      """
+      {
+        "eventType": "order.created",
+        "orderId": "ORD-12345",
+        "amount": 99.99,
+        "currency": "USD"
+      }
+      """
+    Then I should receive a kafka message with property "eventType" and value "order.created"
+    And I should receive a kafka message with property "orderId" and value "ORD-12345"
+    And I should receive a kafka message with property "amount" and value "99.99"
+    And I unsubscribe from all Kafka topics</code></pre>
+
+          <h3 id="example-3">Example 3: Messages with Keys</h3>
+          <pre><code class="language-gherkin">@kafka
+Feature: Kafka Keyed Messages
+
+  Scenario: Send and validate keyed messages
+    Given I subscribe to Kafka topic "user-events"
+    Then I listen for a kafka message on the subscribed topics
+    When I send a kafka message to topic "user-events" with key "user-123" and JSON value
+      """
+      {
+        "action": "login",
+        "timestamp": 1234567890
+      }
+      """
+    Then I should receive a kafka message with property "action" and value "login" and key "user-123"
+    And I unsubscribe from all Kafka topics</code></pre>
+
+          <h3 id="example-4">Example 4: Complex Nested JSON Validation</h3>
+          <pre><code class="language-gherkin">@kafka
+Feature: Complex Kafka Message Validation
+
+  Scenario: Validate nested JSON properties
+    Given I subscribe to Kafka topic "orders"
+    Then I listen for a kafka message on the subscribed topics
+    When I send a kafka message to topic "orders" with JSON value
+      """
+      {
+        "orderId": "ORD-789",
+        "customer": {
+          "id": "CUST-456",
+          "name": "Jane Smith",
+          "contact": {
+            "email": "jane@example.com",
+            "phone": "+1234567890"
+          }
+        },
+        "items": [
+          {
+            "productId": "PROD-001",
+            "quantity": 2,
+            "price": 29.99
+          }
+        ],
+        "total": 59.98
+      }
+      """
+    Then I should receive a kafka message with property "orderId" and value "ORD-789"
+    And I should receive a kafka message with property "customer.id" and value "CUST-456"
+    And I should receive a kafka message with property "customer.name" and value "Jane Smith"
+    And I should receive a kafka message with property "customer.contact.email" and value "jane@example.com"
+    And I should receive a kafka message with property "total" and value "59.98"
+    And I unsubscribe from all Kafka topics</code></pre>
+
+          <h3 id="example-5">Example 5: Multiple Topics</h3>
+          <pre><code class="language-gherkin">@kafka
+Feature: Multiple Kafka Topics
+
+  Scenario: Subscribe to multiple topics
+    Given I subscribe to Kafka topic/topics "orders,payments,notifications"
+    Then I listen for a kafka message on the subscribed topics
+    When I send a kafka message to topic "orders" with value "New order"
+    When I send a kafka message to topic "payments" with value "Payment received"
+    When I send a kafka message to topic "notifications" with value "Order confirmed"
+    And I unsubscribe from all Kafka topics</code></pre>
+
+          <h3 id="example-6">Example 6: Using Variables</h3>
+          <pre><code class="language-gherkin">@kafka @api
+Feature: Kafka with Variable Storage
+
+  Scenario: Use API response in Kafka message
+    # Make API call and save response
+    Given I set the request body to '{"productName": "Widget"}'
+    When I send a "POST" request to "/api/products"
+    Then the response code should be "201"
+    And I remember the value of the "id" property as "productId"
+
+    # Use saved variable in Kafka message
+    Given I subscribe to Kafka topic "product-events"
+    Then I listen for a kafka message on the subscribed topics
+    When I send a kafka message to topic "product-events" with JSON value
+      """
+      {
+        "eventType": "product.created",
+        "productId": "%productId%"
+      }
+      """
+    Then I should receive a kafka message with property "productId" and value "%productId%"
+    And I unsubscribe from all Kafka topics</code></pre>
+        </section>
+
+        <section id="brokers">
+          <h2>Testing Different Kafka Brokers</h2>
+
+          <h3>Local Kafka (Docker)</h3>
+          <pre><code class="language-bash"># Start Kafka with Docker Compose
+docker-compose up -d
+
+# Or use Confluent Platform
+docker run -d \
+  --name kafka \
+  -p 9092:9092 \
+  -e KAFKA_ZOOKEEPER_CONNECT=zookeeper:2181 \
+  confluentinc/cp-kafka:latest</code></pre>
+
+          <pre><code class="language-json">{
+    "kafka": {
+        "brokers": ["localhost:9092"],
+        "clientId": "cuppet-test"
+    }
+}</code></pre>
+
+          <h3>Confluent Cloud</h3>
+          <pre><code class="language-json">{
+    "kafka": {
+        "brokers": ["pkc-xxxxx.us-east-1.aws.confluent.cloud:9092"],
+        "clientId": "cuppet-test",
+        "sasl": {
+            "mechanism": "plain",
+            "username": "YOUR_API_KEY",
+            "password": "YOUR_API_SECRET"
+        },
+        "ssl": true
+    }
+}</code></pre>
+
+          <h3>AWS MSK (Managed Streaming for Kafka)</h3>
+          <pre><code class="language-json">{
+    "kafka": {
+        "brokers": [
+            "b-1.mycluster.xxxxx.kafka.us-east-1.amazonaws.com:9092",
+            "b-2.mycluster.xxxxx.kafka.us-east-1.amazonaws.com:9092"
+        ],
+        "clientId": "cuppet-test",
+        "ssl": true
+    }
+}</code></pre>
+
+          <h3>Azure Event Hubs (Kafka-compatible)</h3>
+          <pre><code class="language-json">{
+    "kafka": {
+        "brokers": ["your-namespace.servicebus.windows.net:9093"],
+        "clientId": "cuppet-test",
+        "sasl": {
+            "mechanism": "plain",
+            "username": "$ConnectionString",
+            "password": "Endpoint=sb://your-namespace.servicebus.windows.net/;SharedAccessKeyName=...;SharedAccessKey=..."
+        },
+        "ssl": true
+    }
+}</code></pre>
+        </section>
+
+        <section id="programmatic">
+          <h2>Programmatic Usage</h2>
+          <p>You can also use Kafka functions programmatically in your code:</p>
+          <pre><code class="language-javascript">const { kafkaFunctions, KafkaManager } = require('@cuppet/core');
+
+// Create and initialize Kafka manager
+const kafkaManager = new KafkaManager({
+    brokers: ['localhost:9092'],
+    clientId: 'my-test-client'
+});
+await kafkaManager.initialize();
+
+// Subscribe to topics
+await kafkaFunctions.subscribeToTopics(kafkaManager, 'test-topic');
+
+// Listen for messages
+const messagePromise = kafkaFunctions.listenForMessage(kafkaManager);
+
+// Send a message
+await kafkaFunctions.sendMessage(kafkaManager, 'test-topic', '{"test": "data"}');
+
+// Wait for and validate message
+const message = await messagePromise;
+await kafkaFunctions.validateSimpleMessage('{"test": "data"}');
+
+// Cleanup
+await kafkaManager.stop();</code></pre>
+        </section>
+
+        <section id="troubleshooting">
+          <h2>Troubleshooting</h2>
+
+          <h3>Connection Issues</h3>
+          <ul>
+            <li>Verify Kafka broker is running and accessible</li>
+            <li>Check broker addresses and ports in configuration</li>
+            <li>Ensure firewall/network allows connections to Kafka ports</li>
+            <li>Verify SASL credentials if using authentication</li>
+            <li>Check SSL/TLS configuration for secure connections</li>
+          </ul>
+
+          <h3>Messages Not Received</h3>
+          <ul>
+            <li>Always subscribe and start listening BEFORE publishing messages</li>
+            <li>Check topic names (case-sensitive)</li>
+            <li>Verify consumer group is not blocked by another consumer</li>
+            <li>Check Kafka broker logs for errors</li>
+            <li>Ensure topics exist (auto-creation may be disabled)</li>
+          </ul>
+
+          <h3>Authentication Errors</h3>
+          <ul>
+            <li>Verify SASL mechanism matches broker configuration</li>
+            <li>Check username and password are correct</li>
+            <li>Ensure SSL is enabled when required by broker</li>
+            <li>Verify client has permissions for topics</li>
+          </ul>
+
+          <h3>Reducing Log Verbosity</h3>
+          <p>To suppress KafkaJS INFO logs, set the log level in your configuration:</p>
+          <pre><code class="language-json">{
+    "kafka": {
+        "logLevel": 1
+    }
+}</code></pre>
+          <p>Log levels: 0=NOTHING, 1=ERROR, 2=WARN, 4=INFO, 5=DEBUG</p>
+        </section>
+
+        <section id="best-practices">
+          <h2>Best Practices</h2>
+          <ol>
+            <li>
+              <strong>
+                Use
+                <code>@kafka</code>
+                tag:
+              </strong>
+              Let hooks manage connections automatically
+            </li>
+            <li>
+              <strong>Subscribe before publishing:</strong>
+              Always set up subscriptions and listeners before sending messages
+            </li>
+            <li>
+              <strong>Use message keys:</strong>
+              For partitioning and ordering guarantees
+            </li>
+            <li>
+              <strong>Meaningful topic names:</strong>
+              Follow naming conventions (e.g.,
+              <code>domain.entity.event</code>
+              )
+            </li>
+            <li>
+              <strong>Clean up connections:</strong>
+              Always unsubscribe from topics after tests
+            </li>
+            <li>
+              <strong>Use unique consumer groups:</strong>
+              Auto-generated group IDs prevent conflicts
+            </li>
+            <li>
+              <strong>JSON for complex data:</strong>
+              Use JSON format for structured messages
+            </li>
+            <li>
+              <strong>Variable storage:</strong>
+              Save dynamic IDs and reuse them across steps
+            </li>
+            <li>
+              <strong>Test isolation:</strong>
+              Use unique topic names per test to avoid interference
+            </li>
+          </ol>
+        </section>
+
+        <section id="architecture">
+          <h2>Architecture</h2>
+          <p>The Kafka implementation follows Cuppet's existing patterns:</p>
+          <ul>
+            <li>
+              <strong>
+                <code>features/app/managers/kafkaManager.js</code>
+                :
+              </strong>
+              Connection lifecycle management (like BrowserManager and MqttManager)
+            </li>
+            <li>
+              <strong>
+                <code>src/kafkaFunctions.js</code>
+                :
+              </strong>
+              Core Kafka operations (like apiFunctions and mqttFunctions)
+            </li>
+            <li>
+              <strong>
+                <code>features/app/stepDefinitions/kafkaSteps.js</code>
+                :
+              </strong>
+              Cucumber step definitions for Kafka testing
+            </li>
+            <li>
+              <strong>
+                <code>features/app/hooks.js</code>
+                :
+              </strong>
+              Automatic connection via
+              <code>@kafka</code>
+              tag
+            </li>
+          </ul>
+
+          <h3>Key Components</h3>
+          <h4>KafkaManager</h4>
+          <p>Manages the Kafka client lifecycle, including:</p>
+          <ul>
+            <li>Client initialization with configuration</li>
+            <li>Producer and consumer creation</li>
+            <li>Connection management</li>
+            <li>Graceful shutdown and cleanup</li>
+          </ul>
+
+          <h4>kafkaFunctions</h4>
+          <p>Provides high-level operations:</p>
+          <ul>
+            <li>Topic subscription management</li>
+            <li>Message publishing with keys</li>
+            <li>Message consumption and listening</li>
+            <li>JSON and text message validation</li>
+            <li>Nested property validation</li>
+          </ul>
+
+          <h4>kafkaSteps</h4>
+          <p>Cucumber step definitions that bridge Gherkin syntax to kafkaFunctions:</p>
+          <ul>
+            <li>Natural language step definitions</li>
+            <li>DocString support for JSON messages</li>
+            <li>Variable interpolation</li>
+            <li>Integration with Cuppet's data storage</li>
+          </ul>
+
+          <p>This design ensures consistency with your existing testing framework!</p>
+        </section>
+
+        <a href="#" class="back-to-top">↑ Back to Top</a>
+      </main>
+    </div>
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+  </body>
+</html>

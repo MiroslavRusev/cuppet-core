@@ -3,7 +3,7 @@
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>API Documentation - Cuppet Core</title>
+    <title>Structure - Cuppet Core</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" />
     <style>
       * {
@@ -62,6 +62,77 @@
         color: #3498db;
       }
 
+      .subnav {
+        background: #34495e;
+        color: white;
+        padding: 0;
+        position: fixed;
+        width: 100%;
+        top: 70px;
+        z-index: 999;
+        box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+      }
+
+      .subnav .container {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 2rem;
+        display: flex;
+        gap: 0;
+      }
+
+      .subnav-item {
+        position: relative;
+      }
+
+      .subnav-item > a {
+        display: block;
+        color: white;
+        text-decoration: none;
+        padding: 1rem 1.5rem;
+        transition: background 0.3s;
+        font-weight: 500;
+      }
+
+      .subnav-item > a:hover {
+        background: #2c3e50;
+      }
+
+      .subnav-dropdown {
+        display: none;
+        position: absolute;
+        top: 100%;
+        left: 0;
+        background: white;
+        min-width: 250px;
+        box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+        border-radius: 0 0 8px 8px;
+        z-index: 1000;
+      }
+
+      .subnav-item:hover .subnav-dropdown {
+        display: block;
+      }
+
+      .subnav-dropdown a {
+        display: block;
+        color: #333;
+        text-decoration: none;
+        padding: 0.75rem 1.5rem;
+        transition: background 0.3s;
+        border-bottom: 1px solid #f0f0f0;
+      }
+
+      .subnav-dropdown a:last-child {
+        border-bottom: none;
+        border-radius: 0 0 8px 8px;
+      }
+
+      .subnav-dropdown a:hover {
+        background: #f8f9fa;
+        color: #3498db;
+      }
+
       .container {
         max-width: 1200px;
         margin: 0 auto;
@@ -69,191 +140,109 @@
       }
 
       .content {
-        display: flex;
-        margin-top: 70px;
-        min-height: calc(100vh - 70px);
-      }
-
-      .sidebar {
-        width: 300px;
-        background: white;
-        padding: 2rem;
-        border-right: 1px solid #e9ecef;
-        position: sticky;
-        top: 70px;
-        height: calc(100vh - 70px);
-        overflow-y: auto;
-      }
-
-      .sidebar h2 {
-        margin-bottom: 1rem;
-        color: #2c3e50;
-        font-size: 1.2rem;
-      }
-
-      .sidebar ul {
-        list-style: none;
-        margin-bottom: 2rem;
-      }
-
-      .sidebar ul li {
-        margin-bottom: 0.5rem;
-      }
-
-      .sidebar ul li a {
-        color: #666;
-        text-decoration: none;
-        padding: 0.5rem;
-        display: block;
-        border-radius: 4px;
-        transition: all 0.3s;
-      }
-
-      .sidebar ul li a:hover,
-      .sidebar ul li a.active {
-        background: #3498db;
-        color: white;
-      }
-
-      .main-content {
-        flex: 1;
-        padding: 2rem;
-        background: white;
-        margin-left: 1rem;
-        border-radius: 8px;
-        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        margin-top: 122px;
+        min-height: calc(100vh - 122px);
+        padding: 4rem 2rem;
       }
 
       .hero {
-        background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
-        color: white;
-        padding: 3rem 2rem;
         text-align: center;
-        margin-bottom: 2rem;
-        border-radius: 8px;
+        margin-bottom: 4rem;
       }
 
       .hero h1 {
-        font-size: 2.5rem;
+        font-size: 3rem;
+        color: #2c3e50;
         margin-bottom: 1rem;
       }
 
-      .module-section {
-        margin-bottom: 3rem;
-        border-bottom: 2px solid #e9ecef;
-        padding-bottom: 2rem;
+      .hero p {
+        font-size: 1.2rem;
+        color: #555;
+        max-width: 800px;
+        margin: 0 auto;
       }
 
-      .module-section:last-child {
-        border-bottom: none;
-      }
-
-      .module-header {
-        display: flex;
-        align-items: center;
-        margin-bottom: 1.5rem;
-      }
-
-      .module-icon {
-        font-size: 2rem;
-        margin-right: 1rem;
-      }
-
-      .module-title {
+      .section-title {
         font-size: 2rem;
         color: #2c3e50;
-        margin: 0;
+        margin: 3rem 0 2rem;
+        text-align: center;
       }
 
-      .function-card {
-        background: #f8f9fa;
-        border-left: 4px solid #3498db;
-        padding: 1.5rem;
-        margin-bottom: 1.5rem;
-        border-radius: 4px;
+      .modules-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 2rem;
+        margin-bottom: 4rem;
       }
 
-      .function-signature {
-        font-family: 'Courier New', monospace;
-        background: #2c3e50;
-        color: white;
-        padding: 1rem;
-        border-radius: 4px;
-        margin-bottom: 1rem;
-        overflow-x: auto;
-      }
-
-      .function-params {
-        margin-bottom: 1rem;
-      }
-
-      .param {
+      .module-card {
         background: white;
-        padding: 0.5rem;
-        margin-bottom: 0.5rem;
-        border-radius: 4px;
-        border-left: 3px solid #27ae60;
-      }
-
-      .param-name {
-        font-weight: bold;
-        color: #27ae60;
-      }
-
-      .param-type {
-        color: #e74c3c;
-        font-style: italic;
-      }
-
-      .return-info {
-        background: #fff3cd;
-        border: 1px solid #ffeaa7;
-        padding: 1rem;
-        border-radius: 4px;
-        margin-top: 1rem;
-      }
-
-      .example-code {
-        background: #1e1e1e;
-        border-radius: 4px;
-        padding: 1rem;
-        margin: 1rem 0;
-        overflow-x: auto;
-      }
-
-      .badge {
-        display: inline-block;
-        padding: 0.25rem 0.75rem;
         border-radius: 12px;
-        font-size: 0.75rem;
-        font-weight: bold;
-        margin-left: 0.5rem;
+        padding: 2rem;
+        text-decoration: none;
+        color: inherit;
+        transition: all 0.3s;
+        box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        border-left: 4px solid #3498db;
       }
 
-      .badge-async {
-        background: #e74c3c;
-        color: white;
+      .module-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.15);
       }
 
-      .badge-sync {
-        background: #27ae60;
-        color: white;
+      .module-card .icon {
+        font-size: 3rem;
+        margin-bottom: 1rem;
+        display: block;
+      }
+
+      .module-card h3 {
+        font-size: 1.5rem;
+        color: #2c3e50;
+        margin-bottom: 0.5rem;
+      }
+
+      .module-card p {
+        color: #666;
+        font-size: 0.95rem;
+        line-height: 1.5;
+      }
+
+      .module-card .learn-more {
+        display: inline-block;
+        margin-top: 1rem;
+        color: #3498db;
+        font-weight: 600;
+        transition: color 0.3s;
+      }
+
+      .module-card:hover .learn-more {
+        color: #2980b9;
       }
 
       @media (max-width: 768px) {
-        .content {
-          flex-direction: column;
+        .subnav .container {
+          flex-wrap: wrap;
         }
 
-        .sidebar {
-          width: 100%;
-          position: static;
-          height: auto;
+        .subnav-item > a {
+          padding: 0.75rem 1rem;
+          font-size: 0.9rem;
         }
 
-        .main-content {
-          margin-left: 0;
-          margin-top: 1rem;
+        .hero h1 {
+          font-size: 2rem;
+        }
+
+        .hero p {
+          font-size: 1rem;
+        }
+
+        .modules-grid {
+          grid-template-columns: 1fr;
         }
       }
     </style>
@@ -265,10 +254,9 @@
         <nav>
           <ul>
             <li><a href="index.html">Home</a></li>
-            <li><a href="api-docs.html">API Docs</a></li>
+            <li><a href="api-docs.html">Structure</a></li>
             <li><a href="step-definitions.html">Step Definitions</a></li>
             <li><a href="configuration.html">Configuration</a></li>
-            <li><a href="mqtt-testing.html">MQTT Testing</a></li>
             <li><a href="examples.html">Examples</a></li>
             <li><a href="https://github.com/MiroslavRusev/cuppet-core">GitHub</a></li>
           </ul>
@@ -276,443 +264,133 @@
       </div>
     </nav>
 
-    <div class="content">
-      <div class="sidebar">
-        <h2>Core Modules</h2>
-        <ul>
-          <li><a href="#mainFunctions">🌐 mainFunctions</a></li>
-          <li><a href="#elementInteraction">🎯 elementInteraction</a></li>
-          <li><a href="#dataStorage">💾 dataStorage</a></li>
-          <li><a href="#helperFunctions">🔧 helperFunctions</a></li>
-          <li><a href="#apiFunctions">🌍 apiFunctions</a></li>
-        </ul>
-
-        <h2>Testing Modules</h2>
-        <ul>
-          <li><a href="#appiumTesting">📱 appiumTesting</a></li>
-          <li><a href="#accessibilityTesting">♿ accessibilityTesting</a></li>
-          <li><a href="#lighthouse">🚀 lighthouse</a></li>
-          <li><a href="#visualRegression">👁️ visualRegression</a></li>
-        </ul>
-
-        <h2>Managers</h2>
-        <ul>
-          <li><a href="#browserManager">🎭 BrowserManager</a></li>
-          <li><a href="#appiumManager">📲 AppiumManager</a></li>
-        </ul>
+    <nav class="subnav">
+      <div class="container">
+        <div class="subnav-item">
+          <a href="core-modules.html">Core Modules</a>
+          <div class="subnav-dropdown">
+            <a href="core-modules.html#mainFunctions">🌐 mainFunctions</a>
+            <a href="core-modules.html#elementInteraction">🎯 elementInteraction</a>
+            <a href="core-modules.html#dataStorage">💾 dataStorage</a>
+            <a href="core-modules.html#helperFunctions">🔧 helperFunctions</a>
+            <a href="core-modules.html#apiFunctions">🌍 apiFunctions</a>
+          </div>
+        </div>
+        <div class="subnav-item">
+          <a href="testing-modules.html">Testing Modules</a>
+          <div class="subnav-dropdown">
+            <a href="testing-modules.html#browser">🎭 Browser Testing</a>
+            <a href="testing-modules.html#appium">📱 Appium Testing</a>
+            <a href="testing-modules.html#accessibility">♿ Accessibility</a>
+            <a href="testing-modules.html#lighthouse">🚀 Lighthouse</a>
+            <a href="testing-modules.html#visual">👁️ Visual Regression</a>
+            <a href="mqtt-testing.html">📡 MQTT Testing</a>
+            <a href="kafka-testing.html">🔄 Kafka Testing</a>
+          </div>
+        </div>
       </div>
+    </nav>
 
-      <div class="main-content">
+    <div class="content">
+      <div class="container">
         <div class="hero">
-          <h1>API Documentation</h1>
-          <p>Complete reference for all Cuppet Core modules and functions</p>
+          <h1>Cuppet Core Structure</h1>
+          <p>Explore the complete architecture of Cuppet Core - from core modules to specialized testing capabilities</p>
         </div>
 
-        <!-- Main Functions Module -->
-        <div class="module-section" id="mainFunctions">
-          <div class="module-header">
-            <div class="module-icon">🌐</div>
-            <h2 class="module-title">mainFunctions</h2>
-          </div>
-          <p>Core navigation and URL handling functions for web automation.</p>
+        <h2 class="section-title">Core Modules</h2>
+        <div class="modules-grid">
+          <a href="core-modules.html#mainFunctions" class="module-card">
+            <span class="icon">🌐</span>
+            <h3>mainFunctions</h3>
+            <p>Core navigation and URL handling for web automation. Prepare URLs, navigate pages, and manage viewports.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
 
-          <div class="function-card">
-            <h3>
-              prepareUrl
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async prepareUrl(path)</div>
-            <p>Prepare the URL using configuration to get the domain and generate full or relative paths.</p>
-            <div class="function-params">
-              <div class="param">
-                <span class="param-name">path</span>
-                <span class="param-type">(string)</span>
-                - The path to prepare, can be relative or absolute URL
-              </div>
-            </div>
-            <div class="return-info">
-              <strong>Returns:</strong>
-              Promise&lt;string&gt; - The prepared URL
-            </div>
-            <div class="example-code">
-              <pre><code class="language-javascript">const url = await mainFunctions.prepareUrl('/about');
-// Returns: 'https://example.com/about'</code></pre>
-            </div>
-          </div>
+          <a href="core-modules.html#elementInteraction" class="module-card">
+            <span class="icon">🎯</span>
+            <h3>elementInteraction</h3>
+            <p>Advanced element interaction and manipulation. Click, fill, select, and interact with web elements.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
 
-          <div class="function-card">
-            <h3>
-              extractPath
-              <span class="badge badge-sync">SYNC</span>
-            </h3>
-            <div class="function-signature">extractPath(page, absolute = false)</div>
-            <p>Extract current page URL - absolute or relative.</p>
-            <div class="function-params">
-              <div class="param">
-                <span class="param-name">page</span>
-                <span class="param-type">(Page)</span>
-                - Puppeteer page object
-              </div>
-              <div class="param">
-                <span class="param-name">absolute</span>
-                <span class="param-type">(boolean)</span>
-                - Set to true for full URL with domain
-              </div>
-            </div>
-            <div class="return-info">
-              <strong>Returns:</strong>
-              string - The extracted path
-            </div>
-          </div>
+          <a href="core-modules.html#dataStorage" class="module-card">
+            <span class="icon">💾</span>
+            <h3>dataStorage</h3>
+            <p>Store and retrieve data across test scenarios with powerful variable interpolation support.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
 
-          <div class="function-card">
-            <h3>
-              visitPath
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async visitPath(page, path)</div>
-            <p>Navigate to a URL with automatic cookie consent handling if configured.</p>
-            <div class="function-params">
-              <div class="param">
-                <span class="param-name">page</span>
-                <span class="param-type">(Page)</span>
-                - Puppeteer page object
-              </div>
-              <div class="param">
-                <span class="param-name">path</span>
-                <span class="param-type">(string)</span>
-                - URL path to visit
-              </div>
-            </div>
-          </div>
+          <a href="core-modules.html#helperFunctions" class="module-card">
+            <span class="icon">🔧</span>
+            <h3>helperFunctions</h3>
+            <p>Utility functions for data manipulation, validation, and common testing operations.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
 
-          <div class="function-card">
-            <h3>
-              validatePath
-              <span class="badge badge-sync">SYNC</span>
-            </h3>
-            <div class="function-signature">validatePath(page, path)</div>
-            <p>Validate that current page URL contains the expected path.</p>
-          </div>
-
-          <div class="function-card">
-            <h3>
-              setViewport
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async setViewport(page, device)</div>
-            <p>Set viewport size for different devices (mobile, tablet, laptop, etc.).</p>
-          </div>
+          <a href="core-modules.html#apiFunctions" class="module-card">
+            <span class="icon">🌍</span>
+            <h3>apiFunctions</h3>
+            <p>RESTful API testing with comprehensive request/response handling and authentication.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
         </div>
 
-        <!-- Element Interaction Module -->
-        <div class="module-section" id="elementInteraction">
-          <div class="module-header">
-            <div class="module-icon">🎯</div>
-            <h2 class="module-title">elementInteraction</h2>
-          </div>
-          <p>Comprehensive element interaction utilities for web automation.</p>
+        <h2 class="section-title">Testing Modules</h2>
+        <div class="modules-grid">
+          <a href="testing-modules.html#browser" class="module-card">
+            <span class="icon">🎭</span>
+            <h3>Browser Testing</h3>
+            <p>Puppeteer-based web automation with automatic lifecycle management and viewport configuration.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
 
-          <div class="function-card">
-            <h3>
-              click
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async click(page, selector, skip = false)</div>
-            <p>Click on an element with optional skip functionality.</p>
-            <div class="function-params">
-              <div class="param">
-                <span class="param-name">page</span>
-                <span class="param-type">(Page)</span>
-                - Puppeteer page object
-              </div>
-              <div class="param">
-                <span class="param-name">selector</span>
-                <span class="param-type">(string)</span>
-                - CSS selector of element to click
-              </div>
-              <div class="param">
-                <span class="param-name">skip</span>
-                <span class="param-type">(boolean)</span>
-                - Skip if element not found
-              </div>
-            </div>
-          </div>
+          <a href="testing-modules.html#appium" class="module-card">
+            <span class="icon">📱</span>
+            <h3>Appium Testing</h3>
+            <p>Mobile app testing for iOS and Android with gesture support and element interaction.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
 
-          <div class="function-card">
-            <h3>
-              fillField
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async fillField(page, selector, text, skip = false)</div>
-            <p>Fill a form field with text.</p>
-          </div>
+          <a href="testing-modules.html#accessibility" class="module-card">
+            <span class="icon">♿</span>
+            <h3>Accessibility</h3>
+            <p>Pa11y integration for WCAG 2.1 compliance testing with detailed violation reports.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
 
-          <div class="function-card">
-            <h3>
-              seeElement
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async seeElement(page, selector, isVisible = true, time = 3000)</div>
-            <p>Check if an element is visible or hidden on the page.</p>
-          </div>
+          <a href="testing-modules.html#lighthouse" class="module-card">
+            <span class="icon">🚀</span>
+            <h3>Lighthouse</h3>
+            <p>Google Lighthouse integration for performance, SEO, and best practices auditing.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
 
-          <div class="function-card">
-            <h3>
-              uploadFile
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async uploadFile(page, fileName, selector)</div>
-            <p>Upload a file using file input element.</p>
-          </div>
+          <a href="testing-modules.html#visual" class="module-card">
+            <span class="icon">👁️</span>
+            <h3>Visual Regression</h3>
+            <p>BackstopJS integration for automated screenshot comparison and visual testing.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
 
-          <div class="function-card">
-            <h3>
-              selectOptionByValue
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async selectOptionByValue(page, selector, value, skip = false)</div>
-            <p>Select dropdown option by value attribute.</p>
-          </div>
-        </div>
+          <a href="mqtt-testing.html" class="module-card">
+            <span class="icon">📡</span>
+            <h3>MQTT Testing</h3>
+            <p>IoT and message broker testing with MQTT protocol support, QoS levels, and message validation.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
 
-        <!-- Data Storage Module -->
-        <div class="module-section" id="dataStorage">
-          <div class="module-header">
-            <div class="module-icon">💾</div>
-            <h2 class="module-title">dataStorage</h2>
-          </div>
-          <p>Data storage and management utilities for test data persistence.</p>
-
-          <div class="function-card">
-            <h3>
-              createFile
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async createFile()</div>
-            <p>Create the JSON file for storing test data.</p>
-          </div>
-
-          <div class="function-card">
-            <h3>
-              getVariable
-              <span class="badge badge-sync">SYNC</span>
-            </h3>
-            <div class="function-signature">getVariable(variable, stringify = false)</div>
-            <p>Retrieve a stored variable value from JSON file.</p>
-          </div>
-
-          <div class="function-card">
-            <h3>
-              iStoreVariableWithValueToTheJsonFile
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async iStoreVariableWithValueToTheJsonFile(data, variable)</div>
-            <p>Store a variable with its value to the JSON file.</p>
-          </div>
-
-          <div class="function-card">
-            <h3>
-              saveCurrentPath
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async saveCurrentPath(page)</div>
-            <p>Save the current page path to JSON file.</p>
-          </div>
-        </div>
-
-        <!-- Helper Functions Module -->
-        <div class="module-section" id="helperFunctions">
-          <div class="module-header">
-            <div class="module-icon">🔧</div>
-            <h2 class="module-title">helperFunctions</h2>
-          </div>
-          <p>Utility functions for common testing operations.</p>
-
-          <div class="function-card">
-            <h3>
-              generateRandomString
-              <span class="badge badge-sync">SYNC</span>
-            </h3>
-            <div class="function-signature">generateRandomString(length)</div>
-            <p>Generate a random string with custom length.</p>
-          </div>
-
-          <div class="function-card">
-            <h3>
-              waitForAjax
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async waitForAjax(page)</div>
-            <p>Wait until AJAX requests are completed.</p>
-          </div>
-
-          <div class="function-card">
-            <h3>
-              getRegion
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async getRegion(page, region)</div>
-            <p>Get region element class name from configuration.</p>
-          </div>
-        </div>
-
-        <!-- API Functions Module -->
-        <div class="module-section" id="apiFunctions">
-          <div class="module-header">
-            <div class="module-icon">🌍</div>
-            <h2 class="module-title">apiFunctions</h2>
-          </div>
-          <p>RESTful API testing capabilities with authentication support.</p>
-
-          <div class="function-card">
-            <h3>
-              sendRequest
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async sendRequest(method, url = '/', headers = {}, data = {})</div>
-            <p>Send HTTP request with method, URL, headers, and data.</p>
-          </div>
-
-          <div class="function-card">
-            <h3>
-              setBasicAuth
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async setBasicAuth()</div>
-            <p>Set up basic authentication for API requests.</p>
-          </div>
-        </div>
-
-        <!-- Appium Testing Module -->
-        <div class="module-section" id="appiumTesting">
-          <div class="module-header">
-            <div class="module-icon">📱</div>
-            <h2 class="module-title">appiumTesting</h2>
-          </div>
-          <p>Mobile application testing with Appium integration.</p>
-
-          <div class="function-card">
-            <h3>
-              clickElement
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async clickElement(driver, selector)</div>
-            <p>Click on mobile element using Appium driver.</p>
-          </div>
-
-          <div class="function-card">
-            <h3>
-              scrollToElement
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async scrollToElement(driver, selector)</div>
-            <p>Scroll to element on mobile device.</p>
-          </div>
-        </div>
-
-        <!-- Accessibility Testing Module -->
-        <div class="module-section" id="accessibilityTesting">
-          <div class="module-header">
-            <div class="module-icon">♿</div>
-            <h2 class="module-title">accessibilityTesting</h2>
-          </div>
-          <p>Web accessibility testing with Pa11y integration.</p>
-
-          <div class="function-card">
-            <h3>
-              validateAccessibility
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async validateAccessibility(page, path, scenarioName)</div>
-            <p>Run accessibility tests and generate HTML reports.</p>
-          </div>
-        </div>
-
-        <!-- Lighthouse Module -->
-        <div class="module-section" id="lighthouse">
-          <div class="module-header">
-            <div class="module-icon">🚀</div>
-            <h2 class="module-title">lighthouse</h2>
-          </div>
-          <p>Performance testing with Google Lighthouse integration.</p>
-
-          <div class="function-card">
-            <h3>
-              validatePageSpeed
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async validatePageSpeed(page, path, scenarioName)</div>
-            <p>Run Lighthouse performance audit and generate reports.</p>
-          </div>
-        </div>
-
-        <!-- Visual Regression Module -->
-        <div class="module-section" id="visualRegression">
-          <div class="module-header">
-            <div class="module-icon">👁️</div>
-            <h2 class="module-title">visualRegression</h2>
-          </div>
-          <p>Visual regression testing with BackstopJS integration.</p>
-
-          <div class="function-card">
-            <h3>
-              runBackstopSingleScenario
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async runBackstopSingleScenario(scenarioName, path, testCommand)</div>
-            <p>Run BackstopJS visual regression test for а single scenario.</p>
-          </div>
-
-          <div class="function-card">
-            <h3>
-              runBackstopMultiplePages
-              <span class="badge badge-async">ASYNC</span>
-            </h3>
-            <div class="function-signature">async runBackstopMultiplePages(pages, testCommand)</div>
-            <p>Run visual regression tests for multiple pages.</p>
-          </div>
+          <a href="kafka-testing.html" class="module-card">
+            <span class="icon">🔄</span>
+            <h3>Kafka Testing</h3>
+            <p>Event-driven architecture testing with Apache Kafka, supporting producers, consumers, and message validation.</p>
+            <span class="learn-more">Learn more →</span>
+          </a>
         </div>
       </div>
     </div>
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
-    <script>
-      // Add smooth scrolling and active link highlighting
-      document.querySelectorAll('.sidebar a[href^="#"]').forEach((link) => {
-        link.addEventListener('click', function (e) {
-          e.preventDefault();
-          const target = document.querySelector(this.getAttribute('href'));
-          if (target) {
-            target.scrollIntoView({ behavior: 'smooth' });
-
-            // Update active link
-            document.querySelectorAll('.sidebar a').forEach((a) => a.classList.remove('active'));
-            this.classList.add('active');
-          }
-        });
-      });
-
-      // Highlight active section on scroll
-      window.addEventListener('scroll', function () {
-        const sections = document.querySelectorAll('.module-section');
-        const scrollPos = window.scrollY + 100;
-
-        sections.forEach((section) => {
-          const top = section.offsetTop;
-          const bottom = top + section.offsetHeight;
-          const id = section.getAttribute('id');
-
-          if (scrollPos >= top && scrollPos <= bottom) {
-            document.querySelectorAll('.sidebar a').forEach((a) => a.classList.remove('active'));
-            const activeLink = document.querySelector(`.sidebar a[href="#${id}"]`);
-            if (activeLink) {
-              activeLink.classList.add('active');
-            }
-          }
-        });
-      });
-    </script>
   </body>
 </html>

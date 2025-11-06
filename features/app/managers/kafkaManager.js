@@ -1,4 +1,4 @@
-const { Kafka } = require('kafkajs');
+const { Kafka, logLevel } = require('kafkajs');
 const config = require('config');
 
 /**
@@ -27,6 +27,7 @@ class KafkaManager {
             brokers: config.has('kafka.brokers') ? config.get('kafka.brokers') : ['localhost:9092'],
             connectionTimeout: config.has('kafka.connectionTimeout') ? config.get('kafka.connectionTimeout') : 5000,
             requestTimeout: config.has('kafka.requestTimeout') ? config.get('kafka.requestTimeout') : 30000,
+            logLevel: config.has('kafka.logLevel') ? Number(config.get('kafka.logLevel')) : logLevel.ERROR,
         };
 
         // Add SASL authentication if provided in config
@@ -118,13 +119,19 @@ class KafkaManager {
      * @param {Array} topics - Array of topics to subscribe to
      * @returns {Promise<Object>} - Object with topic, partition, and message properties
      */
-    async consumeMessage(topics = []) {
+    async subscribeToTopics(topics = []) {
         if (!this.consumer) {
             await this.createConsumer();
         }
         await this.consumer.subscribe({
             topics: topics,
         });
+    }
+
+    /** Consume a message from a topic
+     * @returns {Promise<Object>} - Object with topic, partition, and message properties
+     */
+    async consumeMessage() {
         return new Promise((resolve) => {
             this.consumer.run({
                 eachMessage: async ({ topic, partition, message }) => {

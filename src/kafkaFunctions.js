@@ -4,7 +4,40 @@ const helperFunctions = require('./helperFunctions');
 
 module.exports = {
     /** @type {Object} */
-    messageObject: {},
+    messageObject: null,
+
+    /**
+     * Subscribe to a topic
+     * @param {object} kafkaManager - Kafka manager instance
+     * @param {string} topics - String, comma separated list of topics to subscribe to
+     * @returns {Promise<void>}
+     */
+    subscribeToTopics: async function (kafkaManager, topics) {
+        const resolvedTopics = await this.prepareTopics(topics);
+        const topicsArray = resolvedTopics.split(',');
+        await kafkaManager.subscribeToTopics(topicsArray);
+    },
+
+    /**
+     * Listen for a message on the subscribed topics
+     * @param {object} kafkaManager - Kafka manager instance
+     * @returns {Promise<void>}
+     */
+    listenForMessage: async function (kafkaManager) {
+        this.messageObject = await kafkaManager.consumeMessage();
+        return this.messageObject;
+    },
+
+    /**
+     * Disconnect from all topics
+     * @param {object} kafkaManager - Kafka manager instance
+     * @returns {Promise<void>}
+     */
+    unsubscribeFromAllTopics: async function (kafkaManager) {
+        await kafkaManager.disconnect();
+        delete this.messageObject;
+    },
+
     /**
      * Prepare topic by replacing variables
      * @param {string} topic - Topic with potential variables
@@ -41,7 +74,11 @@ module.exports = {
         if (!messageKey) {
             throw new Error(`Message key is not present in the message object`);
         }
-        assert.strictEqual(messageKey, resolvedKey, `Message key does not match. Expected: ${resolvedKey}, Actual: ${messageKey}`);
+        assert.strictEqual(
+            messageKey,
+            resolvedKey,
+            `Message key does not match. Expected: ${resolvedKey}, Actual: ${messageKey}`
+        );
     },
 
     /**
@@ -57,19 +94,6 @@ module.exports = {
     },
 
     /**
-     * Subscribe to a topic
-     * @param {object} kafkaManager - Kafka manager instance
-     * @param {string} topics - String, comma separated list of topics to subscribe to
-     * @returns {Promise<void>}
-     */
-    consumeMessage: async function (kafkaManager, topics) {
-        const resolvedTopics = await this.prepareTopics(topics);
-        const topicsArray = resolvedTopics.split(',');
-        this.messageObject = await kafkaManager.consumeMessage(topicsArray);
-        return this.messageObject;
-    },
-
-    /**
      * Read the message from the message object
      * @param {string} key - Key to validate
      * @param {string} value - Value to validate
@@ -81,7 +105,11 @@ module.exports = {
         }
         const resolvedValue = await storage.checkForMultipleVariables(value);
         const messageValue = this.validateMessageHasValue();
-        assert.strictEqual(messageValue, resolvedValue, `Message does not match. Expected: ${resolvedValue}, Actual: ${messageValue}`);
+        assert.strictEqual(
+            messageValue,
+            resolvedValue,
+            `Message does not match. Expected: ${resolvedValue}, Actual: ${messageValue}`
+        );
     },
 
     /**
@@ -96,7 +124,7 @@ module.exports = {
         if (key) {
             await this.validateMessageKeyEquals(key);
         }
-        
+
         const messageValue = this.validateMessageHasValue();
         // Parse the message value to a JSON object
         let jsonData;
@@ -107,17 +135,22 @@ module.exports = {
         }
         // Get the property value using helperFunctions (handles nested properties)
         const actualValue = helperFunctions.getPropertyValue(jsonData, property);
-        
         const resolvedValue = await storage.checkForMultipleVariables(value);
+
         if (contains) {
-            assert.strictEqual(actualValue?.toString(), resolvedValue, 
-                `Value of property "${property}" does not match. Expected: ${resolvedValue}, Actual: ${actualValue}`);
+            assert.strictEqual(
+                actualValue?.toString(),
+                resolvedValue,
+                `Value of property "${property}" does not match. Expected: ${resolvedValue}, Actual: ${actualValue}`
+            );
         } else {
-            assert.notStrictEqual(actualValue?.toString(), resolvedValue, 
-                `Value of property "${property}" should NOT match but it does. Value: ${resolvedValue}`);
+            assert.notStrictEqual(
+                actualValue?.toString(),
+                resolvedValue,
+                `Value of property "${property}" should NOT match but it does. Value: ${resolvedValue}`
+            );
         }
     },
-
 
     /**
      * Send a message to a topic
@@ -130,7 +163,7 @@ module.exports = {
         const resolvedMessage = await this.prepareMessage(message);
         const messageObject = {
             ...(key && { key: await storage.checkForSavedVariable(key) }),
-            value: (typeof resolvedMessage === 'object') ? JSON.stringify(resolvedMessage) : resolvedMessage,
+            value: typeof resolvedMessage === 'object' ? JSON.stringify(resolvedMessage) : resolvedMessage,
         };
         await kafkaManager.sendMessage(topic, messageObject);
     },
