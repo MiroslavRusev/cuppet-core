@@ -7,6 +7,9 @@ const helper = require('./helperFunctions');
  * Provides core MQTT testing operations following the same pattern as Puppeteer and Appium functions
  */
 module.exports = {
+    /** @type {Object} */
+    messageObject: null,
+
     /**
      * Prepare topic by replacing variables
      * @param {string} topic - Topic with potential variables
@@ -21,8 +24,17 @@ module.exports = {
      * @param {string} message - Message with potential variables
      * @returns {Promise<string>} - Resolved message
      */
-    prepareMessage: async function (message) {
-        return await storage.checkForMultipleVariables(message);
+    prepareMessage: async function (message, json = false) {
+        const resolvedMessage = await storage.checkForMultipleVariables(message);
+        if (json) {
+            try {
+                this.messageObject = JSON.parse(resolvedMessage);
+                return this.messageObject;
+            } catch (error) {
+                throw new Error(`Invalid JSON message: ${error.message}`);
+            }
+        }
+        return resolvedMessage;
     },
 
     /**
@@ -59,8 +71,9 @@ module.exports = {
      */
     publishMessage: async function (mqttManager, message, topic, qos = 0, retain = false) {
         const resolvedTopic = await this.prepareTopic(topic);
-        const resolvedMessage = await this.prepareMessage(message);
+        const resolvedMessage = this.messageObject || (await this.prepareMessage(message));
         await mqttManager.publish(resolvedTopic, resolvedMessage, { qos, retain });
+        delete this.messageObject;
     },
 
     /**
@@ -74,7 +87,7 @@ module.exports = {
      */
     publishJsonMessage: async function (mqttManager, jsonString, topic, qos = 0, retain = false) {
         const resolvedTopic = await this.prepareTopic(topic);
-        const resolvedJson = await this.prepareMessage(jsonString);
+        const resolvedJson = this.messageObject || (await this.prepareMessage(jsonString));
 
         // Validate JSON
         try {
@@ -84,6 +97,7 @@ module.exports = {
         }
 
         await mqttManager.publish(resolvedTopic, resolvedJson, { qos, retain });
+        delete this.messageObject;
     },
 
     /**

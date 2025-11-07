@@ -27,6 +27,10 @@ When('I unsubscribe from MQTT topic {string}', async function (topic) {
     await mqttFunctions.unsubscribeFromTopic(this.mqttManager, topic);
 });
 
+When('I prepare MQTT message as JSON', async function (docString) {
+    await mqttFunctions.prepareMessage(docString, true);
+});
+
 /**
  * Publish a message to an MQTT topic
  * @example When I publish "Hello World" to MQTT topic "test/message"
