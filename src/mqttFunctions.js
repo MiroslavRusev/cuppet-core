@@ -7,7 +7,6 @@ const helper = require('./helperFunctions');
  * Provides core MQTT testing operations following the same pattern as Puppeteer and Appium functions
  */
 module.exports = {
-
     /** @type {Object} */
     messageObject: null,
 
@@ -72,7 +71,7 @@ module.exports = {
      */
     publishMessage: async function (mqttManager, message, topic, qos = 0, retain = false) {
         const resolvedTopic = await this.prepareTopic(topic);
-        const resolvedMessage = this.messageObject || await this.prepareMessage(message);
+        const resolvedMessage = this.messageObject || (await this.prepareMessage(message));
         await mqttManager.publish(resolvedTopic, resolvedMessage, { qos, retain });
         delete this.messageObject;
     },
@@ -88,7 +87,7 @@ module.exports = {
      */
     publishJsonMessage: async function (mqttManager, jsonString, topic, qos = 0, retain = false) {
         const resolvedTopic = await this.prepareTopic(topic);
-        const resolvedJson = this.messageObject || await this.prepareMessage(jsonString);
+        const resolvedJson = this.messageObject || (await this.prepareMessage(jsonString));
 
         // Validate JSON
         try {
