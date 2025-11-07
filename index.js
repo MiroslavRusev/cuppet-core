@@ -12,11 +12,10 @@ const appiumTesting = require('./src/appiumTesting');
 const accessibilityTesting = require('./src/accessibilityTesting');
 const lighthouse = require('./src/lighthouse');
 const visualRegression = require('./src/visualRegression');
+const kafkaFunctions = require('./src/kafkaFunctions');
 
 // Export managers
-const BrowserManager = require('./features/app/browserManager');
-const AppiumManager = require('./features/app/appiumManager');
-const MqttManager = require('./features/app/mqttManager');
+const { BrowserManager, AppiumManager, MqttManager, KafkaManager } = require('./features/app/managers');
 
 // Export step definitions
 const stepDefinitions = require('./stepDefinitions');
@@ -29,6 +28,7 @@ module.exports = {
     helperFunctions,
     apiFunctions,
     mqttFunctions,
+    kafkaFunctions,
     appiumTesting,
     accessibilityTesting,
     lighthouse,
@@ -38,6 +38,7 @@ module.exports = {
     BrowserManager,
     AppiumManager,
     MqttManager,
+    KafkaManager,
 
     // Step definitions
     stepDefinitions,

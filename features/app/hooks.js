@@ -1,7 +1,5 @@
 const { BeforeAll, AfterAll, Before, After, AfterStep, Status } = require('@cucumber/cucumber');
-const BrowserManager = require('./browserManager');
-const AppiumManager = require('./appiumManager');
-const MqttManager = require('./mqttManager');
+const { BrowserManager, AppiumManager, MqttManager, KafkaManager } = require('./managers');
 const fs = require('fs');
 const config = require('config');
 const dataStore = require('../../src/dataStorage');
@@ -68,6 +66,7 @@ Before(async function (testCase) {
     const appiumTag = arrayTags.find((item) => item.name === '@appium');
     const mqttTag = arrayTags.find((item) => item.name === '@mqtt');
     const apiTag = arrayTags.find((item) => item.name === '@api');
+    const kafkaTag = arrayTags.find((item) => item.name === '@kafka');
 
     // Initialize MQTT Manager if @mqtt tag is present
     if (mqttTag) {
@@ -76,8 +75,15 @@ Before(async function (testCase) {
         this.mqttManager = mqttManager;
     }
 
+    // Initialize Kafka Manager if @kafka tag is present
+    if (kafkaTag) {
+        const kafkaManager = new KafkaManager();
+        await kafkaManager.initialize();
+        this.kafkaManager = kafkaManager;
+    }
+
     // Initialize browser unless it's API-only or MQTT-only test
-    if (!appiumTag && !apiTag && !mqttTag) {
+    if (!appiumTag && !apiTag && !mqttTag && !kafkaTag) {
         const browserManager = new BrowserManager(browserViewport, browserArgs, credentials);
         await browserManager.initialize();
 
@@ -111,5 +117,11 @@ After(async function (testCase) {
         await this.browserManager.stop();
     } else if (this.appiumDriver) {
         await this.appiumManager.stop();
+    }
+
+    // Cleanup Kafka connection if present
+    if (this.kafkaManager) {
+        await this.kafkaManager.stop();
+        this.kafkaManager = null;
     }
 });
