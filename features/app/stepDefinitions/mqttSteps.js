@@ -27,7 +27,7 @@ When('I unsubscribe from MQTT topic {string}', async function (topic) {
     await mqttFunctions.unsubscribeFromTopic(this.mqttManager, topic);
 });
 
-When('I prepare MQTT message as JSON', async function (docString) {
+When('I prepare a JSON as MQTT message', async function (docString) {
     const message = JSON.stringify(docString);
     await mqttFunctions.prepareMessage(message, true);
 });

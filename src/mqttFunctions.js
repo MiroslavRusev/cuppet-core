@@ -7,8 +7,8 @@ const helper = require('./helperFunctions');
  * Provides core MQTT testing operations following the same pattern as Puppeteer and Appium functions
  */
 module.exports = {
-    /** @type {Object} */
-    messageObject: null,
+    /** @type {string} */
+    messageString: null,
 
     /**
      * Prepare topic by replacing variables
@@ -28,8 +28,11 @@ module.exports = {
         const resolvedMessage = await storage.checkForMultipleVariables(message);
         if (json) {
             try {
-                this.messageObject = JSON.parse(resolvedMessage);
-                return this.messageObject;
+                // Validate JSON (do not assign the value to the message object)
+                JSON.parse(resolvedMessage);
+                // Pass it as a string
+                this.messageString = resolvedMessage;
+                return this.messageString;
             } catch (error) {
                 throw new Error(`Invalid JSON message: ${error.message}`);
             }
@@ -86,9 +89,9 @@ module.exports = {
      */
     publishJsonMessage: async function (mqttManager, topic, jsonString = null, qos = 0, retain = false) {
         const resolvedTopic = await this.prepareTopic(topic);
-        const resolvedJson = jsonString ? await this.prepareMessage(jsonString, true) : this.messageObject;
+        const resolvedJson = jsonString ? await this.prepareMessage(jsonString, true) : this.messageString;
         // Delete the message object before the message is published to avoid conflicts if the request fails.
-        delete this.messageObject;
+        delete this.messageString;
         await mqttManager.publish(resolvedTopic, resolvedJson, { qos, retain });
     },
 
