@@ -132,8 +132,8 @@ For a detailed configuration and step definitions guide, see [GUIDE.MD](./GUIDE.
 
 This package requires the following peer dependencies:
 
-- `@cucumber/cucumber` ^11.0.0
-- `config` ^3.3.9
+- `@cucumber/cucumber` ^12.0.0
+- `config` ^4.1.0
 
 Make sure to install these in your project:
 
