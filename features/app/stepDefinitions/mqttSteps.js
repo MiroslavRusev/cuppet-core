@@ -28,7 +28,8 @@ When('I unsubscribe from MQTT topic {string}', async function (topic) {
 });
 
 When('I prepare MQTT message as JSON', async function (docString) {
-    await mqttFunctions.prepareMessage(docString, true);
+    const message = JSON.stringify(docString);
+    await mqttFunctions.prepareMessage(message, true);
 });
 
 /**
@@ -57,7 +58,15 @@ When(
  * @example When I publish JSON '{"temperature": 25, "humidity": 60}' to MQTT topic "sensors/room1"
  */
 When('I publish JSON {string} to MQTT topic {string}', async function (jsonMessage, topic) {
-    await mqttFunctions.publishJsonMessage(this.mqttManager, jsonMessage, topic, 0, false);
+    await mqttFunctions.publishJsonMessage(this.mqttManager, topic, jsonMessage);
+});
+
+/**
+ * Publish an already prepared JSON message to an MQTT topic
+ * @example When I publish the prepared JSON message to MQTT topic "sensors/room1"
+ */
+When('I publish the prepared JSON message to MQTT topic {string}', async function (topic) {
+    await mqttFunctions.publishJsonMessage(this.mqttManager, topic);
 });
 
 /**
