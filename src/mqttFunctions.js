@@ -71,33 +71,25 @@ module.exports = {
      */
     publishMessage: async function (mqttManager, message, topic, qos = 0, retain = false) {
         const resolvedTopic = await this.prepareTopic(topic);
-        const resolvedMessage = this.messageObject || (await this.prepareMessage(message));
+        const resolvedMessage = await this.prepareMessage(message);
         await mqttManager.publish(resolvedTopic, resolvedMessage, { qos, retain });
-        delete this.messageObject;
     },
 
     /**
      * Publish a JSON message to a topic
      * @param {object} mqttManager - MQTT manager instance
-     * @param {string} jsonString - JSON string to publish
      * @param {string} topic - Topic to publish to
+     * @param {string} jsonString - JSON string to publish
      * @param {number} qos - Quality of Service level
      * @param {boolean} retain - Whether to retain the message
      * @returns {Promise<void>}
      */
-    publishJsonMessage: async function (mqttManager, jsonString, topic, qos = 0, retain = false) {
+    publishJsonMessage: async function (mqttManager, topic, jsonString = null, qos = 0, retain = false) {
         const resolvedTopic = await this.prepareTopic(topic);
-        const resolvedJson = this.messageObject || (await this.prepareMessage(jsonString));
-
-        // Validate JSON
-        try {
-            JSON.parse(resolvedJson);
-        } catch (error) {
-            throw new Error(`Invalid JSON message: ${error.message}`);
-        }
-
-        await mqttManager.publish(resolvedTopic, resolvedJson, { qos, retain });
+        const resolvedJson = jsonString ? await this.prepareMessage(jsonString, true) : this.messageObject;
+        // Delete the message object before the message is published to avoid conflicts if the request fails.
         delete this.messageObject;
+        await mqttManager.publish(resolvedTopic, resolvedJson, { qos, retain });
     },
 
     /**

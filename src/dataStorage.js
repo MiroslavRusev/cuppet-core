@@ -126,6 +126,9 @@ module.exports = {
         const regex = /%([^%]+)%/g;
         const allVariables = this.getJsonFile();
         // The convention dictates if function argument is not used, it can be replaced by "_".
+        if (typeof text !== 'string') {
+            throw new Error(`The value passed to checkForMultipleVariables is not a string: ${text}`);
+        }
         const result = text.replace(regex, (_, group) => {
             return allVariables[group];
         });
