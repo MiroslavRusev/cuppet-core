@@ -63,9 +63,35 @@ When(
         await dataStorage.generateAndSaveDateWithCustomFormat(format, variable, days);
     }
 );
-When('I generate time in {string} format for now and store it in {string}', async function (format, variable) {
-    await dataStorage.generateAndSaveDateWithCustomFormat(format, variable);
-});
+/**
+ * Generate date with custom format and timezone and store it in a variable
+ * @param format - date format
+ * @param variable - variable name
+ * @param offset - UTC offset in hours (acceptable values are -12, -6, -3, 0, 3, 6, 12, etc.)
+ * @returns {Promise<void>}
+ */
+When(
+    'I generate date in {string} format for today with UTC offset {int} hours and store it in {string}',
+    async function (format, offset, variable) {
+        const utcOffset = offset * 60;
+        await dataStorage.generateAndSaveDateWithCustomFormatAndTz(format, variable, 0, utcOffset);
+    }
+);
+/**
+ * Generate date with custom format and timezone and store it in a variable
+ * @param format - date format
+ * @param variable - variable name
+ * @param days - number of days to add/subtract from the current date
+ * @param offset - UTC offset in hours (acceptable values are -12, -6, -3, 0, 3, 6, 12, etc.)
+ * @returns {Promise<void>}
+ */
+When(
+    'I generate date in {string} format for {string} days from now with UTC offset {int} hours and store it in {string}',
+    async function (format, offset, days, variable) {
+        const utcOffset = offset * 60;
+        await dataStorage.generateAndSaveDateWithCustomFormatAndTz(format, variable, days, utcOffset);
+    }
+);
 When('I create json object from {string} file and store it in {string} variable', async function (filePath, variable) {
     const checkedPath = await dataStorage.checkForSavedVariable(filePath);
     const getFileData = dataStorage.getJsonFile(checkedPath);
