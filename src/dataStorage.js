@@ -276,17 +276,34 @@ module.exports = {
     },
 
     /**
-     *
-     * @param format
-     * @param variable
-     * @param days
+     * Generate date with custom format in local timezone and store it in a variable
+     * @param format - date format
+     * @param variable - variable name
+     * @param days - number of days to add/subtract from the current date
      * @returns {Promise<void>}
      */
     generateAndSaveDateWithCustomFormat: async function (format, variable, days = 0) {
-        let date = moment()
+        const date = moment()
             .add(days >= 0 ? days : -days, 'days')
             .format(format);
 
+        await this.iStoreVariableWithValueToTheJsonFile(date, variable);
+    },
+
+    /**
+     * Generate date with custom format and timezone and store it in a variable
+     * THIS METHID IS NOT COMBINED WITH THE generateAndSaveDateWithCustomFormat due to ease of use in Gherkin steps.
+     * @param format - date format
+     * @param variable - variable name
+     * @param days - number of days to add/subtract from the current date
+     * @param offset - UTC offset in minutes (acceptable values are -240, -120, -60, 0, 60, 120, 240, etc.)
+     * @returns {Promise<void>}
+     */
+    generateAndSaveDateWithCustomFormatAndTz: async function (format, variable, days = 0, offset = 0) {
+        const date = moment()
+            .utcOffset(offset)
+            .add(days >= 0 ? days : -days, 'days')
+            .format(format);
         await this.iStoreVariableWithValueToTheJsonFile(date, variable);
     },
 };
