@@ -200,13 +200,19 @@ module.exports = {
 
     /**
      * Validate value of property from the http response.
+     * Automatically converts expectedValue from Gherkin string to match the actual type (string, number, boolean, null).
      * @param property
      * @param expectedValue
      * @returns {Promise<void>}
      */
     propertyHasValue: async function (property, expectedValue) {
         const actualValue = await helper.getPropertyValue(this.response.data, property);
-        assert.strictEqual(actualValue, expectedValue, `Property "${property}" does not have the expected value`);
+        const castedExpectedValue = helper.castPrimitiveType(expectedValue);
+        assert.strictEqual(
+            actualValue,
+            castedExpectedValue,
+            `Property "${property}" does not have the expected value. Expected: ${castedExpectedValue} , Actual: ${actualValue}`
+        );
     },
 
     /**
