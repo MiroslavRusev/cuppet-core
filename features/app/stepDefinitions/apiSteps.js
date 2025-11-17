@@ -43,7 +43,10 @@ Given('that I have a multipart request body', async function (docString) {
 Given(
     'I put {string} to {string} property of {string} element in the body',
     async function (value, property, parentObj) {
-        await apiSteps.iPutValuesInRequestBody(value, property, parentObj);
+        const checkedValue = await dataStorage.checkForSavedVariable(value);
+        const checkedProperty = await dataStorage.checkForSavedVariable(property);
+        const checkedParentObj = await dataStorage.checkForSavedVariable(parentObj);
+        await apiSteps.iPutValuesInRequestBody(checkedValue, checkedProperty, checkedParentObj);
     }
 );
 
@@ -56,5 +59,7 @@ Given('I validate that the page is a valid XML', async function () {
     await apiSteps.validateXMLEndpoint(currentPath);
 });
 Then('the response header {string} should be {string}', async function (header, value) {
-    await apiSteps.validateResponseHeader(header, value);
+    const checkedHeader = await dataStorage.checkForSavedVariable(header);
+    const checkedValue = await dataStorage.checkForSavedVariable(value);
+    await apiSteps.validateResponseHeader(checkedHeader, checkedValue);
 });

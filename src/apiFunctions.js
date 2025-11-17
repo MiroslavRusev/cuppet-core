@@ -154,11 +154,10 @@ module.exports = {
      * @returns {Promise<Object>} - returns the request body object
      */
     iPutValuesInRequestBody: async function (value, property, object) {
-        const preparedValue = await storage.checkForVariable(value);
         if (!this.request) {
             this.request = {};
         }
-        this.request[object][property] = preparedValue;
+        this.request[object][property] = value;
         return this.request;
     },
 
@@ -272,15 +271,9 @@ module.exports = {
     validateResponseHeader: async function (header, value) {
         // Resolve header and value from variables or user input.
         // The header is checked directly for faster execution as it is less likely to contain variables.
-        const resolveHeader = await storage.checkForVariable(header);
-        const resolveValue = await storage.checkForSavedVariable(value);
-        const actualValue = this.response.headers[resolveHeader.toLowerCase()];
-        assert.isDefined(actualValue, `The response header "${resolveHeader}" is not found!`);
-        assert.strictEqual(
-            actualValue,
-            resolveValue,
-            `The response header "${resolveHeader}" does not have the expected value`
-        );
+        const actualValue = this.response.headers[header.toLowerCase()];
+        assert.isDefined(actualValue, `The response header "${header}" is not found!`);
+        assert.strictEqual(actualValue, value, `The response header "${header}" does not have the expected value`);
     },
 
     /**
