@@ -94,7 +94,7 @@ module.exports = {
 
     /**
      * Check for variable existence or return the inputted value.
-     * To be used in steps which can work both with JSON vars and direct user input
+     * Do not use separately in step definitions, use checkForSavedVariable instead.
      * @param variable
      * @returns {*}
      */
@@ -110,7 +110,11 @@ module.exports = {
      * @returns {Promise<*>}
      */
     checkForSavedVariable: async function (data) {
-        return data.replace(/%([a-zA-Z_-]+)%/g, (match, p1) => {
+        // First check if the whole variable is stored
+        const resolvedData = this.checkForVariable(data);
+
+        // Then check for %% pattern replacements
+        return resolvedData.replace(/%([a-zA-Z_-]+)%/g, (match, p1) => {
             return this.checkForVariable(p1);
         });
     },
