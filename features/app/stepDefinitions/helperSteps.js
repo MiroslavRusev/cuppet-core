@@ -87,7 +87,7 @@ When(
  */
 When(
     'I generate date in {string} format for {string} days from now with UTC offset {int} hours and store it in {string}',
-    async function (format, offset, days, variable) {
+    async function (format, days, offset, variable) {
         const utcOffset = offset * 60;
         await dataStorage.generateAndSaveDateWithCustomFormatAndTz(format, variable, days, utcOffset);
     }
