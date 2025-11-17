@@ -26,7 +26,7 @@ Then('the property {string} should be an {string}', async function (property, ty
     await apiSteps.propertyIs(property, type);
 });
 Then('the response should have property {string} with value {string}', async function (property, value) {
-    const checkedValue = await dataStorage.checkForVariable(value);
+    const checkedValue = await dataStorage.checkForSavedVariable(value);
     await apiSteps.propertyHasValue(property, checkedValue);
 });
 When('I store {string} to {string} variable', async function (property, variable) {

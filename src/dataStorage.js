@@ -283,10 +283,7 @@ module.exports = {
      * @returns {Promise<void>}
      */
     generateAndSaveDateWithCustomFormat: async function (format, variable, days = 0) {
-        const date = moment()
-            .add(days >= 0 ? days : -days, 'days')
-            .format(format);
-
+        const date = moment().add(days, 'days').format(format);
         await this.iStoreVariableWithValueToTheJsonFile(date, variable);
     },
 
@@ -300,10 +297,7 @@ module.exports = {
      * @returns {Promise<void>}
      */
     generateAndSaveDateWithCustomFormatAndTz: async function (format, variable, days = 0, offset = 0) {
-        const date = moment()
-            .utcOffset(offset)
-            .add(days >= 0 ? days : -days, 'days')
-            .format(format);
+        const date = moment().utcOffset(offset).add(days, 'days').format(format);
         await this.iStoreVariableWithValueToTheJsonFile(date, variable);
     },
 };
