@@ -200,13 +200,13 @@ module.exports = {
      *
      * @async
      * @function propertyIs
-     * @param {string} property - The property of the response data to check.
+     * @param {string} property - The property of the response data to check. Written in root.parent.child syntax.
      * @param {string} type - The type that the property should be.
      * @throws {Error} - Will throw an error if the property is not of the specified type.
      */
     propertyIs: async function (property, type) {
-        const value = this.response.data[property];
-        await assert.typeOf(value, type, `The property is not an ${type}`);
+        const value = await helper.getPropertyValue(this.response.data, property);
+        assert.typeOf(value, type, `The property is not an ${type}`);
     },
 
     /**
