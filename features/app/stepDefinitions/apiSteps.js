@@ -26,7 +26,7 @@ Then('the property {string} should be an {string}', async function (property, ty
     await apiSteps.propertyIs(property, type);
 });
 Then('the response should have property {string} with value {string}', async function (property, value) {
-    const checkedValue = await dataStorage.checkForVariable(value);
+    const checkedValue = await dataStorage.checkForSavedVariable(value);
     await apiSteps.propertyHasValue(property, checkedValue);
 });
 When('I store {string} to {string} variable', async function (property, variable) {
@@ -40,12 +40,10 @@ Given('that I have a multipart request body', async function (docString) {
     const body = JSON.parse(docString);
     await apiSteps.buildMultipartFormData(body);
 });
-Given(
-    'I put {string} to {string} property of {string} element in the body',
-    async function (value, property, parentObj) {
-        await apiSteps.iPutValuesInRequestBody(value, property, parentObj);
-    }
-);
+Given('I put {string} to {string} property in the request body', async function (value, objectPath) {
+    const checkedValue = await dataStorage.checkForSavedVariable(value);
+    await apiSteps.iPutValuesInRequestBody(checkedValue, objectPath);
+});
 
 Given('I create json object from {string} file', async function (filePath) {
     const checkedPath = await dataStorage.checkForSavedVariable(filePath);
@@ -56,5 +54,7 @@ Given('I validate that the page is a valid XML', async function () {
     await apiSteps.validateXMLEndpoint(currentPath);
 });
 Then('the response header {string} should be {string}', async function (header, value) {
-    await apiSteps.validateResponseHeader(header, value);
+    const checkedHeader = await dataStorage.checkForSavedVariable(header);
+    const checkedValue = await dataStorage.checkForSavedVariable(value);
+    await apiSteps.validateResponseHeader(checkedHeader, checkedValue);
 });

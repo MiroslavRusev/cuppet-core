@@ -148,17 +148,28 @@ module.exports = {
      * }
      * @async
      * @function prepareRequestBody
-     * @param value - the value of the new property
-     * @param property - the name of the property
-     * @param object - parent object name
+     * @param value - the value to set
+     * @param objectPath - the path in dot notation (e.g., "home.user.firstName")
      * @returns {Promise<Object>} - returns the request body object
      */
-    iPutValuesInRequestBody: async function (value, property, object) {
-        const preparedValue = await storage.checkForVariable(value);
+    iPutValuesInRequestBody: async function (value, objectPath) {
         if (!this.request) {
             this.request = {};
         }
-        this.request[object][property] = preparedValue;
+
+        const keys = objectPath.split('.');
+        let current = this.request;
+
+        // Navigate/create the path, stopping before the last key
+        for (let i = 0; i < keys.length - 1; i++) {
+            if (!current[keys[i]]) {
+                current[keys[i]] = {};
+            }
+            current = current[keys[i]];
+        }
+
+        // Set the final value
+        current[keys[keys.length - 1]] = value;
         return this.request;
     },
 
@@ -272,15 +283,9 @@ module.exports = {
     validateResponseHeader: async function (header, value) {
         // Resolve header and value from variables or user input.
         // The header is checked directly for faster execution as it is less likely to contain variables.
-        const resolveHeader = await storage.checkForVariable(header);
-        const resolveValue = await storage.checkForSavedVariable(value);
-        const actualValue = this.response.headers[resolveHeader.toLowerCase()];
-        assert.isDefined(actualValue, `The response header "${resolveHeader}" is not found!`);
-        assert.strictEqual(
-            actualValue,
-            resolveValue,
-            `The response header "${resolveHeader}" does not have the expected value`
-        );
+        const actualValue = this.response.headers[header.toLowerCase()];
+        assert.isDefined(actualValue, `The response header "${header}" is not found!`);
+        assert.strictEqual(actualValue, value, `The response header "${header}" does not have the expected value`);
     },
 
     /**
