@@ -40,15 +40,10 @@ Given('that I have a multipart request body', async function (docString) {
     const body = JSON.parse(docString);
     await apiSteps.buildMultipartFormData(body);
 });
-Given(
-    'I put {string} to {string} property of {string} element in the body',
-    async function (value, property, parentObj) {
-        const checkedValue = await dataStorage.checkForSavedVariable(value);
-        const checkedProperty = await dataStorage.checkForSavedVariable(property);
-        const checkedParentObj = await dataStorage.checkForSavedVariable(parentObj);
-        await apiSteps.iPutValuesInRequestBody(checkedValue, checkedProperty, checkedParentObj);
-    }
-);
+Given('I put {string} to {string} property in the request body', async function (value, objectPath) {
+    const checkedValue = await dataStorage.checkForSavedVariable(value);
+    await apiSteps.iPutValuesInRequestBody(checkedValue, objectPath);
+});
 
 Given('I create json object from {string} file', async function (filePath) {
     const checkedPath = await dataStorage.checkForSavedVariable(filePath);

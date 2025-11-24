@@ -148,16 +148,28 @@ module.exports = {
      * }
      * @async
      * @function prepareRequestBody
-     * @param value - the value of the new property
-     * @param property - the name of the property
-     * @param object - parent object name
+     * @param value - the value to set
+     * @param objectPath - the path in dot notation (e.g., "home.user.firstName")
      * @returns {Promise<Object>} - returns the request body object
      */
-    iPutValuesInRequestBody: async function (value, property, object) {
+    iPutValuesInRequestBody: async function (value, objectPath) {
         if (!this.request) {
             this.request = {};
         }
-        this.request[object][property] = value;
+
+        const keys = objectPath.split('.');
+        let current = this.request;
+
+        // Navigate/create the path, stopping before the last key
+        for (let i = 0; i < keys.length - 1; i++) {
+            if (!current[keys[i]]) {
+                current[keys[i]] = {};
+            }
+            current = current[keys[i]];
+        }
+
+        // Set the final value
+        current[keys[keys.length - 1]] = value;
         return this.request;
     },
 
