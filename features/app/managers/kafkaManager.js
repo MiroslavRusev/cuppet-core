@@ -50,9 +50,9 @@ class KafkaManager {
      */
     async initialize() {
         try {
-            // Create Kafka instance
+            // Create Kafka instance (no actual connection yet)
             this.kafka = new Kafka(this.options);
-            console.log(`Successfully connected to Kafka`);
+            console.log('Kafka client instance created successfully.');
             this.isInitialized = true;
         } catch (error) {
             throw new Error(`Failed to initialize Kafka client: ${error.message}`);
@@ -68,9 +68,16 @@ class KafkaManager {
         if (!this.isInitialized) {
             throw new Error('Kafka client not initialized. Call initialize() first.');
         }
-        this.producer = this.kafka.producer(producerOptions);
-        await this.producer.connect();
-        return this.producer;
+
+        try {
+            this.producer = this.kafka.producer(producerOptions);
+            await this.producer.connect();
+            console.log('Producer connected successfully to Kafka broker');
+            return this.producer;
+        } catch (error) {
+            this.producer = null;
+            throw new Error(`Failed to connect producer to Kafka broker: ${error.message}`);
+        }
     }
 
     /**
@@ -87,9 +94,15 @@ class KafkaManager {
             consumerOptions.groupId = `cuppet-test-${Math.random().toString(16).slice(2, 8)}`;
         }
 
-        this.consumer = this.kafka.consumer(consumerOptions);
-        await this.consumer.connect();
-        return this.consumer;
+        try {
+            this.consumer = this.kafka.consumer(consumerOptions);
+            await this.consumer.connect();
+            console.log('Consumer connected successfully to Kafka broker');
+            return this.consumer;
+        } catch (error) {
+            this.consumer = null;
+            throw new Error(`Failed to connect consumer to Kafka broker: ${error.message}`);
+        }
     }
 
     /**
@@ -106,13 +119,18 @@ class KafkaManager {
      * @returns {Promise<void>}
      */
     async sendMessage(topic, message = {}) {
-        if (!this.producer) {
-            await this.createProducer();
+        try {
+            if (!this.producer) {
+                await this.createProducer();
+            }
+            await this.producer.send({
+                topic,
+                messages: [message],
+            });
+            console.log(`Message sent successfully to topic: ${topic}`);
+        } catch (error) {
+            throw new Error(`Failed to send message to topic '${topic}': ${error.message}`);
         }
-        await this.producer.send({
-            topic,
-            messages: [message],
-        });
     }
 
     /** Subscribe to a topic
@@ -120,24 +138,41 @@ class KafkaManager {
      * @returns {Promise<Object>} - Object with topic, partition, and message properties
      */
     async subscribeToTopics(topics = []) {
-        if (!this.consumer) {
-            await this.createConsumer();
+        try {
+            if (!this.consumer) {
+                await this.createConsumer();
+            }
+            await this.consumer.subscribe({
+                topics: topics,
+            });
+            console.log(`Successfully subscribed to topics: ${topics.join(', ')}`);
+        } catch (error) {
+            throw new Error(`Failed to subscribe to topics [${topics.join(', ')}]: ${error.message}`);
         }
-        await this.consumer.subscribe({
-            topics: topics,
-        });
     }
 
     /** Consume a message from a topic
      * @returns {Promise<Object>} - Object with topic, partition, and message properties
      */
     async consumeMessage() {
-        return new Promise((resolve) => {
-            this.consumer.run({
-                eachMessage: async ({ topic, partition, message }) => {
-                    resolve({ topic, partition, message });
-                },
-            });
+        if (!this.consumer) {
+            throw new Error('Consumer not initialized. Call subscribeToTopics() first.');
+        }
+
+        return new Promise((resolve, reject) => {
+            this.consumer
+                .run({
+                    eachMessage: async ({ topic, partition, message }) => {
+                        try {
+                            resolve({ topic, partition, message });
+                        } catch (error) {
+                            reject(new Error(`Failed to process consumed message: ${error.message}`));
+                        }
+                    },
+                })
+                .catch((error) => {
+                    reject(new Error(`Failed to consume message: ${error.message}`));
+                });
         });
     }
 
@@ -145,8 +180,18 @@ class KafkaManager {
      * @returns {Promise<void>}
      */
     async disconnect() {
-        await this.consumer.stop();
-        await this.consumer.disconnect();
+        if (!this.consumer) {
+            console.log('No consumer to disconnect');
+            return;
+        }
+
+        try {
+            await this.consumer.stop();
+            await this.consumer.disconnect();
+            console.log('Consumer disconnected successfully');
+        } catch (error) {
+            throw new Error(`Failed to disconnect consumer: ${error.message}`);
+        }
     }
 
     /**

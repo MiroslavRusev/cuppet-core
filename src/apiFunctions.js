@@ -124,6 +124,9 @@ module.exports = {
             return this.response;
         } catch (error) {
             console.log('Request has failed, use response code step definition to validate the response!');
+            if (!error.response) {
+                throw new Error(`Request failed with: ${error}`);
+            }
             return (this.response = error.response);
         }
     },

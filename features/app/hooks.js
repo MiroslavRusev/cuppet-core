@@ -102,7 +102,7 @@ Before(async function (testCase) {
 
 // executed after every test
 After(async function (testCase) {
-    if (testCase.result.status === Status.FAILED) {
+    if (testCase.result?.status !== Status.PASSED) {
         console.log(`Scenario: '${testCase.pickle.name}' - has failed...\r\n`);
     }
 
