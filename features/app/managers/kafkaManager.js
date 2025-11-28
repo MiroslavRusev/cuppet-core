@@ -160,17 +160,19 @@ class KafkaManager {
         }
 
         return new Promise((resolve, reject) => {
-            this.consumer.run({
-                eachMessage: async ({ topic, partition, message }) => {
-                    try {
-                        resolve({ topic, partition, message });
-                    } catch (error) {
-                        reject(new Error(`Failed to process consumed message: ${error.message}`));
-                    }
-                },
-            }).catch((error) => {
-                reject(new Error(`Failed to consume message: ${error.message}`));
-            });
+            this.consumer
+                .run({
+                    eachMessage: async ({ topic, partition, message }) => {
+                        try {
+                            resolve({ topic, partition, message });
+                        } catch (error) {
+                            reject(new Error(`Failed to process consumed message: ${error.message}`));
+                        }
+                    },
+                })
+                .catch((error) => {
+                    reject(new Error(`Failed to consume message: ${error.message}`));
+                });
         });
     }
 
