@@ -171,8 +171,9 @@ module.exports = {
             current = current[keys[i]];
         }
 
+        const castedValue = helper.castPrimitiveType(value);
         // Set the final value
-        current[keys[keys.length - 1]] = value;
+        current[keys[keys.length - 1]] = castedValue;
         return this.request;
     },
 
