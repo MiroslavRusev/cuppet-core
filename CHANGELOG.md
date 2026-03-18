@@ -1,107 +1,25 @@
-## [1.0.13](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.12...v1.0.13) (2025-07-24)
+## [2.0.5](https://github.com/MiroslavRusev/cuppet-core/compare/v2.0.4...v2.0.5) (2026-03-18)
 
 
 ### Bug Fixes
 
-* updating contributing and readme md files. ([fe14675](https://github.com/MiroslavRusev/cuppet-core/commit/fe146753cd8da60973769df157f1bf17de8eaa83))
+* Adjusting default test and bumping puppeteer. ([00fcbae](https://github.com/MiroslavRusev/cuppet-core/commit/00fcbaedf0b5b9abe59aa13cccfa4ed1ff836200))
+* Fixing versioning. ([9a49553](https://github.com/MiroslavRusev/cuppet-core/commit/9a4955364ff4a2f395a803744a8576a778ea7103))
 
-## [1.0.12](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.11...v1.0.12) (2025-07-21)
 
 
-### Bug Fixes
-
-* Adjusting method behavior regarding visibility and timeout. ([23723e1](https://github.com/MiroslavRusev/cuppet-core/commit/23723e10960d4d51e647d98d4b2c7e14bbe5b262))
-
-## [1.0.11](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.10...v1.0.11) (2025-06-26)
+## [2.0.4](https://github.com/MiroslavRusev/cuppet-core/compare/v2.0.3...v2.0.4) (2025-12-22)
 
 
 ### Bug Fixes
 
-* Additional readme fixes. ([802467a](https://github.com/MiroslavRusev/cuppet-core/commit/802467a1bce5a6b076e3cfdd643b94f5f7476883))
-
-## [1.0.10](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.9...v1.0.10) (2025-06-26)
-
-
-### Bug Fixes
-
-* Adjusting readme. ([699c29f](https://github.com/MiroslavRusev/cuppet-core/commit/699c29f1f9b1620eedfc0e822f6aff5744c3d923))
-
-## [1.0.9](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.8...v1.0.9) (2025-06-26)
+* Adding dot notation syntax to property validation step. ([2024070](https://github.com/MiroslavRusev/cuppet-core/commit/20240701cc0c5371d6964d6592d16611407ddbeb))
+* adjusting publish.yml ([2eb4c24](https://github.com/MiroslavRusev/cuppet-core/commit/2eb4c24f928927e2e44be3ba838851dde3b38db7))
+* Adjusting semantic versioning. ([4775999](https://github.com/MiroslavRusev/cuppet-core/commit/477599948812653aaedbdb9bc529ec8f009916ea))
+* bumping package versions. ([6493136](https://github.com/MiroslavRusev/cuppet-core/commit/64931360f7a27d3320e286b835e2e00b802728a1))
+* Cast primitives to avoid passing them as strings. ([aefe0e3](https://github.com/MiroslavRusev/cuppet-core/commit/aefe0e336ea1275b7b912a9d5a5752bd59b6e437))
+* Improving error handling of Kafka manager, API request handling and scenario failure handling. ([bcce148](https://github.com/MiroslavRusev/cuppet-core/commit/bcce148c60841c5250b6fa98db2a6b73752a16bb))
+* Updating Appium version ([5fb1093](https://github.com/MiroslavRusev/cuppet-core/commit/5fb1093971316c1f6c12e4daf4baf394a6be22f1))
 
 
-### Bug Fixes
 
-* Fixing backstop behavior. ([c712e4e](https://github.com/MiroslavRusev/cuppet-core/commit/c712e4eb98485c85dde42b0693e31eaf3b7890bc))
-
-## [1.0.8](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.7...v1.0.8) (2025-06-26)
-
-
-### Bug Fixes
-
-* Adjusting package.json ([34711ba](https://github.com/MiroslavRusev/cuppet-core/commit/34711ba4324d5dcd5956d4982c5ce732ae3c5664))
-
-## [1.0.7](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.6...v1.0.7) (2025-06-26)
-
-
-### Bug Fixes
-
-* Adding forgotten postinall.js ([e1cad12](https://github.com/MiroslavRusev/cuppet-core/commit/e1cad1244f0f06c8fe1775ff25274e18685bbe8e))
-
-## [1.0.6](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.5...v1.0.6) (2025-06-26)
-
-
-### Bug Fixes
-
-* Changing postinstall script to JS for better compatibility. ([cf9fa9f](https://github.com/MiroslavRusev/cuppet-core/commit/cf9fa9f43ce652b07fe13a6ff605498d5aad12f7))
-
-## [1.0.5](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.4...v1.0.5) (2025-06-26)
-
-
-### Bug Fixes
-
-* adding better check in postinstall.sh ([8f9a9e3](https://github.com/MiroslavRusev/cuppet-core/commit/8f9a9e39c4b652683b48cbd964c6e8ec756cf95d))
-
-## [1.0.4](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.3...v1.0.4) (2025-06-26)
-
-
-### Bug Fixes
-
-* Adjusting postinall. [CUPC-1] ([0a0b873](https://github.com/MiroslavRusev/cuppet-core/commit/0a0b873b1acb9a708c57b2e685d81449440318d7))
-
-## [1.0.3](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.2...v1.0.3) (2025-06-25)
-
-
-### Bug Fixes
-
-* Removing redundant import. ([501957e](https://github.com/MiroslavRusev/cuppet-core/commit/501957e27efe375123bb6dc5f1448327ce6b999e))
-* Running linter. ([858b9c8](https://github.com/MiroslavRusev/cuppet-core/commit/858b9c8b8f003c443c0b4363d5bd56a67a2a2efb))
-
-## [1.0.2](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.1...v1.0.2) (2025-06-25)
-
-
-### Bug Fixes
-
-* Adjusting ML Strings behavior, updating readme. [CUPC-1] ([68607b6](https://github.com/MiroslavRusev/cuppet-core/commit/68607b610d845c03ffc1ba469cf6d8d8de104563))
-
-## [1.0.1](https://github.com/MiroslavRusev/cuppet-core/compare/v1.0.0...v1.0.1) (2025-06-25)
-
-
-### Bug Fixes
-
-* adjusting contributors.md ([b530d57](https://github.com/MiroslavRusev/cuppet-core/commit/b530d57fb26f11ff14213926ede2462d8c0d858b))
-
-# 1.0.0 (2025-06-25)
-
-
-### Bug Fixes
-
-* Adjusting publish.yml ([faa4cb8](https://github.com/MiroslavRusev/cuppet-core/commit/faa4cb8b0531cb75f09678e8a5d8bc66e2f2f70b))
-* applying multiple fixes to the structure. ([7e56342](https://github.com/MiroslavRusev/cuppet-core/commit/7e56342f5a3b04a58f8e355e2148611d19596a27))
-
-# Changelog
-
-All notable changes to this project will be documented in this file.
-
-This file is automatically generated by [semantic-release](https://github.com/semantic-release/semantic-release). Do not edit manually.
-
----

@@ -1,89 +1,84 @@
 {
-    "name": "@cuppet/core",
-    "version": "1.0.13",
-    "description": "Core testing framework components for Cuppet - BDD framework based on Cucumber and Puppeteer",
-    "main": "index.js",
-    "files": [
-        "src/",
-        "features/",
-        "index.js",
-        "stepDefinitions.js",
-        "postinstall.js",
-        "backStopData/"
-    ],
-    "keywords": [
-        "testing",
-        "bdd",
-        "cucumber",
-        "puppeteer",
-        "appium",
-        "mqtt",
-        "iot",
-        "automation",
-        "e2e"
-    ],
-    "author": "Miroslav Rusev",
-    "license": "ISC",
-    "peerDependencies": {
-        "@cucumber/cucumber": "^12.2.0",
-        "config": "^4.1.0"
-    },
-    "dependencies": {
-        "@supercharge/strings": "^2.0.0",
-        "@wdio/globals": "9.23.0",
-        "appium": "3.2.0",
-        "appium-uiautomator2-driver": "6.8.0",
-        "axios": "^1.13.0",
-        "backstopjs": "^6.3.25",
-        "chai": "6.2.2",
-        "kafkajs": "^2.2.4",
-        "lighthouse": "^13.0.3",
-        "mime": "^4.1.0",
-        "mime-types": "^3.0.2",
-        "moment": "^2.30.1",
-        "mqtt": "^5.11.3",
-        "pa11y": "^9.1.0",
-        "pa11y-reporter-html": "^2.0.0",
-        "puppeteer": "^24.37.2",
-        "uuid": "^13.0.0",
-        "webdriverio": "9.24.0",
-        "xml2js": "^0.6.2"
-    },
-    "devDependencies": {
-        "@cucumber/cucumber": "^12.6.0",
-        "@html-eslint/eslint-plugin": "^0.54.2",
-        "@html-eslint/parser": "^0.54.0",
-        "@semantic-release/changelog": "^6.0.3",
-        "@semantic-release/git": "^10.0.1",
-        "@semantic-release/github": "^12.0.5",
-        "@semantic-release/npm": "^13.1.4",
-        "config": "^4.2.0",
-        "eslint": "^10.0.0",
-        "eslint-config-prettier": "^10.1.8",
-        "eslint-plugin-prettier": "^5.5.5",
-        "prettier": "^3.8.1",
-        "semantic-release": "^25.0.3"
-    },
-    "scripts": {
-        "test": "cucumber-js features/tests/example.feature",
-        "run:kafka": "cucumber-js features/tests/example-kafka.feature",
-        "run:visual": "cucumber-js features/tests/example-visual-test.feature",
-        "run:pa11y": "cucumber-js features/tests/example-pa11y.feature",
-        "run:lighthouse": "cucumber-js features/tests/example-lighthouse.feature",
-        "run:mqtt": "cucumber-js features/tests/example-mqtt.feature",
-        "run:mobile": "cucumber-js features/tests/example-mobile.feature",
-        "postinstall": "node postinstall.js",
-        "lint:check": "eslint .",
-        "format:check": "prettier --check .",
-        "format": "eslint . --fix && prettier --write .",
-        "verify": "yarn lint:check && yarn format:check"
-    },
-    "repository": {
-        "type": "git",
-        "url": "git+https://github.com/MiroslavRusev/cuppet-core.git"
-    },
-    "bugs": {
-        "url": "https://github.com/MiroslavRusev/cuppet-core/issues"
-    },
-    "homepage": "https://github.com/MiroslavRusev/cuppet-core#readme"
+  "name": "@cuppet/core",
+  "version": "2.0.5",
+  "description": "Core testing framework components for Cuppet - BDD framework based on Cucumber and Puppeteer",
+  "main": "index.js",
+  "files": [
+    "src/",
+    "features/",
+    "index.js",
+    "stepDefinitions.js",
+    "postinstall.js",
+    "backStopData/"
+  ],
+  "keywords": [
+    "testing",
+    "bdd",
+    "cucumber",
+    "puppeteer",
+    "appium",
+    "mqtt",
+    "iot",
+    "automation",
+    "e2e"
+  ],
+  "author": "Miroslav Rusev",
+  "license": "ISC",
+  "peerDependencies": {
+    "@cucumber/cucumber": "^12.2.0",
+    "config": "^4.1.0"
+  },
+  "dependencies": {
+    "@supercharge/strings": "^2.0.0",
+    "@wdio/globals": "9.23.0",
+    "appium": "3.2.2",
+    "appium-uiautomator2-driver": "7.0.0",
+    "axios": "^1.13.6",
+    "backstopjs": "^6.3.25",
+    "chai": "6.2.2",
+    "kafkajs": "^2.2.4",
+    "lighthouse": "^13.0.3",
+    "mime": "^4.1.0",
+    "mime-types": "^3.0.2",
+    "moment": "^2.30.1",
+    "mqtt": "^5.11.3",
+    "pa11y": "^9.1.0",
+    "pa11y-reporter-html": "^2.0.0",
+    "puppeteer": "^24.39.1",
+    "uuid": "^13.0.0",
+    "webdriverio": "9.24.0",
+    "xml2js": "^0.6.2"
+  },
+  "devDependencies": {
+    "@cucumber/cucumber": "^12.6.0",
+    "@html-eslint/eslint-plugin": "^0.54.2",
+    "@html-eslint/parser": "^0.54.0",
+    "config": "^4.2.0",
+    "eslint": "^10.0.0",
+    "eslint-config-prettier": "^10.1.8",
+    "eslint-plugin-prettier": "^5.5.5",
+    "prettier": "^3.8.1"
+  },
+  "scripts": {
+    "test": "cucumber-js features/tests/example.feature",
+    "run:kafka": "cucumber-js features/tests/example-kafka.feature",
+    "run:visual": "cucumber-js features/tests/example-visual-test.feature",
+    "run:pa11y": "cucumber-js features/tests/example-pa11y.feature",
+    "run:lighthouse": "cucumber-js features/tests/example-lighthouse.feature",
+    "run:mqtt": "cucumber-js features/tests/example-mqtt.feature",
+    "run:mobile": "cucumber-js features/tests/example-mobile.feature",
+    "postinstall": "node postinstall.js",
+    "lint:check": "eslint .",
+    "format:check": "prettier --check .",
+    "format": "eslint . --fix && prettier --write .",
+    "verify": "yarn lint:check && yarn format:check"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/MiroslavRusev/cuppet-core.git"
+  },
+  "bugs": {
+    "url": "https://github.com/MiroslavRusev/cuppet-core/issues"
+  },
+  "homepage": "https://github.com/MiroslavRusev/cuppet-core#readme"
 }

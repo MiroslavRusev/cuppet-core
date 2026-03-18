@@ -17,7 +17,37 @@ jobs:
       - uses: actions/checkout@v4
         with:
           fetch-depth: 0
+          token: ${{ secrets.PAT_TOKEN }}
+
+      - name: Clean up orphaned tags
+        env:
+          PAT_TOKEN: ${{ secrets.PAT_TOKEN }}
+        run: |
+          git remote set-url origin https://x-access-token:${PAT_TOKEN}@github.com/${{ github.repository }}.git
+          NEXT_VERSION=$(node -p "
+            const fs = require('fs');
+            const pkg = JSON.parse(fs.readFileSync('package.json'));
+            const [major, minor, patch] = pkg.version.split('.').map(Number);
+            \`v\${major}.\${minor}.\${patch + 1}\`
+          ")
+          if git ls-remote --tags origin | grep -q "refs/tags/$NEXT_VERSION$"; then
+            echo "Orphaned tag $NEXT_VERSION found, deleting..."
+            git push origin :refs/tags/$NEXT_VERSION
+            git tag -d $NEXT_VERSION 2>/dev/null || true
+          else
+            echo "No orphaned tags found"
+          fi
+
+      - name: Conventional Changelog
+        id: changelog
+        uses: TriPSs/conventional-changelog-action@v6
+        with:
+          github-token: ${{ secrets.PAT_TOKEN }}
+          output-file: CHANGELOG.md
+          skip-on-empty: true
+
       - name: Use Node.js
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
         uses: actions/setup-node@v4
         with:
           node-version: '24'
@@ -25,9 +55,17 @@ jobs:
           registry-url: https://registry.npmjs.org
 
       - name: Install dependencies
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
         run: yarn install --frozen-lockfile
 
-      - name: Release
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: npx semantic-release
+      - name: Publish to npm
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        run: npm publish --access public --provenance
+
+      - name: Create GitHub Release
+        if: ${{ steps.changelog.outputs.skipped == 'false' }}
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ steps.changelog.outputs.tag }}
+          name: ${{ steps.changelog.outputs.tag }}
+          body: ${{ steps.changelog.outputs.clean_changelog }}
