@@ -31,9 +31,9 @@
     "dependencies": {
         "@supercharge/strings": "^2.0.0",
         "@wdio/globals": "9.23.0",
-        "appium": "3.2.0",
-        "appium-uiautomator2-driver": "6.8.0",
-        "axios": "^1.13.0",
+        "appium": "3.2.2",
+        "appium-uiautomator2-driver": "7.0.0",
+        "axios": "^1.13.6",
         "backstopjs": "^6.3.25",
         "chai": "6.2.2",
         "kafkajs": "^2.2.4",
@@ -44,7 +44,7 @@
         "mqtt": "^5.11.3",
         "pa11y": "^9.1.0",
         "pa11y-reporter-html": "^2.0.0",
-        "puppeteer": "^24.37.2",
+        "puppeteer": "^24.39.1",
         "uuid": "^13.0.0",
         "webdriverio": "9.24.0",
         "xml2js": "^0.6.2"
@@ -53,16 +53,11 @@
         "@cucumber/cucumber": "^12.6.0",
         "@html-eslint/eslint-plugin": "^0.54.2",
         "@html-eslint/parser": "^0.54.0",
-        "@semantic-release/changelog": "^6.0.3",
-        "@semantic-release/git": "^10.0.1",
-        "@semantic-release/github": "^12.0.5",
-        "@semantic-release/npm": "^13.1.4",
         "config": "^4.2.0",
         "eslint": "^10.0.0",
         "eslint-config-prettier": "^10.1.8",
         "eslint-plugin-prettier": "^5.5.5",
-        "prettier": "^3.8.1",
-        "semantic-release": "^25.0.3"
+        "prettier": "^3.8.1"
     },
     "scripts": {
         "test": "cucumber-js features/tests/example.feature",
