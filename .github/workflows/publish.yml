@@ -20,6 +20,8 @@ jobs:
           token: ${{ secrets.PAT_TOKEN }}
 
       - name: Clean up orphaned tags
+        env:
+          GH_TOKEN: ${{ secrets.PAT_TOKEN }}
         run: |
           NEXT_VERSION=$(node -p "
             const fs = require('fs');
