@@ -22,6 +22,9 @@ Given('the response code should be {string}', async function (code) {
 Then('the response should be an {string}', async function (type) {
     await apiSteps.validateResponseType(type);
 });
+Then('the response should be an empty array', async function () {
+    await apiSteps.validateResponseIsEmptyArray();
+});
 Then('the property {string} should be an {string}', async function (property, type) {
     await apiSteps.propertyIs(property, type);
 });
