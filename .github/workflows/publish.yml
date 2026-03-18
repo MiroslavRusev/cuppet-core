@@ -33,6 +33,7 @@ jobs:
           if git ls-remote --tags origin | grep -q "refs/tags/$NEXT_VERSION$"; then
             echo "Orphaned tag $NEXT_VERSION found, deleting..."
             git push origin :refs/tags/$NEXT_VERSION
+            git tag -d $NEXT_VERSION 2>/dev/null || true
           else
             echo "No orphaned tags found"
           fi
