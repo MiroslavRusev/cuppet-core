@@ -200,12 +200,12 @@ module.exports = {
     },
 
     /**
-    * Validate that the response body is an empty array
-    * @returns {Promise<void>}
-    */
-    validateResponseIsEmptyArray: async function (expectedValue) {
-    assert.isArray(this.response.data, 'Response is not an array');
-    assert.isEmpty(this.response.data, `Expected an empty array but got ${JSON.stringify(this.response.data)}`);
+     * Validate that the response body is an empty array
+     * @returns {Promise<void>}
+     */
+    validateResponseIsEmptyArray: async function () {
+        assert.isArray(this.response.data, 'Response is not an array');
+        assert.isEmpty(this.response.data, `Expected an empty array but got ${JSON.stringify(this.response.data)}`);
     },
 
     /**
