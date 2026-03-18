@@ -196,7 +196,7 @@ module.exports = {
      * @returns {Promise<void>}
      */
     validateResponseType: async function (type) {
-        await assert.typeOf(this.response.data, type, `Response is not an ${type}`);
+        assert.typeOf(this.response.data, type, `Response is not an ${type}`);
     },
 
     /**
