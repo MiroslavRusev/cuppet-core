@@ -1,3 +1,12 @@
+## [2.0.6](https://github.com/MiroslavRusev/cuppet-core/compare/v2.0.5...v2.0.6) (2026-03-18)
+
+
+### Bug Fixes
+
+* Removing redundant await. ([932d140](https://github.com/MiroslavRusev/cuppet-core/commit/932d140b897a5ce6267967a26ce13ba257a8286a))
+
+
+
 ## [2.0.5](https://github.com/MiroslavRusev/cuppet-core/compare/v2.0.4...v2.0.5) (2026-03-18)
 
 
@@ -13,7 +22,6 @@
 
 ### Bug Fixes
 
-* Adding dot notation syntax to property validation step. ([2024070](https://github.com/MiroslavRusev/cuppet-core/commit/20240701cc0c5371d6964d6592d16611407ddbeb))
 * adjusting publish.yml ([2eb4c24](https://github.com/MiroslavRusev/cuppet-core/commit/2eb4c24f928927e2e44be3ba838851dde3b38db7))
 * Adjusting semantic versioning. ([4775999](https://github.com/MiroslavRusev/cuppet-core/commit/477599948812653aaedbdb9bc529ec8f009916ea))
 * bumping package versions. ([6493136](https://github.com/MiroslavRusev/cuppet-core/commit/64931360f7a27d3320e286b835e2e00b802728a1))
