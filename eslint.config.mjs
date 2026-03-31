@@ -5,7 +5,7 @@ import html from '@html-eslint/eslint-plugin';
 import htmlParser from '@html-eslint/parser';
 
 export default defineConfig([
-    globalIgnores(['**yarn.lock', '**/node_modules/', '.git/', '**/backStopData/', '**/reports/']),
+    globalIgnores(['**yarn.lock', '**/node_modules/', '.git/', '**/reports/']),
     {
         files: ['**/*.js'],
         plugins: {

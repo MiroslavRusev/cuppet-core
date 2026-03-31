@@ -34,7 +34,6 @@ yarn test
 - `appiumTesting` - Appium mobile testing
 - `accessibilityTesting` - Accessibility testing with Pa11y
 - `lighthouse` - Performance testing with Lighthouse
-- `visualRegression` - Visual regression testing with BackstopJS
 
 ### Managers
 
@@ -115,7 +114,6 @@ Given('I am logged in as {string}', async function (userName) {
 - `pageElements` - Page element testing
 - `pageElementsConfig` - Page element testing with values from config
 - `pageElementsJson` - Page element testing with values from locally stored JSON file
-- `visualRegressionSteps` - Visual regression testing steps
 
 ## Project-Specific Components
 

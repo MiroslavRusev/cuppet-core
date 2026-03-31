@@ -314,7 +314,6 @@
           <li><a href="#mobile">📱 Mobile Testing</a></li>
           <li><a href="#accessibility">♿ Accessibility</a></li>
           <li><a href="#performance">🚀 Performance</a></li>
-          <li><a href="#visual">👁️ Visual Regression</a></li>
           <li><a href="#iframe">🖼️ Iframe Steps</a></li>
           <li><a href="#helpers">🔧 Helper Steps</a></li>
         </ul>
@@ -645,47 +644,6 @@ Then the property "age" should be an "number"</code></pre>
             <div class="step-description">Generate Lighthouse report for specific page path.</div>
             <div class="example">
               <pre><code class="language-gherkin">When I generate lighthouse report for "/products" page</code></pre>
-            </div>
-          </div>
-        </div>
-
-        <!-- Visual Regression -->
-        <div class="category-section" id="visual">
-          <div class="category-header">
-            <div class="category-icon">👁️</div>
-            <h2 class="category-title">Visual Regression Testing</h2>
-          </div>
-          <p>Visual regression testing with BackstopJS integration.</p>
-
-          <div class="step-card">
-            <div class="step-type step-given">GIVEN</div>
-            <div class="step-definition">I generate reference screenshot for "{string}"</div>
-            <div class="step-description">Create reference screenshot for visual comparison.</div>
-            <div class="example">
-              <pre><code class="language-gherkin">Given I generate reference screenshot for "/homepage"</code></pre>
-            </div>
-          </div>
-
-          <div class="step-card">
-            <div class="step-type step-then">THEN</div>
-            <div class="step-definition">I compare "{string}" to reference screenshot</div>
-            <div class="step-description">Compare current page to reference screenshot.</div>
-            <div class="example">
-              <pre><code class="language-gherkin">Then I compare "/homepage" to reference screenshot</code></pre>
-            </div>
-          </div>
-
-          <div class="step-card">
-            <div class="step-type step-given">GIVEN</div>
-            <div class="step-definition">I generate reference screenshot for multiple pages</div>
-            <div class="step-description">Create reference screenshots for multiple pages from docstring.</div>
-            <div class="example">
-              <pre><code class="language-gherkin">Given I generate reference screenshot for multiple pages
-"""
-/homepage
-/about
-/contact
-"""</code></pre>
             </div>
           </div>
         </div>
