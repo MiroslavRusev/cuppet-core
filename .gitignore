@@ -4,9 +4,6 @@
 screenshots/
 reports/
 jsonFiles/
-# Ignore all backstop artifacts except the config
-backStopData/*
-!backStopData/backStopConfig.json
 ### Node template
 # Logs
 logs

@@ -785,11 +785,6 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
     Given I generate lighthouse report for the saved page
     Then I should see "Performance report generated"
 
-  Scenario: Visual regression testing
-    Given I generate reference screenshot for "/"
-    When I go to "/"
-    Then I compare "/" to reference screenshot
-
   Scenario: Complete quality check
     Given I go to "/forms/dynamic-form"
     When I save the path of the current page
@@ -808,7 +803,7 @@ yarn test exampleAll dev features/tests/example.feature</code></pre>
   "browserOptions": {
     "args": ["--no-sandbox", "--disable-web-security"],
     "viewport": {
-      "backstop": { "width": 1600, "height": 900 }
+      "default": { "width": 1920, "height": 1080 }
     }
   },
   "pa11yConfig": {

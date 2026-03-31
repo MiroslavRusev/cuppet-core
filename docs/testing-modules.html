@@ -289,7 +289,6 @@
             <a href="testing-modules.html#appium">📱 Appium Testing</a>
             <a href="testing-modules.html#accessibility">♿ Accessibility</a>
             <a href="testing-modules.html#lighthouse">🚀 Lighthouse</a>
-            <a href="testing-modules.html#visual">👁️ Visual Regression</a>
             <a href="mqtt-testing.html">📡 MQTT Testing</a>
             <a href="kafka-testing.html">🔄 Kafka Testing</a>
           </div>
@@ -462,53 +461,6 @@ Scenario: Check homepage accessibility
     "categories": ["performance", "accessibility", "seo"],
     "formFactor": "desktop",
     "throttling": "simulated3G"
-  }
-}</code></pre>
-        </div>
-      </section>
-
-      <section>
-        <div class="module-card">
-          <h2 id="visual">👁️ Visual Regression Testing</h2>
-          <p>
-            <strong>Purpose:</strong>
-            BackstopJS integration for visual regression testing and screenshot comparison.
-          </p>
-
-          <h3>Features</h3>
-          <ul>
-            <li>Automated screenshot comparison</li>
-            <li>Baseline image management</li>
-            <li>Responsive testing across viewports</li>
-            <li>Interactive HTML reports</li>
-            <li>Selective element testing</li>
-          </ul>
-
-          <h3>Usage</h3>
-          <pre><code class="language-bash"># Create baseline
-npm run backstop:reference
-
-# Run visual tests
-npm run backstop:test
-
-# Approve changes
-npm run backstop:approve</code></pre>
-
-          <h3>Configuration</h3>
-          <pre><code class="language-json">{
-  "backstop": {
-    "viewports": [
-      { "name": "phone", "width": 375, "height": 667 },
-      { "name": "tablet", "width": 1024, "height": 768 },
-      { "name": "desktop", "width": 1920, "height": 1080 }
-    ],
-    "scenarios": [
-      {
-        "label": "Homepage",
-        "url": "http://localhost:3000",
-        "selectors": ["document"]
-      }
-    ]
   }
 }</code></pre>
         </div>

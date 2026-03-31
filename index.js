@@ -11,7 +11,6 @@ const mqttFunctions = require('./src/mqttFunctions');
 const appiumTesting = require('./src/appiumTesting');
 const accessibilityTesting = require('./src/accessibilityTesting');
 const lighthouse = require('./src/lighthouse');
-const visualRegression = require('./src/visualRegression');
 const kafkaFunctions = require('./src/kafkaFunctions');
 
 // Export managers
@@ -32,7 +31,6 @@ module.exports = {
     appiumTesting,
     accessibilityTesting,
     lighthouse,
-    visualRegression,
 
     // Managers
     BrowserManager,

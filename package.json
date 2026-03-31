@@ -8,8 +8,7 @@
     "features/",
     "index.js",
     "stepDefinitions.js",
-    "postinstall.js",
-    "backStopData/"
+    "postinstall.js"
   ],
   "keywords": [
     "testing",
@@ -34,7 +33,6 @@
     "appium": "3.2.2",
     "appium-uiautomator2-driver": "7.0.0",
     "axios": "^1.13.6",
-    "backstopjs": "^6.3.25",
     "chai": "6.2.2",
     "kafkajs": "^2.2.4",
     "lighthouse": "^13.0.3",
@@ -62,7 +60,6 @@
   "scripts": {
     "test": "cucumber-js features/tests/example.feature",
     "run:kafka": "cucumber-js features/tests/example-kafka.feature",
-    "run:visual": "cucumber-js features/tests/example-visual-test.feature",
     "run:pa11y": "cucumber-js features/tests/example-pa11y.feature",
     "run:lighthouse": "cucumber-js features/tests/example-lighthouse.feature",
     "run:mqtt": "cucumber-js features/tests/example-mqtt.feature",
