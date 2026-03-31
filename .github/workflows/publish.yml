@@ -44,7 +44,8 @@ jobs:
         with:
           github-token: ${{ secrets.PAT_TOKEN }}
           output-file: CHANGELOG.md
-          skip-on-empty: true
+          preset: conventionalcommits
+          skip-on-empty: false
 
       - name: Use Node.js
         if: ${{ steps.changelog.outputs.skipped == 'false' }}
