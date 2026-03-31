@@ -76,6 +76,8 @@ The same conventional commit types drive semver for automated releases. Typical 
 - **MINOR** (0.x.0): New features (backward compatible) (`feat:` commits)
 - **MAJOR** (x.0.0): Breaking changes (`feat!:` or `fix!:` commits with `BREAKING CHANGE:` in body)
 
+**Use the same naming convention for the PR title.**
+
 **Important**: Do not manually edit `package.json` version or `CHANGELOG.md` for releases. After changes land on `main`, the Release workflow will:
 
 - Analyze commits since the last tag and bump `package.json` when needed
