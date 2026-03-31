@@ -66,22 +66,23 @@ refactor(stepDefinitions): improve error handling in general steps
 4. **Documentation**: Update relevant documentation files
 5. **Code Review**: Address all review comments before merge
 
-**Note**: The CHANGELOG.md and version updates are automatically handled by semantic-release based on your commit messages.
+**Note**: The `CHANGELOG.md` and version bumps are generated on push to `main` by the Release workflow in CI, using [Conventional Changelog](https://github.com/conventional-changelog/conventional-changelog) ([`TriPSs/conventional-changelog-action`](https://github.com/TriPSs/conventional-changelog-action)) as configured in [`.github/workflows/publish.yml`](.github/workflows/publish.yml).
 
 ### Version Updates
 
-This project uses [semantic-release](https://github.com/semantic-release/semantic-release) for automated versioning and changelog generation. The version bump and changelog updates are automatically determined based on your commit messages:
+The same conventional commit types drive semver for automated releases. Typical mappings are:
 
 - **PATCH** (0.0.x): Bug fixes and minor improvements (`fix:` commits)
 - **MINOR** (0.x.0): New features (backward compatible) (`feat:` commits)
 - **MAJOR** (x.0.0): Breaking changes (`feat!:` or `fix!:` commits with `BREAKING CHANGE:` in body)
 
-**Important**: You do not need to manually update the version or changelog. The semantic-release workflow will automatically:
+**Important**: Do not manually edit `package.json` version or `CHANGELOG.md` for releases. After changes land on `main`, the Release workflow will:
 
-- Analyze your commit messages
-- Determine the appropriate version bump
-- Update the CHANGELOG.md
-- Create a GitHub release
+- Analyze commits since the last tag and bump `package.json` when needed
+- Regenerate `CHANGELOG.md`
+- Create a Git tag and GitHub release
 - Publish to npm
+
+If there is nothing to release (no qualifying conventional commits), the workflow skips publishing (`skip-on-empty`).
 
 The PR will be merged once you have the sign-off of maintainers and all requirements are met.
