@@ -123,7 +123,6 @@ module.exports = {
 
             return this.response;
         } catch (error) {
-            console.log('Request has failed, use response code step definition to validate the response!');
             if (!error.response) {
                 throw new Error(`Request failed with: ${error}`);
             }
@@ -197,6 +196,7 @@ module.exports = {
      */
     validateResponseType: async function (type) {
         assert.typeOf(this.response.data, type, `Response is not an ${type}`);
+        assert.isNotEmpty(this.response.data, `Response is empty!`);
     },
 
     /**
