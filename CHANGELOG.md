@@ -1,3 +1,5 @@
+## [3.0.4](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.3...v3.0.4) (2026-04-29)
+
 ## [3.0.3](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.2...v3.0.3) (2026-04-29)
 
 ## [3.0.2](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.1...v3.0.2) (2026-04-29)
@@ -23,12 +25,4 @@
 * BREAKING CHANGE: removing of backstopjs. ([3b95f88](https://github.com/MiroslavRusev/cuppet-core/commit/3b95f88a2bcce9ce7cd4b4c4aaf70c4ce85b363f))
 * remove BackstopJS and adjust GitHub Actions. ([5cd035c](https://github.com/MiroslavRusev/cuppet-core/commit/5cd035c081a3bded21e747543887e170ac408e24))
 * Removing of backstopjs dependency due to lack of support. ([9f6c6cb](https://github.com/MiroslavRusev/cuppet-core/commit/9f6c6cb6b0837c99b4e25442ccd9cf45ee4b5a76))
-
-## [2.0.6](https://github.com/MiroslavRusev/cuppet-core/compare/v2.0.5...v2.0.6) (2026-03-18)
-
-
-### Bug Fixes
-
-* Adjusting PR. ([0c0d932](https://github.com/MiroslavRusev/cuppet-core/commit/0c0d932f3b120fa91894917bcc282788aff7a371))
-* Removing redundant await. ([932d140](https://github.com/MiroslavRusev/cuppet-core/commit/932d140b897a5ce6267967a26ce13ba257a8286a))
 
