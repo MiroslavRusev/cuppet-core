@@ -1,3 +1,10 @@
+## [3.0.1](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.0...v3.0.1) (2026-04-29)
+
+
+### Bug Fixes
+
+* Removing confusing message, adding validation for non empty API responses. ([80d5c11](https://github.com/MiroslavRusev/cuppet-core/commit/80d5c11f1ef879c1a438b09121813ac0b9d3c5c0))
+
 ## [3.0.0](https://github.com/MiroslavRusev/cuppet-core/compare/v2.0.6...v3.0.0) (2026-03-31)
 
 
@@ -38,9 +45,5 @@
 
 ### Bug Fixes
 
-* adjusting publish.yml ([2eb4c24](https://github.com/MiroslavRusev/cuppet-core/commit/2eb4c24f928927e2e44be3ba838851dde3b38db7))
-* Adjusting semantic versioning. ([4775999](https://github.com/MiroslavRusev/cuppet-core/commit/477599948812653aaedbdb9bc529ec8f009916ea))
 * bumping package versions. ([6493136](https://github.com/MiroslavRusev/cuppet-core/commit/64931360f7a27d3320e286b835e2e00b802728a1))
-* Cast primitives to avoid passing them as strings. ([aefe0e3](https://github.com/MiroslavRusev/cuppet-core/commit/aefe0e336ea1275b7b912a9d5a5752bd59b6e437))
-* Updating Appium version ([5fb1093](https://github.com/MiroslavRusev/cuppet-core/commit/5fb1093971316c1f6c12e4daf4baf394a6be22f1))
 
