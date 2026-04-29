@@ -1,3 +1,5 @@
+## [3.0.2](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.1...v3.0.2) (2026-04-29)
+
 ## [3.0.1](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.0...v3.0.1) (2026-04-29)
 
 
@@ -39,11 +41,4 @@
 * Fixing outdated version in package.json ([2ec861b](https://github.com/MiroslavRusev/cuppet-core/commit/2ec861ba9843fd2acf0f6a2969e0352e50d588b8))
 * Fixing versioning. ([9a49553](https://github.com/MiroslavRusev/cuppet-core/commit/9a4955364ff4a2f395a803744a8576a778ea7103))
 * Updating package json and github actions. ([1e6c307](https://github.com/MiroslavRusev/cuppet-core/commit/1e6c3073909afa6e3a5363c75ac732fd646addfe))
-
-## [2.0.4](https://github.com/MiroslavRusev/cuppet-core/compare/v2.0.3...v2.0.4) (2025-12-22)
-
-
-### Bug Fixes
-
-* bumping package versions. ([6493136](https://github.com/MiroslavRusev/cuppet-core/commit/64931360f7a27d3320e286b835e2e00b802728a1))
 
