@@ -1,6 +1,6 @@
 {
   "name": "@cuppet/core",
-  "version": "3.0.4",
+  "version": "3.0.10",
   "description": "Core testing framework components for Cuppet - BDD framework based on Cucumber and Puppeteer",
   "main": "index.js",
   "files": [
@@ -30,8 +30,8 @@
   "dependencies": {
     "@supercharge/strings": "^2.0.0",
     "@wdio/globals": "9.23.0",
-    "appium": "3.2.2",
-    "appium-uiautomator2-driver": "7.0.0",
+    "appium": "3.4.2",
+    "appium-uiautomator2-driver": "7.2.2",
     "axios": "^1.13.6",
     "chai": "6.2.2",
     "kafkajs": "^2.2.4",
@@ -43,7 +43,7 @@
     "pa11y": "^9.1.0",
     "pa11y-reporter-html": "^2.0.0",
     "puppeteer": "^24.39.1",
-    "uuid": "^13.0.0",
+    "uuid": "^14.0.0",
     "webdriverio": "9.24.0",
     "xml2js": "^0.6.2"
   },
