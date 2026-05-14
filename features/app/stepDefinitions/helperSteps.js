@@ -108,3 +108,9 @@ Then('I generate UUID and store it in {string} variable', async function (variab
     const uuid = helper.generateRandomUuid();
     await dataStorage.iStoreVariableWithValueToTheJsonFile(uuid, variable);
 });
+
+Given('The config has {string} property', async function (property) {
+    if (!config.has(property)) {
+        throw new Error(`The config does not have ${property} property!`);
+    }
+});
