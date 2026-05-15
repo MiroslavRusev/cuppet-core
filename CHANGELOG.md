@@ -1,3 +1,10 @@
+## [3.0.13](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.12...v3.0.13) (2026-05-15)
+
+
+### Bug Fixes
+
+* Fixing typo in step definition. ([e0055bf](https://github.com/MiroslavRusev/cuppet-core/commit/e0055bff6dcb02ad820683b9102432d15250e674))
+
 ## [3.0.12](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.11...v3.0.12) (2026-05-14)
 
 
@@ -15,6 +22,4 @@
 * Bumping versions of appium and UUID packages. ([4218fe7](https://github.com/MiroslavRusev/cuppet-core/commit/4218fe7199426b20d6ef51629e0473c2d543c5e6))
 
 ## [3.0.9](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.8...v3.0.9) (2026-05-11)
-
-## [3.0.8](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.7...v3.0.8) (2026-05-11)
 
