@@ -1,7 +1,7 @@
 Feature: Open DEMO QA (as base site) and use the elements section
   
   Scenario: Go to demo qa page and open the elements section
-    Given The config has "credentials.baseUrl" property
+    Given the config has "credentials.baseUrl" property
     Then I go to "/"
     And I should see "Elements" in "Cards" region
     Then I click on the text "Elements" in the "Cards" region
