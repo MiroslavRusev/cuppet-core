@@ -1,3 +1,5 @@
+## [3.0.14](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.13...v3.0.14) (2026-06-10)
+
 ## [3.0.13](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.12...v3.0.13) (2026-05-15)
 
 
@@ -20,6 +22,4 @@
 ### Bug Fixes
 
 * Bumping versions of appium and UUID packages. ([4218fe7](https://github.com/MiroslavRusev/cuppet-core/commit/4218fe7199426b20d6ef51629e0473c2d543c5e6))
-
-## [3.0.9](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.8...v3.0.9) (2026-05-11)
 
