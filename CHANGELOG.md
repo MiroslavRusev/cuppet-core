@@ -1,3 +1,10 @@
+## [3.0.16](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.15...v3.0.16) (2026-06-10)
+
+
+### Bug Fixes
+
+* Updating peer dep of cucumber. ([09a04fe](https://github.com/MiroslavRusev/cuppet-core/commit/09a04fe88294771ad033fea49b41719346ea174f))
+
 ## [3.0.15](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.14...v3.0.15) (2026-06-10)
 
 
@@ -21,6 +28,4 @@
 ### Bug Fixes
 
 * Add config validation step. ([b8095d0](https://github.com/MiroslavRusev/cuppet-core/commit/b8095d0b79443fc312750cbb0bec42c26b3a0700))
-
-## [3.0.11](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.10...v3.0.11) (2026-05-11)
 
