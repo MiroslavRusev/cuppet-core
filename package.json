@@ -24,7 +24,7 @@
   "author": "Miroslav Rusev",
   "license": "ISC",
   "peerDependencies": {
-    "@cucumber/cucumber": "^12.2.0",
+    "@cucumber/cucumber": "^13.0.0",
     "config": "^4.1.0"
   },
   "dependencies": {
