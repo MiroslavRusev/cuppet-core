@@ -20,7 +20,7 @@ jobs:
           run: yarn install --frozen-lockfile
 
         - name: Install Chrome for Puppeteer
-          run: npx puppeteer browsers install chrome
+          run: npx puppeteer browsers install chrome@latest
   
         - name: Run ESLint and Prettier
           run: yarn verify

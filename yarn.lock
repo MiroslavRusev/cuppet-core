@@ -3644,6 +3644,11 @@ lighthouse@^13.4.0:
     yargs "^17.3.1"
     yargs-parser "^21.0.0"
 
+lilconfig@^3.1.3:
+  version "3.1.3"
+  resolved "https://registry.yarnpkg.com/lilconfig/-/lilconfig-3.1.3.tgz#a1bcfd6257f9585bf5ae14ceeebb7b559025e4c4"
+  integrity sha512-/vlFKAoH5Cgt3Ie+JLhRbwOsCQePABiU3tJ1egGvyQ+33R/vcwM2Zl2QR/LzjsBeItPt3oSVXapn+m4nQDvpzw==
+
 lines-and-columns@^1.1.6:
   version "1.2.4"
   resolved "https://registry.yarnpkg.com/lines-and-columns/-/lines-and-columns-1.2.4.tgz#eca284f75d2965079309dc0ad9255abb2ebc1632"
@@ -4508,7 +4513,7 @@ puppeteer-core@24.40.0:
     webdriver-bidi-protocol "0.4.1"
     ws "^8.19.0"
 
-puppeteer-core@^25.0.2:
+puppeteer-core@25.1.0, puppeteer-core@^25.0.2:
   version "25.1.0"
   resolved "https://registry.yarnpkg.com/puppeteer-core/-/puppeteer-core-25.1.0.tgz#5e2510eff3c3a166e0e9a436d307eb6ed06da44c"
   integrity sha512-jKzy5y4WG6uNuFbTWgW1D7mqoT9o0nllc/6a1DGF775T1mPmgw3scdFEtEq67yVFikavQmbYq6NLfbTfxHSlqQ==
@@ -4520,7 +4525,7 @@ puppeteer-core@^25.0.2:
     webdriver-bidi-protocol "0.4.2"
     ws "^8.21.0"
 
-puppeteer@^24.37.5, puppeteer@^24.39.1:
+puppeteer@^24.37.5:
   version "24.40.0"
   resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-24.40.0.tgz#6df6aeee9dabf29bed3bb2be5c209d00518d4a79"
   integrity sha512-IxQbDq93XHVVLWHrAkFP7F7iHvb9o0mgfsSIMlhHb+JM+JjM1V4v4MNSQfcRWJopx9dsNOr9adYv0U5fm9BJBQ==
@@ -4531,6 +4536,18 @@ puppeteer@^24.37.5, puppeteer@^24.39.1:
     devtools-protocol "0.0.1581282"
     puppeteer-core "24.40.0"
     typed-query-selector "^2.12.1"
+
+puppeteer@^25.0.1:
+  version "25.1.0"
+  resolved "https://registry.yarnpkg.com/puppeteer/-/puppeteer-25.1.0.tgz#7660e4d3373821f48debc774c0c84c9e13a72dbf"
+  integrity sha512-7L6/0JM7XStK99lIL4xQySyNEXNfII6pk0BxkI5kKBTOhR7AsoQiv067YTsE/rIXxQiq9ajlO4WcqBjS/FWK1A==
+  dependencies:
+    "@puppeteer/browsers" "3.0.4"
+    chromium-bidi "16.0.1"
+    devtools-protocol "0.0.1624250"
+    lilconfig "^3.1.3"
+    puppeteer-core "25.1.0"
+    typed-query-selector "^2.12.2"
 
 qs@^6.14.0, qs@^6.14.1:
   version "6.15.2"
