@@ -1,3 +1,10 @@
+## [3.1.0](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.16...v3.1.0) (2026-06-16)
+
+
+### Features
+
+* Adding new api method for getting values in nested json arrays. ([943c659](https://github.com/MiroslavRusev/cuppet-core/commit/943c6596224f9b4d643e10223e6c179c1e5e95d7))
+
 ## [3.0.16](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.15...v3.0.16) (2026-06-10)
 
 
@@ -21,11 +28,4 @@
 ### Bug Fixes
 
 * Fixing typo in step definition. ([e0055bf](https://github.com/MiroslavRusev/cuppet-core/commit/e0055bff6dcb02ad820683b9102432d15250e674))
-
-## [3.0.12](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.11...v3.0.12) (2026-05-14)
-
-
-### Bug Fixes
-
-* Add config validation step. ([b8095d0](https://github.com/MiroslavRusev/cuppet-core/commit/b8095d0b79443fc312750cbb0bec42c26b3a0700))
 
