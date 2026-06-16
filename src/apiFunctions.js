@@ -267,7 +267,7 @@ module.exports = {
      * then store that index as a variable for later use in dynamic path resolution (e.g. %index%).
      *
      * @param {string} arrayPath - dot-notation path to the array within the response (e.g. "data.home_state.0.devices")
-     * @param {string} searchValue - substring to match against JSON.stringify of each item (e.g. '"uid": "abc-123"')
+     * @param {string} searchValue - substring to match against JSON.stringify of each item (e.g. '"uid":"abc-123"')
      * @param {string} variable - name of the variable in which the found index will be stored
      * @returns {Promise<void>}
      * @throws {Error} if the resolved path is not an array or no matching item is found
