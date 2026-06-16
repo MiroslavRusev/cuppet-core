@@ -263,6 +263,29 @@ module.exports = {
     },
 
     /**
+     * Find the index of the first array item whose JSON representation contains the given search string,
+     * then store that index as a variable for later use in dynamic path resolution (e.g. %index%).
+     *
+     * @param {string} arrayPath - dot-notation path to the array within the response (e.g. "data.home_state.0.devices")
+     * @param {string} searchValue - substring to match against JSON.stringify of each item (e.g. '"uid": "abc-123"')
+     * @param {string} variable - name of the variable in which the found index will be stored
+     * @returns {Promise<void>}
+     * @throws {Error} if the resolved path is not an array or no matching item is found
+     */
+    getArrayItemIndex: async function (arrayPath, searchValue, variable) {
+        const arr = helper.getPropertyValue(this.response.data, arrayPath);
+        if (!Array.isArray(arr)) {
+            throw new Error(`The value at path "${arrayPath}" is not an array`);
+        }
+        const needle = searchValue.trim();
+        const index = arr.findIndex((item) => JSON.stringify(item).includes(needle));
+        if (index === -1) {
+            throw new Error(`No item containing "${needle}" found in array at path "${arrayPath}"`);
+        }
+        await storage.iStoreVariableWithValueToTheJsonFile(index, variable);
+    },
+
+    /**
      * Send request to an endpoint and validate whether the response is valid xml.
      * @param url
      * @returns {Promise<void>}
