@@ -26,7 +26,8 @@ Then('the response should be an empty array', async function () {
     await apiSteps.validateResponseIsEmptyArray();
 });
 Then('the property {string} should be an {string}', async function (property, type) {
-    await apiSteps.propertyIs(property, type);
+    const resolvedProperty = await dataStorage.checkForMultipleVariables(property);
+    await apiSteps.propertyIs(resolvedProperty, type);
 });
 Then('the response should have property {string} with value {string}', async function (property, value) {
     const resolvedProperty = await dataStorage.checkForMultipleVariables(property);

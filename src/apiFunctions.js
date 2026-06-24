@@ -231,11 +231,12 @@ module.exports = {
      */
     propertyHasValue: async function (property, expectedValue) {
         const actualValue = await helper.getPropertyValue(this.response.data, property);
+        const castedActualValue = helper.castPrimitiveType(actualValue);
         const castedExpectedValue = helper.castPrimitiveType(expectedValue);
         assert.strictEqual(
-            actualValue,
+            castedActualValue,
             castedExpectedValue,
-            `Property "${property}" does not have the expected value. Expected: ${castedExpectedValue} , Actual: ${actualValue}`
+            `Property "${property}" does not have the expected value. Expected: ${castedExpectedValue} , Actual: ${castedActualValue}`
         );
     },
 
