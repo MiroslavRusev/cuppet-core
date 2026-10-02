@@ -1,3 +1,10 @@
+## [3.1.2](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.1...v3.1.2) (2026-10-02)
+
+
+### Bug Fixes
+
+* Bumping axios, appium and chai versions. ([639e228](https://github.com/MiroslavRusev/cuppet-core/commit/639e22833d28fc720d9579e9e38139834a254612))
+
 ## [3.1.1](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.0...v3.1.1) (2026-06-24)
 
 
@@ -26,6 +33,4 @@
 
 * Bumping Puppeter and also adding chrome latest as step in test.yml action. ([037c21a](https://github.com/MiroslavRusev/cuppet-core/commit/037c21a111f16b90e65e3091d197d86c56aa405f))
 * Bumping versions of Axios, Lighthouse, Wdio. ([134d43a](https://github.com/MiroslavRusev/cuppet-core/commit/134d43a66099540ff045b247c5d721392a24b945))
-
-## [3.0.14](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.13...v3.0.14) (2026-06-10)
 
