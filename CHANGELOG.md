@@ -1,3 +1,5 @@
+## [3.1.3](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.2...v3.1.3) (2026-10-26)
+
 ## [3.1.2](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.1...v3.1.2) (2026-10-02)
 
 
@@ -25,12 +27,4 @@
 ### Bug Fixes
 
 * Updating peer dep of cucumber. ([09a04fe](https://github.com/MiroslavRusev/cuppet-core/commit/09a04fe88294771ad033fea49b41719346ea174f))
-
-## [3.0.15](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.14...v3.0.15) (2026-06-10)
-
-
-### Bug Fixes
-
-* Bumping Puppeter and also adding chrome latest as step in test.yml action. ([037c21a](https://github.com/MiroslavRusev/cuppet-core/commit/037c21a111f16b90e65e3091d197d86c56aa405f))
-* Bumping versions of Axios, Lighthouse, Wdio. ([134d43a](https://github.com/MiroslavRusev/cuppet-core/commit/134d43a66099540ff045b247c5d721392a24b945))
 
