@@ -55,7 +55,7 @@ class KafkaManager {
             console.log('Kafka client instance created successfully.');
             this.isInitialized = true;
         } catch (error) {
-            throw new Error(`Failed to initialize Kafka client: ${error.message}`);
+            throw new Error(`Failed to initialize Kafka client: ${error.message}`, { cause: error });
         }
     }
 
@@ -76,7 +76,7 @@ class KafkaManager {
             return this.producer;
         } catch (error) {
             this.producer = null;
-            throw new Error(`Failed to connect producer to Kafka broker: ${error.message}`);
+            throw new Error(`Failed to connect producer to Kafka broker: ${error.message}`, { cause: error });
         }
     }
 
@@ -101,7 +101,7 @@ class KafkaManager {
             return this.consumer;
         } catch (error) {
             this.consumer = null;
-            throw new Error(`Failed to connect consumer to Kafka broker: ${error.message}`);
+            throw new Error(`Failed to connect consumer to Kafka broker: ${error.message}`, { cause: error });
         }
     }
 
@@ -129,7 +129,7 @@ class KafkaManager {
             });
             console.log(`Message sent successfully to topic: ${topic}`);
         } catch (error) {
-            throw new Error(`Failed to send message to topic '${topic}': ${error.message}`);
+            throw new Error(`Failed to send message to topic '${topic}': ${error.message}`, { cause: error });
         }
     }
 
@@ -147,7 +147,7 @@ class KafkaManager {
             });
             console.log(`Successfully subscribed to topics: ${topics.join(', ')}`);
         } catch (error) {
-            throw new Error(`Failed to subscribe to topics [${topics.join(', ')}]: ${error.message}`);
+            throw new Error(`Failed to subscribe to topics [${topics.join(', ')}]: ${error.message}`, { cause: error });
         }
     }
 
@@ -190,7 +190,7 @@ class KafkaManager {
             await this.consumer.disconnect();
             console.log('Consumer disconnected successfully');
         } catch (error) {
-            throw new Error(`Failed to disconnect consumer: ${error.message}`);
+            throw new Error(`Failed to disconnect consumer: ${error.message}`, { cause: error });
         }
     }
 
@@ -212,7 +212,7 @@ class KafkaManager {
             await Promise.all(disconnectPromises);
             console.log('Kafka client stopped successfully');
         } catch (error) {
-            throw new Error(`Error during Kafka client cleanup: ${error.message}`);
+            throw new Error(`Error during Kafka client cleanup: ${error.message}`, { cause: error });
         } finally {
             this.producer = null;
             this.consumer = null;
