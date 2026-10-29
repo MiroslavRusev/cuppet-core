@@ -1,3 +1,10 @@
+## [3.1.5](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.4...v3.1.5) (2026-10-29)
+
+
+### Bug Fixes
+
+* bumping packages. ([fc5493e](https://github.com/MiroslavRusev/cuppet-core/commit/fc5493e9e4f1be9527a44f4c34f9f54c457dc149))
+
 ## [3.1.4](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.3...v3.1.4) (2026-10-26)
 
 
@@ -20,11 +27,4 @@
 ### Bug Fixes
 
 * Add response property casting to primitives. ([f5abc0e](https://github.com/MiroslavRusev/cuppet-core/commit/f5abc0e86a28c2b762882d7f244a681480005270))
-
-## [3.1.0](https://github.com/MiroslavRusev/cuppet-core/compare/v3.0.16...v3.1.0) (2026-06-16)
-
-
-### Features
-
-* Adding new api method for getting values in nested json arrays. ([943c659](https://github.com/MiroslavRusev/cuppet-core/commit/943c6596224f9b4d643e10223e6c179c1e5e95d7))
 
