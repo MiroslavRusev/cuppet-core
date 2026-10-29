@@ -1,3 +1,5 @@
+## [3.1.7](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.6...v3.1.7) (2026-10-29)
+
 ## [3.1.6](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.5...v3.1.6) (2026-10-29)
 
 ## [3.1.5](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.4...v3.1.5) (2026-10-29)
@@ -15,11 +17,4 @@
 * Bumping package versions, fixing security issues. ([6db29ea](https://github.com/MiroslavRusev/cuppet-core/commit/6db29ea72d39e90b331330b697e6ab74c0be5aa1))
 
 ## [3.1.3](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.2...v3.1.3) (2026-10-26)
-
-## [3.1.2](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.1...v3.1.2) (2026-10-02)
-
-
-### Bug Fixes
-
-* Bumping axios, appium and chai versions. ([639e228](https://github.com/MiroslavRusev/cuppet-core/commit/639e22833d28fc720d9579e9e38139834a254612))
 
