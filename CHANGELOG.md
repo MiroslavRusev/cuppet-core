@@ -1,3 +1,5 @@
+## [3.1.6](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.5...v3.1.6) (2026-10-29)
+
 ## [3.1.5](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.4...v3.1.5) (2026-10-29)
 
 
@@ -20,11 +22,4 @@
 ### Bug Fixes
 
 * Bumping axios, appium and chai versions. ([639e228](https://github.com/MiroslavRusev/cuppet-core/commit/639e22833d28fc720d9579e9e38139834a254612))
-
-## [3.1.1](https://github.com/MiroslavRusev/cuppet-core/compare/v3.1.0...v3.1.1) (2026-06-24)
-
-
-### Bug Fixes
-
-* Add response property casting to primitives. ([f5abc0e](https://github.com/MiroslavRusev/cuppet-core/commit/f5abc0e86a28c2b762882d7f244a681480005270))
 
