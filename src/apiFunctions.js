@@ -124,7 +124,7 @@ module.exports = {
             return this.response;
         } catch (error) {
             if (!error.response) {
-                throw new Error(`Request failed with: ${error}`);
+                throw new Error(`Request failed with: ${error}`, { cause: error });
             }
             return (this.response = error.response);
         }
@@ -302,7 +302,7 @@ module.exports = {
                 ...(Object.keys(auth).length && { auth }),
             });
         } catch (error) {
-            throw new Error(`Request failed with: ${error}`);
+            throw new Error(`Request failed with: ${error}`, { cause: error });
         }
 
         const isValid = await xml2js.parseStringPromise(response.data);

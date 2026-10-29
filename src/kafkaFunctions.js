@@ -131,7 +131,7 @@ module.exports = {
         try {
             jsonData = JSON.parse(messageValue);
         } catch (error) {
-            throw new Error(`The message value is not a valid JSON object: ${error.message}`);
+            throw new Error(`The message value is not a valid JSON object: ${error.message}`, { cause: error });
         }
         // Get the property value using helperFunctions (handles nested properties)
         const actualValue = helperFunctions.getPropertyValue(jsonData, property);

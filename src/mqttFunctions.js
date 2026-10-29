@@ -34,7 +34,7 @@ module.exports = {
                 this.messageString = resolvedMessage;
                 return this.messageString;
             } catch (error) {
-                throw new Error(`Invalid JSON message: ${error.message}`);
+                throw new Error(`Invalid JSON message: ${error.message}`, { cause: error });
             }
         }
         return resolvedMessage;
@@ -147,7 +147,7 @@ module.exports = {
         try {
             return JSON.parse(messageObj.message);
         } catch (error) {
-            throw new Error(`Failed to parse message as JSON: ${error.message}`);
+            throw new Error(`Failed to parse message as JSON: ${error.message}`, { cause: error });
         }
     },
 
