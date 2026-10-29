@@ -56,7 +56,7 @@ module.exports = {
             await element.waitForDisplayed({ timeout: 5000 });
             await element.click();
         } catch (error) {
-            throw new Error(`Error clicking element with selector ${selector}: ${error}`);
+            throw new Error(`Error clicking element with selector ${selector}: ${error}`, { cause: error });
         }
     },
 
@@ -73,7 +73,7 @@ module.exports = {
                 `new UiScrollable(new UiSelector().scrollable(true)).scrollIntoView(new UiSelector().${selector})`
             );
         } catch (error) {
-            throw new Error(`Cannot find element with selector ${selector}: ${error}`);
+            throw new Error(`Cannot find element with selector ${selector}: ${error}`, { cause: error });
         }
     },
 };

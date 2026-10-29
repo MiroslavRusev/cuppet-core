@@ -55,7 +55,7 @@ module.exports = {
         try {
             await page.goto(url, { waitUntil: 'domcontentloaded' });
         } catch (error) {
-            throw new Error(`The requested page cannot be opened!: ${error}`);
+            throw new Error(`The requested page cannot be opened!: ${error}`, { cause: error });
         }
         if (config.has('blockingCookie')) {
             const selector = config.get('blockingCookie');
@@ -224,7 +224,7 @@ module.exports = {
         try {
             result = await page.evaluate(jsCode);
         } catch (error) {
-            throw new Error(`There was an error when evaluating the code. ${error}`);
+            throw new Error(`There was an error when evaluating the code. ${error}`, { cause: error });
         }
 
         if (result) {
@@ -282,7 +282,7 @@ module.exports = {
                 }
             });
         } catch (error) {
-            throw new Error(`Could not handle alert dialog: ${error}`);
+            throw new Error(`Could not handle alert dialog: ${error}`, { cause: error });
         }
     },
 };

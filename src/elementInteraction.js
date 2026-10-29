@@ -48,7 +48,7 @@ module.exports = {
         try {
             await objectToCLick.click({ delay: 150 });
         } catch (error) {
-            throw new Error(`Could not click on element: ${selector}. Error: ${error}`);
+            throw new Error(`Could not click on element: ${selector}. Error: ${error}`, { cause: error });
         }
         // Resolve afterClick method
         await afterClickPromise;
@@ -184,7 +184,7 @@ module.exports = {
         try {
             await objectToClick.click();
         } catch (error) {
-            throw new Error(`Could not click on the element. Reason: ${error}`);
+            throw new Error(`Could not click on the element. Reason: ${error}`, { cause: error });
         }
         // This is made for the standard case of clicking on a link of the first tab and opening second.
         // If you are working on more than two tabs, please use switchToTab() method.
@@ -324,7 +324,7 @@ module.exports = {
             hidden: true,
             timeout: time, // Maximum time to wait in milliseconds (default: 30000)
         };
-        let isElementInPage = false;
+        let isElementInPage;
         try {
             isElementInPage = await page.waitForSelector(selector, options);
         } catch {
@@ -371,7 +371,7 @@ module.exports = {
         try {
             await page.waitForSelector('xpath/' + `//body//*[text()[contains(.,"${text}")]]`, options);
         } catch (error) {
-            throw new Error(`Could not find text : ${text}. The error thrown is: ${error}`);
+            throw new Error(`Could not find text : ${text}. The error thrown is: ${error}`, { cause: error });
         }
     },
 
@@ -453,7 +453,7 @@ module.exports = {
             const parentElementHandle = await page.evaluateHandle((el) => el.parentElement, element);
             await parentElementHandle.hover();
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error, { cause: error });
         }
     },
 
@@ -481,7 +481,7 @@ module.exports = {
      * @returns {Promise<void>}
      */
     validateTextInField: async function (page, text, selector) {
-        let value = '';
+        let value;
         await page.waitForSelector(selector);
         try {
             const el = await page.$(selector);
@@ -492,7 +492,7 @@ module.exports = {
                 value = await (await page.evaluateHandle((el) => el.innerText, el)).jsonValue();
             }
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error, { cause: error });
         }
         if (value !== text) {
             throw new Error(`Value of element ${value} does not match the text ${text}`);
@@ -616,7 +616,7 @@ module.exports = {
                     drupalSettings.dropzonejs.instances['${realSelector}'].instance.addFile(file)});`;
             await page.evaluate(jsCode);
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error, { cause: error });
         }
     },
 
@@ -639,7 +639,7 @@ module.exports = {
                 setTimeout(resolve, 500);
             });
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error, { cause: error });
         }
     },
 
@@ -666,7 +666,7 @@ module.exports = {
             try {
                 await page.type(selector, text, { delay: 250 });
             } catch (error) {
-                throw new Error(`Cannot type into field due to ${error}`);
+                throw new Error(`Cannot type into field due to ${error}`, { cause: error });
             }
         }
     },
@@ -727,7 +727,7 @@ module.exports = {
             `;
             return page.evaluate(jsCode);
         } catch (error) {
-            throw new Error(`Cannot write into CkEditor5 field due to: ${error}!`);
+            throw new Error(`Cannot write into CkEditor5 field due to: ${error}!`, { cause: error });
         }
     },
 
@@ -883,7 +883,7 @@ module.exports = {
         try {
             await page.$eval(selector, (el, date) => el._flatpickr.setDate(`${date}`, true), value);
         } catch (error) {
-            throw new Error(`Cannot set date due to ${error}!`);
+            throw new Error(`Cannot set date due to ${error}!`, { cause: error });
         }
     },
 
@@ -899,7 +899,7 @@ module.exports = {
             const el = await page.$(cssSelector);
             await page.evaluate((el) => el.scrollIntoView(true), el);
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error, { cause: error });
         }
     },
 
@@ -922,7 +922,7 @@ module.exports = {
             `;
             await page.evaluate(jsCode);
         } catch (error) {
-            throw new Error(error);
+            throw new Error(error, { cause: error });
         }
     },
 
@@ -945,7 +945,7 @@ module.exports = {
             `;
             await page.evaluate(jsCode);
         } catch (error) {
-            throw new Error(`Cannot set datetime picker value due to: ${error}`);
+            throw new Error(`Cannot set datetime picker value due to: ${error}`, { cause: error });
         }
     },
 
